@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles';
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime' //2days ago.., 2 hours agor...
+
+// Component
+import DeletePost from './DeletePost.js'
 
 // MUI
 import clsx from 'clsx';
@@ -21,7 +26,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 // card imagens
-import imageOne from '../assets/cards/card1.jpg'
+import imageOne from '../../assets/cards/card1.jpg'
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 600,
@@ -42,12 +48,26 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
-    backgroundColor: red[500],
+    width: '100%',
+    height: '100%'
   },
+  
 }));
 
-function RecipeReviewCard() {
+function RecipeReviewCard(props) {
   const classes = useStyles();
+
+  const {
+    post: {bodyImage, bodyText, createdAt, userImage, userHandle, likeCount, commentCount, postId},
+    handle, authenticated, likes
+  } = props
+
+  const deleteButton = authenticated && userHandle === handle ? (
+    <DeletePost postId={postId}/>
+  ) : null
+
+  dayjs.extend(relativeTime)
+
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -58,8 +78,8 @@ function RecipeReviewCard() {
     <Card className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
+          <Avatar aria-label="recipe">
+            <img src={userImage} className={classes.avatar} />
           </Avatar>
         }
         action={
@@ -67,22 +87,22 @@ function RecipeReviewCard() {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title={handle}
+        subheader={dayjs(createdAt).fromNow()}
       />
 
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-          guests. Add 1 cup of frozen peas along with the mussels, if you like.
+          {bodyText}
         </Typography>
       </CardContent>
-
+      
+      {bodyImage &&
       <CardMedia
-        className={classes.media}
-        image={imageOne}
-        title="Paella dish"
+      className={classes.media}
+      image={imageOne}
       />
+      }
       
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">

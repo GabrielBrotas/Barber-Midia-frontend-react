@@ -9,15 +9,20 @@ import {useDispatch, useSelector} from 'react-redux'
 import {getPosts} from '../redux/actions/dataActions'
 
 // * components
-import PostContent from '../components/PostContent'
-import Profile from '../components/Profile'
+import PostContent from '../components/posts/PostContent'
+import Profile from '../components/profile/Profile'
 
 function Home(props) {
 
     const dataList = useSelector(state => state.data)
     const {loading, posts} = dataList
+    
+    const userInfo = useSelector(state => state.user)
+    const {credentials: {handle, imageUrl}, likes, authenticated} = userInfo
+
 
     const [allPostsInDB, setAllPostsInDB] = useState(null)
+
     const dispatch = useDispatch()
 
     useEffect( () => {
@@ -25,13 +30,14 @@ function Home(props) {
     }, [dispatch])
 
     useEffect( () => {
-        !loading &&
+        !loading ?
         setAllPostsInDB(
             posts.map( (post) => (
-                <PostContent key={post.postId} scream={post} />
+                <PostContent key={post.postId} post={post} likes={likes} authenticated={authenticated} handle={handle} />
             )))
+        :setAllPostsInDB(<p>loading</p>)
     
-    }, [dataList, loading, posts])
+    }, [dataList, loading, posts, likes, authenticated, handle])
     return (
         // todo, posts skeletor while loading
         loading ? <p>loading...</p> :

@@ -75,7 +75,7 @@ export const submitComment = (postId, commentData) => (dispatch) => {
         })
 }
 
-export const deletePOST = (postId) => (dispatch) => {
+export const deletePost = (postId) => (dispatch) => {
     axios.delete(`/post/${postId}`)
         .then( () => {
             dispatch({type: DELETE_POST, payload: postId})
@@ -88,7 +88,7 @@ export const getUserData = (userHandle) => (dispatch) => {
     axios.get(`/user/${userHandle}`)
         .then( res => {
             // pegar as POSTs do user
-            dispatch({type: GET_POSTS_SUCCESS, payload: res.data.posts})
+            dispatch({type: GET_POSTS_SUCCESS, payload: res.data})
         })
         .catch( () => {
             dispatch({type: GET_POSTS_SUCCESS, payload: null})

@@ -6,7 +6,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {signupUser} from '../redux/actions/userActions'
 
 // components
-import SelectForm from '../components/SelectForm'
+import SelectForm from '../components/profile/SelectForm'
 
 // MUI
 import Avatar from '@material-ui/core/Avatar';
@@ -22,6 +22,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 function Copyright() {
   return (
@@ -184,8 +185,12 @@ function SignUpSide(props) {
               variant="contained"
               color="primary"
               className={classes.submit}
+              disabled={loading}
             >
-              Sign In
+              Sign Up
+              {loading && (
+                <CircularProgress size={30} className={classes.progress}/>
+              )}
             </Button>
 
             <Grid container>
