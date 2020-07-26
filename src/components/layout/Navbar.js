@@ -6,6 +6,7 @@ import mainStyles from '../../utils/theme'
 
 // components
 import Notifications from './Notifications'
+import PostScream from '../posts/AddNewPost'
 
 // MUI
 import { fade, makeStyles } from '@material-ui/core/styles';
@@ -13,22 +14,25 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
 // MUI Icons
-import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button'
+import PinDrop from '@material-ui/icons/PinDrop'
+import AddBox from '@material-ui/icons/AddBox'
 
 const useStyles = makeStyles((theme) => ({
   navbar: {
     backgroundColor: mainStyles.backgroundNavColor
+  },
+  leftActions: {
+    marginRight: 'auto'
   },
   logo: {
     color: mainStyles.titleColor
@@ -151,7 +155,7 @@ function PrimarySearchAppBar() {
     >
       <MenuItem>
         <IconButton aria-label="show 4 new mails" >
-          <Badge badgeContent={4} >
+          <Badge >
             <MailIcon />
           </Badge>
         </IconButton>
@@ -185,20 +189,16 @@ function PrimarySearchAppBar() {
         <Toolbar className={classes.navContainer}>
           
           <Typography className={classes.logo} variant="h6" noWrap>
-          <Button color="inherit" component={Link} to="/">Logo</Button>
+            <Button color="inherit" component={Link} to="/">Logo</Button>
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
+
+          <div className={classes.leftActions}>
+            <IconButton aria-label="show 4 new mails" color="inherit">
+              <PinDrop />
+            </IconButton>
+            <IconButton aria-label="show 4 new mails" color="inherit">
+              <PostScream />
+            </IconButton>
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>

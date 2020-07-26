@@ -1,8 +1,8 @@
-import React, {Fragment, Component, useEffect, useState} from 'react'
+import React, {Fragment, useState} from 'react'
 import {Link} from 'react-router-dom'
 import dayjs from 'dayjs' // vamos usar ela para formatar o tempo do post
 import relativeTime from 'dayjs/plugin/relativeTime' //2days ago.., 2 hours agor...
-import PropTypes from 'prop-types'
+
 
 // MUI Stuffs
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -20,7 +20,7 @@ import ChatIcon from '@material-ui/icons/Chat'
 
 // Redux
 import {useSelector, useDispatch} from 'react-redux';
-import {markNotificationsRead, getUserData} from '../../redux/actions/userActions'
+import {markNotificationsRead} from '../../redux/actions/userActions'
 
 const styles = {
     NotificationStyle: {
