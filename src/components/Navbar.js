@@ -1,4 +1,5 @@
 import React, {useState, Fragment} from 'react';
+import PropTypes from 'prop-types'
 import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import mainStyles from '../styles/theme'
@@ -15,7 +16,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
 // MUI Icons
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
@@ -91,9 +91,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+function PrimarySearchAppBar() {
   const userInfo = useSelector(state => state.user)
-    const {loading, authenticated} = userInfo
+    const {authenticated} = userInfo
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -182,7 +182,7 @@ export default function PrimarySearchAppBar() {
         <Toolbar className={classes.navContainer}>
           
           <Typography className={classes.logo} variant="h6" noWrap>
-            Logo
+          <Button color="inherit" component={Link} to="/">Logo</Button>
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -253,3 +253,10 @@ export default function PrimarySearchAppBar() {
     </div>
   );
 }
+
+PrimarySearchAppBar.protoTypes = {
+  authenticated: PropTypes.bool.isRequired
+}
+
+
+export default PrimarySearchAppBar 

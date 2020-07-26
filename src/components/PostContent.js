@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles';
+
+// MUI
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -11,6 +14,7 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
+// MUI icons
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Comment';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -42,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RecipeReviewCard() {
+function RecipeReviewCard() {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -128,3 +132,12 @@ export default function RecipeReviewCard() {
     </Card>
   );
 }
+
+// RecipeReviewCard.prototype = {
+//     post: PropTypes.object.isRequired,
+//     classes: PropTypes.object.isRequired,
+//     likes: PropTypes.object.isRequired,
+//     openDialog: PropTypes.bool
+// }
+
+export default RecipeReviewCard

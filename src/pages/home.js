@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import PropTypes from 'prop-types'
 
 // redux
-import {connect, useDispatch, useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {getPosts} from '../redux/actions/dataActions'
 
 // * components
@@ -53,6 +53,11 @@ function Home(props) {
     
 }
 
+// verificar os campos e validar o tipo e outros dados
+Home.protoTypes = {
+    getPosts: PropTypes.func.isRequired,
+    posts: PropTypes.object.isRequired,
+}
 
 export default Home
 

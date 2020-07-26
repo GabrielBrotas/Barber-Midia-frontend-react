@@ -216,6 +216,11 @@ function Profile(props) {
   
 }
 
-
+Profile.protoTypes = {
+    userInfo: PropTypes.object.isRequired, // user data
+    classes: PropTypes.object.isRequired, // styles
+    logoutUser: PropTypes.func.isRequired, // function to logout usere
+    uploadImage: PropTypes.func.isRequired, // function to upload new profile imagee
+}
 
 export default withStyles(styles)(Profile)

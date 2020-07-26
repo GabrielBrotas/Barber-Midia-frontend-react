@@ -1,4 +1,7 @@
 import React, {useState, useEffect} from 'react';
+import PropTypes from 'prop-types'
+
+// redux
 import {useSelector, useDispatch} from 'react-redux'
 import {loginUser} from '../redux/actions/userActions'
 
@@ -174,6 +177,11 @@ function SignInSide(props) {
       </Grid>
     </Grid>
   );
+}
+
+SignInSide.protoTypes = {
+  loginUser: PropTypes.func.isRequired,
+  UI: PropTypes.object.isRequired
 }
 
 export default SignInSide

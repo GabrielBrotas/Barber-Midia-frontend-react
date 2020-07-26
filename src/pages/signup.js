@@ -1,4 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
+import PropTypes from 'prop-types'
+
+// redux
+import {useSelector, useDispatch} from 'react-redux'
+import {signupUser} from '../redux/actions/userActions'
+
+// components
+import SelectForm from '../components/SelectForm'
+
+// MUI
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,9 +22,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-
-// components
-import SelectForm from '../components/SelectForm'
 
 function Copyright() {
   return (
@@ -60,9 +67,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+function SignUpSide(props) {
   const classes = useStyles();
 
+  const UI = useSelector( state => state.UI)
+  
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [handle, setHandle]= useState('')
+  const [loading, setLoading] = useState(false)
+  const [errors, setErrors] = useState({})
+
+  // quando o usuario logar verificar se teve errors
+    useEffect( () => {
+        if(UI.errors){
+            setErrors(UI.errors)
+            setLoading(false)
+        }
+    }, [UI])
+
+  const dispatch = useDispatch()
+  // logar
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const userData = {
+      email,
+      password,
+      confirmPassword,
+      handle
+    }
+    dispatch(signupUser(userData, props.history))
+  }
+  
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -79,7 +116,7 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -90,6 +127,8 @@ export default function SignInSide() {
               name="username"
               autoComplete="username"
               autoFocus
+              onChange={(e) => setHandle(e.target.value)} 
+              helperText={errors.handle} error={errors.handle ? true : false}
             />
             <TextField
               variant="outlined"
@@ -101,6 +140,8 @@ export default function SignInSide() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(e) => setEmail(e.target.value)}
+              helperText={errors.email} error={errors.email ? true : false}
             />
             <TextField
               variant="outlined"
@@ -112,6 +153,8 @@ export default function SignInSide() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
+              helperText={errors.password} error={errors.password ? true : false}
             />
             <TextField
               variant="outlined"
@@ -122,6 +165,8 @@ export default function SignInSide() {
               label="Confirm Password"
               type="password"
               id="confirmPassword"
+              onChange={(e) => setConfirmPassword(e.target.value)} 
+              helperText={errors.confirmPassword} error={errors.confirmPassword ? true : false}
             />
             
             <SelectForm />
@@ -159,3 +204,9 @@ export default function SignInSide() {
     </Grid>
   );
 }
+
+SignUpSide.protoTypes = {
+  signupUser: PropTypes.func.isRequired,
+  UI: PropTypes.object.isRequired
+}
+export default SignUpSide
