@@ -4,6 +4,9 @@ import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import mainStyles from '../../utils/theme'
 
+// components
+import Notifications from './Notifications'
+
 // MUI
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -209,16 +212,12 @@ function PrimarySearchAppBar() {
             ) : (
               <Fragment>
                 <IconButton aria-label="show 4 new mails" color="inherit">
-                  <Badge badgeContent={4} color="secondary">
+                  <Badge badgeContent={1} color="secondary">
                     <MailIcon />
                   </Badge>
                 </IconButton>
 
-                <IconButton aria-label="show 17 new notifications" color="inherit">
-                  <Badge badgeContent={17} color="secondary">
-                    <NotificationsIcon />
-                  </Badge>
-                </IconButton>
+                <Notifications />
 
                 <IconButton
                   edge="end"
