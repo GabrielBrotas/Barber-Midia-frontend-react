@@ -1,4 +1,5 @@
 import React, {useState, Fragment} from 'react';
+import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import mainStyles from '../styles/theme'
 
@@ -91,14 +92,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+  const userInfo = useSelector(state => state.user)
+    const {loading, authenticated} = userInfo
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const authenticated = false
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);

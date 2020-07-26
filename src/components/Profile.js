@@ -92,7 +92,7 @@ function Profile(props) {
         loading,
         authenticated
     } = userInfo
-    
+
     const dispatch = useDispatch()
     
     // Mudar foto do perfil
