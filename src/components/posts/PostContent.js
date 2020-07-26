@@ -1,14 +1,18 @@
-import React from 'react';
+import React, {useState, useEffect}from 'react';
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles';
 import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime' //2days ago.., 2 hours agor...
+import relativeTime from 'dayjs/plugin/relativeTime' 
+
+// redux
+import {useSelector, useDispatch} from 'react-redux'
+import {getPost} from '../../redux/actions/dataActions'
 
 // Component
 import DeletePost from './DeletePost.js'
 import LikeButton from './LikeButton'
 import MyButton from '../../utils/MyButton'
-import Comments from './Comments'
+import Comment from './Comment'
 import CommentForm from './CommentForm'
 
 // MUI
@@ -62,24 +66,44 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function RecipeReviewCard(props) {
-  const classes = useStyles();
+
+  const dataList = useSelector(state => state.data)
+  const {post: {comments}} = dataList
 
   const {
     post: {bodyImage, bodyText, createdAt, userImage, userHandle, likeCount, commentCount, postId},
     handle, imageUrl, authenticated, likes
   } = props
-  
+
+  const [postCommments, setPostComments] = useState([])
+  const [expanded, setExpanded] = useState(false);
+
+  dayjs.extend(relativeTime)
+  const dispatch = useDispatch();
+  const classes = useStyles();
+
   const deleteButton = authenticated && userHandle === handle ? (
     <DeletePost postId={postId}/>
   ) : null
+  
 
-  dayjs.extend(relativeTime)
-
-  const [expanded, setExpanded] = React.useState(false);
+  useEffect( () => {
+    dispatch(getPost(postId))
+  }, [dispatch, postId])
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  useEffect( () => {
+    comments ?
+    setPostComments(
+        comments.map( (comment) => ( comment.postId === postId && 
+            <Comment key={comment.createdAt} postId={postId} comment={comment} authenticated={authenticated} handle={handle} imageUrl={imageUrl} />
+        )))
+    : setPostComments(<p>loading</p>)
+
+  }, [authenticated, handle, imageUrl, comments, postId, dataList])
 
   return (
     <Card className={classes.root}>
@@ -139,8 +163,8 @@ function RecipeReviewCard(props) {
       
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent> 
-          <CommentForm imageUrl={imageUrl} postId={postId} />
-          <Comments postId={postId} />
+          <CommentForm imageUrl={imageUrl} postId={postId} expanded={expanded}/>
+          {postCommments}
         </CardContent>
       </Collapse>
     </Card>

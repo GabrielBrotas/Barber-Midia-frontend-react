@@ -34,7 +34,7 @@ function Home(props) {
             posts.map( (post) => (
                 <PostContent key={post.postId} post={post} likes={likes} authenticated={authenticated} handle={handle} imageUrl={imageUrl} />
             )))
-        :setAllPostsInDB(<p>loading</p>)
+        : setAllPostsInDB(<p>loading</p>)
     
     }, [dataList, loading, posts, likes, authenticated, handle, imageUrl])
     return (

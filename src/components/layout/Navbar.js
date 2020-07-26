@@ -2,7 +2,7 @@ import React, {useState, Fragment} from 'react';
 import PropTypes from 'prop-types'
 import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
-import mainStyles from '../../styles/theme'
+import mainStyles from '../../utils/theme'
 
 // MUI
 import { fade, makeStyles } from '@material-ui/core/styles';

@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles'
 import createTheme from '@material-ui/core/styles/createMuiTheme'
-import themeFile from './styles/theme'
+import themeFile from './utils/theme'
 
 // Redux
 import {Provider} from 'react-redux'
