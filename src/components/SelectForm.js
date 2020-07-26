@@ -18,13 +18,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SimpleSelect() {
+function SimpleSelect(props) {
   const classes = useStyles();
-  const [category, setCategory] = React.useState('');
-
-  const handleChange = (event) => {
-    setCategory(event.target.value);
-  };
 
   return (
     <div>
@@ -33,8 +28,8 @@ function SimpleSelect() {
         <Select
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
-          value={category}
-          onChange={handleChange}
+          value={props.category}
+          onChange={(e) => props.onChangeSelect(e.target.value)}
           label="Category"
         >
           <MenuItem value='Usuario'>Usuario</MenuItem>

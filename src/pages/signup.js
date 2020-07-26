@@ -71,21 +71,22 @@ function SignUpSide(props) {
   const classes = useStyles();
 
   const UI = useSelector( state => state.UI)
-  
+
+  const [handle, setHandle]= useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [handle, setHandle]= useState('')
+  const [category, setCategory] = useState('Usuario')
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState({})
 
   // quando o usuario logar verificar se teve errors
-    useEffect( () => {
-        if(UI.errors){
-            setErrors(UI.errors)
-            setLoading(false)
-        }
-    }, [UI])
+  useEffect( () => {
+      if(UI.errors){
+          setErrors(UI.errors)
+          setLoading(false)
+      }
+  }, [UI])
 
   const dispatch = useDispatch()
   // logar
@@ -95,7 +96,8 @@ function SignUpSide(props) {
       email,
       password,
       confirmPassword,
-      handle
+      handle,
+      category
     }
     dispatch(signupUser(userData, props.history))
   }
@@ -169,7 +171,7 @@ function SignUpSide(props) {
               helperText={errors.confirmPassword} error={errors.confirmPassword ? true : false}
             />
             
-            <SelectForm />
+            <SelectForm onChangeSelect={setCategory} category={category}/>
 
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -185,9 +187,9 @@ function SignUpSide(props) {
             >
               Sign In
             </Button>
+
             <Grid container>
               <Grid item xs>
-                
               </Grid>
               <Grid item>
                 <Link href="/login" variant="body2">
