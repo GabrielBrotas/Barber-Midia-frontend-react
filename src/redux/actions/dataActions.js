@@ -54,6 +54,15 @@ export const publishPost = (newPost) => dispatch => {
         })
 }
 
+export const uploadPostPicture = (formData) => (dispatch) => {
+    
+    axios.post('/post/image', formData)
+        .then( () => {
+            
+        })
+        .catch(err => console.log(err))
+}
+
 export const getPost = (postId) => (dispatch) => {
     dispatch({type: LOADING_UI})
 

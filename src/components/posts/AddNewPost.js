@@ -7,8 +7,8 @@ import MyButton from '../../utils/MyButton'
 import UploadButton from '../others/uploadButton'
 
 // redux
-import {connect} from 'react-redux'
-import {publishPost, clearErrors} from '../../redux/actions/dataActions'
+import {connect, useDispatch} from 'react-redux'
+import {publishPost, clearErrors, uploadPostPicture} from '../../redux/actions/dataActions'
 
 // Material UI Stuffs
 import Button from '@material-ui/core/Button'
@@ -39,8 +39,9 @@ const styles = {
     textField: {
         margin: "10px auto 10px auto"
     },
-    iconStyle: {
-        color: "#fff"
+    iconWrap: {
+        display: 'flex',
+        justifyContent: 'center'
     }
 }
 
@@ -52,6 +53,8 @@ function AddNewPost(props) {
     const [errors, setErrors] = useState({})
 
     const {classes, UI: {loading}} = props
+
+    const dispatch = useDispatch()
 
     useEffect( () => {
         if(props.UI.errors){
@@ -74,16 +77,27 @@ function AddNewPost(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(bodyText)
-        // dispatch(uploadImage(formData))
+
+        dispatch(uploadImage(bodyImage))
         // props.publishPost({bodyText})
     }
         
+    useEffect( () => {
+        if(bodyImage){
+            console.log('tem')
+        } else {
+            console.log('nao')
+        }
+    }, [bodyImage])
+
     return (
         <Fragment>
+
+            <div className={classes.iconWrap} onClick={() => setOpen(true)}>
+                <AddIcon className={classes.iconStyle}/>
+            </div>
         
-            <AddIcon className={classes.IconStyle} onClick={() => setOpen(true)} />
-            
+
             <Dialog
             open={open}
             onClose={() => handleClose()}

@@ -10,8 +10,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function IconLabelButtons(props) {
-    const classes = useStyles();
+    const {takeImageToUpload} = props
 
+    const classes = useStyles();
+    
     const handlePostPicture = () => {
         // pegar o id do input onde escolher o arquivo
         const fileInput = document.getElementById('postPicture')
@@ -28,7 +30,7 @@ export default function IconLabelButtons(props) {
         // nesse form colocar um name, o arquivo e o blob name
         formData.append('image', image, image.name)
         // mandar para action do redux fazer o upload
-        
+        takeImageToUpload(formData)
     }
 
   return (
