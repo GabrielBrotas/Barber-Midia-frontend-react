@@ -1,9 +1,13 @@
-import React, { Component, Fragment, useEffect } from 'react'
+import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 import withStyles from '@material-ui/core/styles/withStyles'
 import {Link} from 'react-router-dom'
 import dayjs from 'dayjs'
 import MyButton from '../utils/MyButton'
+
+// redux
+import { useSelector, useDispatch } from 'react-redux'
+import {uploadImage, logoutUser} from '../redux/actions/userActions'
 
 // components
 // import EditDetails from './EditDetails'
@@ -26,7 +30,7 @@ import LinkIcon from '@material-ui/icons/Link'
 import CalendarToday from '@material-ui/icons/CalendarToday'
 import EditIcon from '@material-ui/icons/Edit'
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn'
-import { useSelector } from 'react-redux'
+
 
 
 const styles = {
@@ -77,133 +81,138 @@ const styles = {
     }
     
 }
-function Profile() {
+
+function Profile(props) {
+
+    const {classes} = props
 
     const userInfo = useSelector(state => state.user)
-    console.log(userInfo)
-    useEffect( () => {
-        console.log('')
-    }, [])
+    const {
+        credentials: {handle, createdAt, imageUrl, bio, instagram, location},
+        loading,
+        authenticated
+    } = userInfo
     
-//   // Mudar foto do perfil
-//   handleImageChange = (event) => {
-//     // pegar a imagem, mesmo escolhendo apenas uma vai vim em um array entao vamos pegar a primeira
-//     const image = event.target.files[0]
+    const dispatch = useDispatch()
+    
+    // Mudar foto do perfil
+    const handleImageChange = (event) => {
+    // pegar a imagem, mesmo escolhendo apenas uma vai vim em um array entao vamos pegar a primeira
+    const image = event.target.files[0]
 
-//     // criar um formData para mandar pro backend
-//     const formData = new FormData();
-//     // nesse form colocar um name, o arquivo e o blob name
-//     formData.append('image', image, image.name)
-//     // mandar para action do redux fazer o upload
-//     this.props.uploadImage(formData)
-//   }
+    // criar um formData para mandar pro backend
+    const formData = new FormData();
+    // nesse form colocar um name, o arquivo e o blob name
+    formData.append('image', image, image.name)
+    // mandar para action do redux fazer o upload
+    dispatch(uploadImage(formData))
+    }
 
-  // quando clicar no icone de editar
-//   handleEditPicture = () => {
-//     // pegar o id do input onde escolher o arquivo
-//     const fileInput = document.getElementById('imageInput')
-//     // e clicar
-//     fileInput.click()
-//   }
+    const handleEditPicture = () => {
+        // pegar o id do input onde escolher o arquivo
+        const fileInput = document.getElementById('imageInput')
+        // e clicar
+        fileInput.click()
+    }
 
-//   handleLogout = () => {
-//     this.props.logoutUser()
-//   }
+    const handleLogout = () => {
+        dispatch(logoutUser())
+    }
 
     // se nao estiver carregando os dados...
-    // let profileMarkup = !loading 
-    // // verificar se esta autenticado
-    // ? (authenticated 
-    //     // se estiver...
-    //     ? ( 
-    //     // colocar o profile em um content 'Papeer'
-    //     <Paper className={classes.paper} > 
-    //         <div className={classes.profile}>
+    let profileMarkup = !loading 
+    // verificar se esta autenticado
+    ? (authenticated 
+        // se estiver...
+        ? ( 
+        // colocar o profile em um content 'Papeer'
+        <Paper className={classes.paper} > 
+            <div className={classes.profile}>
 
-    //         {/* imagem do perfil content */}
-    //         <div className="image-wrapper">
+            {/* imagem do perfil content */}
+            <div className="image-wrapper">
 
-    //             {/* imagem */}
-    //             <img className="profile-image" src={imageUrl} alt="profile"></img>
+                {/* imagem */}
+                <img className="profile-image" src={imageUrl} alt="profile"></img>
 
-    //             {/* input para trocar de imagem */}
-    //             <input type="file" id="imageInput" onChange={this.handleImageChange} hidden="hidden"/>
+                {/* input para trocar de imagem */}
+                <input type="file" id="imageInput" onChange={handleImageChange} hidden="hidden"/>
 
-    //             <MyButton tip="Edit profile picture" onClick={this.handleEditPicture} btnClassName="button">
-    //             <EditIcon color="primary" />
-    //             </MyButton>
+                <MyButton tip="Edit profile picture" onClick={handleEditPicture} btnClassName="button">
+                <EditIcon color="primary" />
+                </MyButton>
 
-    //         </div>
-    //         <hr />
+            </div>
+            <hr />
 
-    //         {/* detalhes do usuario */}
-    //         <div className="profile-details">
+            {/* detalhes do usuario */}
+            <div className="profile-details">
 
-    //             {/* link para o perfil dele */}
-    //             <MuiLink component={Link} to={`/users/${handle}`} color="primary" variant="h5">
-    //                 @{handle}
-    //             </MuiLink>
-    //             <hr/>
+                {/* link para o perfil dele */}
+                <MuiLink component={Link} to={`/users/${handle}`} color="primary" variant="h5">
+                    @{handle}
+                </MuiLink>
+                <hr/>
 
-    //             {/* bio... */}
-    //             {bio && <Typography variant="body2">{bio}</Typography>}
-    //             <hr/>
+                {/* bio... */}
+                {bio && <Typography variant="body2">{bio}</Typography>}
+                <hr/>
 
-    //             {/* localização... */}
-    //             {location && (
-    //                 <Fragment>
-    //                     <LocationOn color="primary" /> <span>{location}</span>
-    //                 <hr />
-    //                 </Fragment>
-    //             )}
+                {/* localização... */}
+                {location && (
+                    <Fragment>
+                        <LocationOn color="primary" /> <span>{location}</span>
+                    <hr />
+                    </Fragment>
+                )}
 
-    //             {/* url do site.. */}
-    //             {website && (
-    //                 <Fragment>
-    //                     <LinkIcon color="primary" />
-    //                     <a href={website} target="_blank" rel="noopener noreferrer">
-    //                         {" "}{website}
-    //                     </a>
-    //                     <hr />
-    //                 </Fragment>
-    //             )}
+                {/* url do site.. */}
+                {instagram && (
+                    <Fragment>
+                        <LinkIcon color="primary" />
+                        <a href={instagram} target="_blank" rel="noopener noreferrer">
+                            {" "}{instagram}
+                        </a>
+                        <hr />
+                    </Fragment>
+                )}
 
-    //             {/* dia em que criou o perfil */}
-    //             <CalendarToday color="primary"/> {" "} <span> Joined {dayjs(createdAt).format('MMM YYYY')}</span>
+                {/* dia em que criou o perfil */}
+                <CalendarToday color="primary"/> {" "} <span> Joined {dayjs(createdAt).format('MMM YYYY')}</span>
                 
-    //         </div>
+            </div>
 
-    //         <MyButton tip="Logout" onClick={this.handleLogout}>
-    //             <KeyboardReturn color="primary" />
-    //         </MyButton>
+            <MyButton tip="Logout" onClick={handleLogout}>
+                <KeyboardReturn color="primary" />
+            </MyButton>
 
-    //         <EditDetails />
+            {/* <EditDetails /> */}
 
-    //         </div>
-    //     </Paper>
-    //     ) : (
-    //     // se nao esetiver autenticado...
-    //     <Paper className={classes.paper}>
+            </div>
+        </Paper>
+        ) : (
+        // se nao esetiver autenticado...
+        <Paper className={classes.paper}>
 
-    //         {/* texto.. */}
-    //         <Typography variant="body2" align="center">
-    //         No profile found, please login again
-    //         </Typography>
+            {/* texto.. */}
+            <Typography variant="body2" align="center">
+            No profile found, please login again
+            </Typography>
 
-    //         {/* butao para logar ou se registrar */}
-    //         <div className={classes.buttons}>
-    //             <Button variant="contained" color="primary" component={Link} to="/login">Login
-    //             </Button>
-    //             <Button variant="contained" color="secondary" component={Link} to="/signup">Sign up
-    //             </Button>
-    //         </div>
+            {/* butao para logar ou se registrar */}
+            <div className={classes.buttons}>
+                <Button variant="contained" color="primary" component={Link} to="/login">Login
+                </Button>
+                <Button variant="contained" color="secondary" component={Link} to="/signup">Sign up
+                </Button>
+            </div>
 
-    //     </Paper>
-    //     ))
-    //     // carregando... 
-    // : (<ProfileSkeleton />)
+        </Paper>
+        ))
+        // carregando... 
+    : <p>loading.....</p>
 
-    return <p>loading</p>
+    return profileMarkup
   
 }
 
