@@ -6,6 +6,8 @@ import relativeTime from 'dayjs/plugin/relativeTime' //2days ago.., 2 hours agor
 
 // Component
 import DeletePost from './DeletePost.js'
+import LikeButton from './LikeButton'
+import MyButton from '../../utils/MyButton'
 
 // MUI
 import clsx from 'clsx';
@@ -20,8 +22,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 
 // MUI icons
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Comment';
+import CommentIcon from '@material-ui/icons/Comment';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 // card imagens
@@ -52,7 +53,8 @@ const useStyles = makeStyles((theme) => ({
   },
   postDetail: {
     fontSize: 13,
-    paddingLeft: '.3rem'
+    paddingLeft: '.1rem',
+    paddingRight: '1rem'
   }
   
 }));
@@ -85,9 +87,7 @@ function RecipeReviewCard(props) {
             <img src={userImage} className={classes.avatar} />
           </Avatar>
         }
-        action={
-          deleteButton
-        }
+        action={deleteButton}
         title={userHandle}
         subheader={dayjs(createdAt).fromNow()}
       />
@@ -107,28 +107,21 @@ function RecipeReviewCard(props) {
       }
       
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-          <div className={classes.postDetail}>
-            {likeCount} Likes
-          </div>
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-          <div className={classes.postDetail}>
-            {commentCount} Comments
-          </div>
-        </IconButton>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
+        
+        <LikeButton authenticated={authenticated} likes={likes} postId={postId} />
+        <div className={classes.postDetail}>
+          {likeCount} Likes
+        </div>
+      
+        
+        <MyButton tip="comments">
+          <CommentIcon color="primary" />
+        </MyButton>
+        <div className={classes.postDetail}>
+          {commentCount} Comments
+        </div>
+       
+        
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>

@@ -15,13 +15,8 @@ import DeleteOutline from '@material-ui/icons/DeleteOutline'
 import {connect} from 'react-redux'
 import {deletePost} from '../../redux/actions/dataActions'
 
-const styles = {
-    deleteButton: {
-        position: 'absolute',
-        left: '90%',
-        top: '10%'
-    }   
-}
+const styles = {}
+
 
 class DeletePost extends Component {
 
@@ -46,7 +41,7 @@ class DeletePost extends Component {
         const {classes} = this.props
         return (
             <Fragment>
-                <MyButton tip="Delete Scream" onClick={this.handleOpen} btnClassName={classes.deleteButton}>
+                <MyButton tip="Deletar Post" onClick={this.handleOpen} btnClassName={classes.deleteButton}>
                     <DeleteOutline color="secondary" />
                 </MyButton>
                 <Dialog
@@ -56,14 +51,14 @@ class DeletePost extends Component {
                 maxWidth="sm"
                 >
                     <DialogTitle>
-                        Are you sure you want to delete this scream?
+                        Tem certeza que quer deletar este post?
                     </DialogTitle>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
-                            Cancel
+                            Cancelar
                         </Button>
                         <Button onClick={this.deletePost} color="secondary">
-                            Delete
+                            Deletar
                         </Button>
                     </DialogActions>
                 </Dialog>
