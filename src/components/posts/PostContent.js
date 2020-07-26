@@ -4,15 +4,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime' //2days ago.., 2 hours agor...
 
-// redux
-import {getPost} from '../../redux/actions/dataActions'
-import {useDispatch, useSelector} from 'react-redux'
-
 // Component
 import DeletePost from './DeletePost.js'
 import LikeButton from './LikeButton'
 import MyButton from '../../utils/MyButton'
 import Comments from './Comments'
+import CommentForm from './CommentForm'
 
 // MUI
 import clsx from 'clsx';
@@ -66,17 +63,11 @@ const useStyles = makeStyles((theme) => ({
 
 function RecipeReviewCard(props) {
   const classes = useStyles();
-  const dispatch = useDispatch();
 
   const {
     post: {bodyImage, bodyText, createdAt, userImage, userHandle, likeCount, commentCount, postId},
-    handle, authenticated, likes
+    handle, imageUrl, authenticated, likes
   } = props
-  
-  const dataList = useSelector(state => state.data)
-  const {post} = dataList
-  const UI = useSelector(state => state.UI)
-  const {loading} = UI
   
   const deleteButton = authenticated && userHandle === handle ? (
     <DeletePost postId={postId}/>
@@ -88,7 +79,6 @@ function RecipeReviewCard(props) {
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
-    dispatch(getPost(postId))
   };
 
   return (
@@ -148,8 +138,9 @@ function RecipeReviewCard(props) {
       </CardActions>
       
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Comments comments={post} loading={loading} />
+        <CardContent> 
+          <CommentForm imageUrl={imageUrl} postId={postId} />
+          <Comments postId={postId} />
         </CardContent>
       </Collapse>
     </Card>

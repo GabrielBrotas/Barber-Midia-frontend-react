@@ -18,8 +18,7 @@ function Home(props) {
     const {loading, posts} = dataList
     
     const userInfo = useSelector(state => state.user)
-    const {credentials: {handle}, likes, authenticated} = userInfo
-
+    const {credentials: {handle, imageUrl}, likes, authenticated} = userInfo
 
     const [allPostsInDB, setAllPostsInDB] = useState(null)
 
@@ -33,11 +32,11 @@ function Home(props) {
         !loading ?
         setAllPostsInDB(
             posts.map( (post) => (
-                <PostContent key={post.postId} post={post} likes={likes} authenticated={authenticated} handle={handle} />
+                <PostContent key={post.postId} post={post} likes={likes} authenticated={authenticated} handle={handle} imageUrl={imageUrl} />
             )))
         :setAllPostsInDB(<p>loading</p>)
     
-    }, [dataList, loading, posts, likes, authenticated, handle])
+    }, [dataList, loading, posts, likes, authenticated, handle, imageUrl])
     return (
         // todo, posts skeletor while loading
         loading ? <p>loading...</p> :
