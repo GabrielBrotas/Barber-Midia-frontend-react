@@ -18,7 +18,7 @@ function Home(props) {
     const {loading, posts} = dataList
     
     const userInfo = useSelector(state => state.user)
-    const {credentials: {handle, imageUrl}, likes, authenticated} = userInfo
+    const {credentials: {handle}, likes, authenticated} = userInfo
 
 
     const [allPostsInDB, setAllPostsInDB] = useState(null)

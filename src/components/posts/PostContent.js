@@ -18,12 +18,11 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
+
 // MUI icons
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Comment';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 // card imagens
 import imageOne from '../../assets/cards/card1.jpg'
@@ -51,6 +50,10 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '100%'
   },
+  postDetail: {
+    fontSize: 13,
+    paddingLeft: '.3rem'
+  }
   
 }));
 
@@ -83,20 +86,19 @@ function RecipeReviewCard(props) {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
+          deleteButton
         }
-        title={handle}
+        title={userHandle}
         subheader={dayjs(createdAt).fromNow()}
       />
+
 
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {bodyText}
         </Typography>
       </CardContent>
-      
+        
       {bodyImage &&
       <CardMedia
       className={classes.media}
@@ -107,9 +109,15 @@ function RecipeReviewCard(props) {
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
+          <div className={classes.postDetail}>
+            {likeCount} Likes
+          </div>
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />
+          <div className={classes.postDetail}>
+            {commentCount} Comments
+          </div>
         </IconButton>
         <IconButton
           className={clsx(classes.expand, {
