@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-
+import React, {useState, Fragment} from 'react';
+import {Link} from 'react-router-dom'
 import mainStyles from '../styles/theme'
 
 // MUI
@@ -20,6 +20,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles((theme) => ({
   navbar: {
@@ -96,6 +97,8 @@ export default function PrimarySearchAppBar() {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const authenticated = false
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -195,28 +198,40 @@ export default function PrimarySearchAppBar() {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
 
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
+          {
+            !authenticated ? (
+              <Fragment> 
+                <Button color="inherit" component={Link} to="/login">Login</Button>
+                <Button color="inherit" component={Link} to="/signup">Signup</Button>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <IconButton aria-label="show 4 new mails" color="inherit">
+                  <Badge badgeContent={4} color="secondary">
+                    <MailIcon />
+                  </Badge>
+                </IconButton>
 
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+                <IconButton aria-label="show 17 new notifications" color="inherit">
+                  <Badge badgeContent={17} color="secondary">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
 
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+                <IconButton
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+              </Fragment>
+            )
+          }
+            
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
