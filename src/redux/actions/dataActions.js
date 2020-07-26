@@ -40,8 +40,8 @@ export const unlikePost = (postId) => dispatch => {
         })
 }
 
-// post POST
-export const postPOST = (newPost) => dispatch => {
+// publish POST
+export const publishPost = (newPost) => dispatch => {
     dispatch({type: LOADING_UI})
 
     axios.post('/post', newPost)
@@ -54,8 +54,9 @@ export const postPOST = (newPost) => dispatch => {
         })
 }
 
-export const getPOST = (postId) => (dispatch) => {
+export const getPost = (postId) => (dispatch) => {
     dispatch({type: LOADING_UI})
+
     axios.get(`/post/${postId}`)
         .then( res => {
             dispatch({type: GET_POST_SUCCESS, payload: res.data})
