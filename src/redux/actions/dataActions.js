@@ -18,16 +18,15 @@ export const getPosts = () => (dispatch) => {
 
 // like a POST
 export const likePost = (postId) => dispatch => {   
-
     axios.get(`/post/${postId}/like`)
         .then( res => {
-
             dispatch({type: LIKE_POST, payload: res.data})
         })
         .catch( err => {
             console.log(err)
         })
 }
+
 // unlike POST
 export const unlikePost = (postId) => dispatch => {  
 
@@ -43,24 +42,33 @@ export const unlikePost = (postId) => dispatch => {
 // publish POST
 export const publishPost = (newPost) => dispatch => {
     dispatch({type: LOADING_UI})
-
     axios.post('/post', newPost)
         .then( res => {
             dispatch({ type: PUBLISH_POST, payload: res.data})
             dispatch(clearErrors())
         })
         .catch( err => {
+            console.log(err)
             dispatch({type: SET_ERRORS, payload: err.response.data})
         })
 }
 
-export const uploadPostPicture = (formData) => (dispatch) => {
+export const uploadPostPicture = (formData, postId) => (dispatch) => {
     
-    axios.post('/post/image', formData)
+    if(!postId) {
+        axios.post('/post/image', formData)
         .then( () => {
-            
+            dispatch(getUserData())
         })
         .catch(err => console.log(err))
+    } else {
+        axios.post(`/post/image/${postId}`, formData)
+        .then( () => {
+            dispatch(getPosts())
+        })
+        .catch(err => console.log(err))
+    }
+    
 }
 
 export const getPost = (postId) => (dispatch) => {

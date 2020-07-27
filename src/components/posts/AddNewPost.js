@@ -8,7 +8,8 @@ import UploadButton from '../others/uploadButton'
 
 // redux
 import {connect, useDispatch} from 'react-redux'
-import {publishPost, clearErrors, uploadPostPicture} from '../../redux/actions/dataActions'
+import {publishPost, clearErrors} from '../../redux/actions/dataActions'
+import {uploadImage} from '../../redux/actions/userActions'
 
 // Material UI Stuffs
 import Button from '@material-ui/core/Button'
@@ -75,18 +76,19 @@ function AddNewPost(props) {
         props.clearErrors()
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-
-        dispatch(uploadImage(bodyImage))
-        // props.publishPost({bodyText})
+        
+        props.publishPost({bodyText})
+        // dispatch(uploadImage(bodyImage))
+        
     }
         
     useEffect( () => {
         if(bodyImage){
-            console.log('tem')
+            console.log('tem imagem')
         } else {
-            console.log('nao')
+            console.log('nao tem imagem')
         }
     }, [bodyImage])
 
@@ -151,6 +153,7 @@ AddNewPost.propTypes = {
 
 const mapStateToProps = (state) => ({
     UI: state.UI,
+    data: state.data
 })
 
 const mapActionsToProps = {

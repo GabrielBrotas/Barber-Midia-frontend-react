@@ -127,7 +127,7 @@ function RecipeReviewCard(props) {
         </Typography>
       </CardContent>
         
-      {bodyImage &&
+      {bodyImage !== null &&
       <CardMedia
       className={classes.media}
       image={imageOne}
