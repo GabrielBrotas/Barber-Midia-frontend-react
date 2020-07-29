@@ -120,14 +120,13 @@ function RecipeReviewCard(props) {
         subheader={dayjs(createdAt).fromNow()}
       />
 
-
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {bodyText}
         </Typography>
       </CardContent>
         
-      {bodyImage !== null &&
+      {bodyImage &&
       <CardMedia
       className={classes.media}
       image={imageOne}

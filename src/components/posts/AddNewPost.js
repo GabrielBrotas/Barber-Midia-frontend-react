@@ -50,10 +50,11 @@ function AddNewPost(props) {
 
     const [open, setOpen] = useState(false)
     const [bodyText, setBodyText] = useState('')
-    const [bodyImage, setBodyImage] = useState('')
+    const [imageToUpload, setImageToUpload] = useState({})
     const [errors, setErrors] = useState({})
 
     const {classes, UI: {loading}} = props
+    
 
     const dispatch = useDispatch()
 
@@ -67,7 +68,6 @@ function AddNewPost(props) {
             setBodyText('')
             setOpen(false)
         }
-
     }, [props])
 
     const handleClose = () => {
@@ -76,21 +76,11 @@ function AddNewPost(props) {
         props.clearErrors()
     }
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        
-        props.publishPost({bodyText})
-        // dispatch(uploadImage(bodyImage))
-        
+        props.publishPost({bodyText, bodyImage: ""}, imageToUpload)
     }
         
-    useEffect( () => {
-        if(bodyImage){
-            console.log('tem imagem')
-        } else {
-            console.log('nao tem imagem')
-        }
-    }, [bodyImage])
 
     return (
         <Fragment>
@@ -136,7 +126,7 @@ function AddNewPost(props) {
                             {loading && (<CircularProgress size={30} className={classes.progressSpinner}/>)}
                         </Button>
                     </form>
-                    <UploadButton takeImageToUpload={setBodyImage} />
+                    <UploadButton takeImageToUpload={setImageToUpload} />
                 </DialogContent>
             </Dialog>
             

@@ -193,9 +193,10 @@ function PrimarySearchAppBar() {
           </Typography>
 
           <div className={classes.leftActions}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
+            <IconButton component={Link} to="/location" color="inherit">
               <PinDrop />
             </IconButton>
+
             <IconButton aria-label="show 4 new mails" color="inherit">
               <PostScream />
             </IconButton>
