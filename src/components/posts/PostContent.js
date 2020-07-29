@@ -1,4 +1,5 @@
 import React, {useState, useEffect}from 'react';
+import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles';
 import dayjs from 'dayjs'
@@ -108,7 +109,7 @@ function RecipeReviewCard(props) {
 
   return (
     <Card className={classes.root}>
-      <Link to="/user">
+      
       <CardHeader
         avatar={
           <Avatar aria-label="recipe">
@@ -118,10 +119,10 @@ function RecipeReviewCard(props) {
         action={
           deleteButton
         }
-        title={userHandle}
+        title={<Link to={`/user/${userHandle}`}>{userHandle}</Link>}
         subheader={dayjs(createdAt).fromNow()}
       />
-      </Link>
+     
 
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
