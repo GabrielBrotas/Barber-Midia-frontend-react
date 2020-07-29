@@ -24,7 +24,7 @@ export default function IconLabelButtons(props) {
     const handleImageUpload = (event) => {
         // pegar a imagem, mesmo escolhendo apenas uma vai vim em um array entao vamos pegar a primeira
         const image = event.target.files[0]
-
+      
         // criar um formData para mandar pro backend
         const formData = new FormData();
         // nesse form colocar um name, o arquivo e o blob name

@@ -1,5 +1,15 @@
-import {SET_ERRORS, SET_USER, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER, MARK_NOTIFICATIONS_READ} from '../types'
+import {SET_ERRORS, SET_USER, GET_USERS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER, MARK_NOTIFICATIONS_READ} from '../types'
 import axios from 'axios'
+
+export const getAllUsers = () => (dispatch) => {
+    
+    dispatch({type: LOADING_USER});
+
+    axios.get('/users')
+    .then( res => {
+        dispatch({type: GET_USERS, payload: res.data})
+    })
+}
 
 export const loginUser = (userData, history) => (dispatch) => {
     

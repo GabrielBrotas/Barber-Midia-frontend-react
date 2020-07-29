@@ -1,15 +1,19 @@
-import { SET_USER, SET_AUTHENTICATED, SET_UNAUTHENTICATED, LOADING_USER, LIKE_POST, UNLIKE_POST, MARK_NOTIFICATIONS_READ} from '../types'
+import { SET_USER, GET_USERS, SET_AUTHENTICATED, SET_UNAUTHENTICATED, LOADING_USER, LIKE_POST, UNLIKE_POST, MARK_NOTIFICATIONS_READ} from '../types'
 
 const initialState = {
     authenticated: false,
     loading: false,
     credentials: {},
     likes: [],
-    notifications: []
+    notifications: [],
+    users: []
 }
 
 export default function(state = initialState, action){
     switch(action.type){
+        case GET_USERS:
+            return {...state, users: action.payload}
+
         case SET_AUTHENTICATED:
             return {...state, authenticated: true};
         
@@ -18,6 +22,7 @@ export default function(state = initialState, action){
         
         case SET_USER:
             return {
+                ...state,
                 authenticated: true,
                 loading: false,
                 ...action.payload

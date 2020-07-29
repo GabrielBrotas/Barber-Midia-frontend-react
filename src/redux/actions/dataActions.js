@@ -54,10 +54,8 @@ export const publishPost = (newPost, imageToUpload) => dispatch => {
 }
 
 export const uploadPostPicture = (formData, postId) => (dispatch) => {
-    console.log(formData)
-    console.log(postId)
     axios.post(`/post/image/${postId}`, formData)
-    .then( () => {
+    .then( (res) => {
         dispatch(clearErrors())
     })
     .catch( (err) => console.log(err))

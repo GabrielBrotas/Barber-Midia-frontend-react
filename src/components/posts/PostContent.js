@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
+    backgroundSize: 'contain'
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -107,6 +108,7 @@ function RecipeReviewCard(props) {
 
   return (
     <Card className={classes.root}>
+      <Link to="/user">
       <CardHeader
         avatar={
           <Avatar aria-label="recipe">
@@ -119,6 +121,7 @@ function RecipeReviewCard(props) {
         title={userHandle}
         subheader={dayjs(createdAt).fromNow()}
       />
+      </Link>
 
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
@@ -129,7 +132,7 @@ function RecipeReviewCard(props) {
       {bodyImage &&
       <CardMedia
       className={classes.media}
-      image={imageOne}
+      image={bodyImage}
       />
       }
       

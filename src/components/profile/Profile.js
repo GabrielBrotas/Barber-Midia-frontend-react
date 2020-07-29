@@ -149,7 +149,7 @@ function Profile(props) {
             <div className="profile-details">
 
                 {/* link para o perfil dele */}
-                <MuiLink component={Link} to={`/users/${handle}`} color="primary" variant="h5">
+                <MuiLink component={Link} to={`/user/${handle}`} color="primary" variant="h5">
                     @{handle}
                 </MuiLink>
                 <hr/>
