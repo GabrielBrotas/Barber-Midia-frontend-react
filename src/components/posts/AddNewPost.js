@@ -9,7 +9,6 @@ import UploadButton from '../others/uploadButton'
 // redux
 import {connect, useDispatch} from 'react-redux'
 import {publishPost, clearErrors} from '../../redux/actions/dataActions'
-import {uploadImage} from '../../redux/actions/userActions'
 
 // Material UI Stuffs
 import Button from '@material-ui/core/Button'
@@ -54,9 +53,6 @@ function AddNewPost(props) {
     const [errors, setErrors] = useState({})
 
     const {classes, UI: {loading}} = props
-    
-
-    const dispatch = useDispatch()
 
     useEffect( () => {
         if(props.UI.errors){

@@ -32,9 +32,6 @@ import Typography from '@material-ui/core/Typography';
 import CommentIcon from '@material-ui/icons/Comment';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-// card imagens
-import imageOne from '../../assets/cards/card1.jpg'
-
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 600,
