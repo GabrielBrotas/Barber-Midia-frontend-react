@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {GET_POSTS_SUCCESS, GET_POSTS_ERROR, LOADING_DATA, LIKE_POST, UNLIKE_POST, DELETE_POST, SET_ERRORS, PUBLISH_POST, CLEAR_ERRORS, LOADING_UI, GET_POST_SUCCESS, STOP_LOADING_UI, SUBMIT_COMMENT} from '../types'
+import {GET_POSTS_SUCCESS, GET_POSTS_ERROR, LOADING_DATA, LIKE_POST, UNLIKE_POST, DELETE_POST, SET_ERRORS, PUBLISH_POST, CLEAR_ERRORS, LOADING_UI, GET_POST_SUCCESS, STOP_LOADING_UI, SUBMIT_COMMENT, GET_PLACES} from '../types'
 
 
 export const getPosts = () => (dispatch) => {
@@ -13,7 +13,16 @@ export const getPosts = () => (dispatch) => {
         console.log(err)
         dispatch({type: GET_POSTS_ERROR})
     })
+}
 
+export const getAllPlaces = () => (dispatch) => {
+    
+    dispatch({type: LOADING_DATA});
+
+    axios.get('/users/places')
+    .then( res => {
+        dispatch({type: GET_PLACES, payload: res.data})
+    })
 }
 
 // like a POST

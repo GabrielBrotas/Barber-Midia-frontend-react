@@ -1,9 +1,10 @@
-import {GET_POSTS_ERROR, LOADING_DATA, GET_POSTS_SUCCESS, LIKE_POST, UNLIKE_POST, DELETE_POST, PUBLISH_POST, GET_POST_SUCCESS, SUBMIT_COMMENT} from '../types'
+import {GET_POSTS_ERROR, LOADING_DATA, GET_POSTS_SUCCESS, LIKE_POST, UNLIKE_POST, DELETE_POST, PUBLISH_POST, GET_POST_SUCCESS, SUBMIT_COMMENT, GET_PLACES} from '../types'
 
 const initialState = {
     loading: false,
     posts: [],
     post: {},
+    places: [],
     error: null
 }
 
@@ -11,7 +12,8 @@ export default function(state = initialState, action){
     switch(action.type){
         case LOADING_DATA:
             return {...state, loading: true};
-        
+        case GET_PLACES:
+            return {...state, places: action.payload, loading: false};
         case GET_POSTS_SUCCESS:
             return {...state, posts: action.payload, loading: false};
         

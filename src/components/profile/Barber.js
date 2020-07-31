@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Fragment} from 'react'
+import React, {Fragment} from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 import dayjs from 'dayjs'
 
@@ -64,21 +64,16 @@ const styles = {
 
 function Barber(props) {
 
-    const {classes, selectedUser} = props
-    const [user, setUser] = useState(null)
-
-    useEffect(() => {
-        selectedUser.length > 0 && setUser(selectedUser[0])
-    }, [selectedUser])
+    const {classes, barber} = props
 
     return (
-        user ?
+        barber ?
         (<Paper className={classes.paper} > 
             <div className={classes.profile}>
 
             {/* imagem do perfil content */}
             <div className="image-wrapper">
-                <img className="profile-image" src={user.imageUrl} alt="profile"></img>
+                <img className="profile-image" src={barber.imageUrl} alt="profile"></img>
             </div>
             <hr />
 
@@ -87,35 +82,35 @@ function Barber(props) {
 
                 {/* link para o perfil dele */}
                 <MuiLink color="primary" variant="h5">
-                    @{user.handle}
+                    @{barber.handle}
                 </MuiLink>
                 <hr/>
 
                 {/* bio... */}
-                {user.bio && <Typography variant="body2">{user.bio}</Typography>}
+                {barber.bio && <Typography variant="body2">{barber.bio}</Typography>}
                 <hr/>
 
                 {/* localização... */}
-                {user.location && (
+                {barber.location && (
                     <Fragment>
-                        <LocationOn color="primary" /> <span>{user.location}</span>
+                        <LocationOn color="primary" /> <span>{barber.location}</span>
                     <hr />
                     </Fragment>
                 )}
 
                 {/* url do site.. */}
-                {user.instagram && (
+                {barber.instagram && (
                     <Fragment>
                         <LinkIcon color="primary" />
-                        <a href={user.instagram} target="_blank" rel="noopener noreferrer">
-                            {" "}{user.instagram}
+                        <a href={barber.instagram} target="_blank" rel="noopener noreferrer">
+                            {" "}{barber.instagram}
                         </a>
                         <hr />
                     </Fragment>
                 )}
 
                 {/* dia em que criou o perfil */}
-                <CalendarToday color="primary"/> {" "} <span> Joined {dayjs(user.createdAt).format('MMM YYYY')}</span>
+                <CalendarToday color="primary"/> {" "} <span> Joined {dayjs(barber.createdAt).format('MMM YYYY')}</span>
                 
             </div>
 

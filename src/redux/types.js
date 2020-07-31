@@ -16,7 +16,7 @@ export const STOP_LOADING_UI = 'STOP_LOADING_UI'
 export const LOADING_DATA = 'LOADING_DATA'
 export const GET_POSTS_SUCCESS = 'GET_POSTS_SUCCESS'
 export const GET_POSTS_ERROR = 'GET_POSTS_ERROR'
-
+export const GET_PLACES = 'GET_PLACES'
 export const GET_POST_SUCCESS = 'GET_POST_SUCCESS'
 
 export const LIKE_POST = 'LIKE_POST'
