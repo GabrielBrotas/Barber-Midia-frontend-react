@@ -20,9 +20,9 @@ import Navbar from './components/layout/Navbar.js'
 import home from './pages/home'
 import login from './pages/login'
 import signup from './pages/signup'
-// import location from './pages/location'
+import location from './pages/location'
 import user from './pages/user'
-// import post from './pages/post'
+import post from './pages/post'
 
 // style global
 const theme = createTheme(themeFile)
@@ -58,9 +58,9 @@ function App() {
 
       <div className="container">
       <Switch>
-        {/* <Route exact path="/user/:handle/post/postId" component={post} /> */}
+        <Route exact path="/location" component={location} />
+        <Route exact path="/user/:handle/post/postId" component={post} />
         <Route exact path="/user/:handle" component={user} />
-        {/* <Route exact path="/location" component={location} /> */}
         <Route exact path="/signup" component={signup} />
         <Route exact path="/login" component={login} />
         <Route exact path="/" component={home}  />

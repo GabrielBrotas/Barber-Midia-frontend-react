@@ -7,7 +7,7 @@ import MyButton from '../../utils/MyButton'
 import UploadButton from '../others/uploadButton'
 
 // redux
-import {connect, useDispatch} from 'react-redux'
+import {connect} from 'react-redux'
 import {publishPost, clearErrors} from '../../redux/actions/dataActions'
 
 // Material UI Stuffs

@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 260,
+    maxWidth: 200,
     maxHeight: 250,
     marginBottom: '2rem',
     width: '100%'
@@ -46,3 +46,4 @@ function MediaCard(props) {
 }
 
 export default MediaCard
+
