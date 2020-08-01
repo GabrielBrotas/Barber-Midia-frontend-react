@@ -197,7 +197,7 @@ function Profile(props) {
             <div className={classes.buttons}>
                 <Button variant="contained" style={{backgroundColor: theme.mainColor, color: theme.fontColor}} component={Link} to="/login">Login
                 </Button>
-                <Button variant="contained" color="secondary" component={Link} to="/signup">Sign up
+                <Button variant="contained" style={{backgroundColor: theme.secondaryColor, color: theme.fontColor}} component={Link} to="/signup">Sign up
                 </Button>
             </div>
 
