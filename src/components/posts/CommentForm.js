@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import MyButton from '../../utils/MyButton'
-
+import theme from '../../utils/theme'
 // Redux
 import {useDispatch, useSelector} from 'react-redux'
 import {submitComment} from '../../redux/actions/dataActions'
@@ -13,22 +13,32 @@ import TextField from '@material-ui/core/TextField';
 import SendIcon from '@material-ui/icons/Send';
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        color: 'white'
+    },
+    label: {
+    textTransform: 'capitalize',
+    color: "#fff"
+    },
     margin: {
         marginBottom: '2rem'
     },
     formContent: {
-        display: 'flex'
+        display: 'flex',
+        color:"#fff"
     },
     imageContent: {
         alignSelf: 'center',
-        textAlign: 'center'
+        textAlign: 'center',
+        margin: '1.5rem 1rem'
     },
     commentImage: {
         maxWidth: '100%',
         height: 30,
         objectFit: 'cover',
-        borderRadius: '50%'
-    },
+        borderRadius: '50%',
+        color:"#fff" 
+    }
 }));
 
 export default function InputWithIcon(props) {
@@ -67,26 +77,29 @@ export default function InputWithIcon(props) {
 
     return (
         <div className={classes.formContent}  >
-        
+
         <TextField
         className={classes.margin}
         id="input-with-icon-textfield"
-        label="Make a comment"
+        label="Comentar no post"
         fullWidth
         value={bodyText}
         onChange={e => setBodyText(e.target.value)}
         error={errors.comment ? true : false}
         helperText={errors.comment}
-        InputProps={{
-            startAdornment: (
+        InputProps={
+            {startAdornment: (
             <InputAdornment position="start" className={classes.imageContent}>
                 <img src={imageUrl} alt="profile" className={classes.commentImage}/>
             </InputAdornment>
-            ),
-        }} />
+            )  
+            }
+        } 
+        />
+
         
         <MyButton tip="Send" btnClassName="button" onClick={handleSubmit}>
-            <SendIcon color="primary" />
+            <SendIcon style={{ color: theme.mainColor}} />
         </MyButton>
 
         </div>

@@ -26,4 +26,5 @@ export const DELETE_POST = 'DELETE_POST'
 export const PUBLISH_POST = 'PUBLISH_POST'
 
 export const SUBMIT_COMMENT = 'SUBMIT_COMMENT'
+export const GET_ALL_COMMENTS = 'GET_ALL_COMMENTS'
 

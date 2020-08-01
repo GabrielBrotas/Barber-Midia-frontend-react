@@ -1,10 +1,11 @@
-import {GET_POSTS_ERROR, LOADING_DATA, GET_POSTS_SUCCESS, LIKE_POST, UNLIKE_POST, DELETE_POST, PUBLISH_POST, GET_POST_SUCCESS, SUBMIT_COMMENT, GET_PLACES} from '../types'
+import {GET_POSTS_ERROR, LOADING_DATA, GET_POSTS_SUCCESS, LIKE_POST, UNLIKE_POST, DELETE_POST, PUBLISH_POST, GET_POST_SUCCESS, SUBMIT_COMMENT, GET_PLACES, GET_ALL_COMMENTS} from '../types'
 
 const initialState = {
     loading: false,
     posts: [],
     post: {},
     places: [],
+    comments: [],
     error: null
 }
 
@@ -22,7 +23,9 @@ export default function(state = initialState, action){
 
         case GET_POST_SUCCESS:
             return {...state, post: action.payload}
-
+            
+        case GET_ALL_COMMENTS:
+            return {...state, comments: action.payload, loading: false}
         case LIKE_POST:
         case UNLIKE_POST:
             let index = state.posts.findIndex((post) => post.postId === action.payload.postId);

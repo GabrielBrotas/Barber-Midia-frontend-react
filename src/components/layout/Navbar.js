@@ -20,7 +20,6 @@ import Menu from '@material-ui/core/Menu';
 
 // MUI Icons
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button'
@@ -34,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 'auto'
   },
   logo: {
-    color: mainStyles.titleColor
+    color: mainStyles.mainColor,
+
   },
   navContainer:{
     maxWidth: 1000,
@@ -152,14 +152,7 @@ function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" >
-          <Badge >
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
+
       <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
           <Badge badgeContent={11} color="secondary">
@@ -187,7 +180,7 @@ function PrimarySearchAppBar() {
       <AppBar position="static" className={classes.navbar}>
         <Toolbar className={classes.navContainer}>
           
-          <Typography className={classes.logo} variant="h6" noWrap>
+          <Typography className={classes.logo} variant="h5" noWrap>
             <Button color="inherit" component={Link} to="/">Logo</Button>
           </Typography>
 
@@ -211,11 +204,6 @@ function PrimarySearchAppBar() {
               </Fragment>
             ) : (
               <Fragment>
-                <IconButton aria-label="show 4 new mails" color="inherit">
-                  <Badge badgeContent={1} color="secondary">
-                    <MailIcon />
-                  </Badge>
-                </IconButton>
 
                 <Notifications />
 

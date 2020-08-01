@@ -4,18 +4,11 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import {Link} from 'react-router-dom'
 import dayjs from 'dayjs'
 import MyButton from '../../utils/MyButton'
+import theme from '../../utils/theme'
 
 // redux
 import { useSelector, useDispatch } from 'react-redux'
 import {uploadImage, logoutUser} from '../../redux/actions/userActions'
-
-// components
-// import EditDetails from './EditDetails'
-// import ProfileSkeleton from '../../utils/ProfileSkeleton'
-
-// redux
-// import {connect} from 'react-redux'
-// import {logoutUser, uploadImage} from '../../redux/actions/userActions'
 
 // MUI stuffs
 import Button from '@material-ui/core/Button'
@@ -35,7 +28,9 @@ import KeyboardReturn from '@material-ui/icons/KeyboardReturn'
 
 const styles = {
     paper: {
-    padding: 20
+        backgroundColor: theme.backgroundNavColor,
+        color: theme.fontColor,
+        padding: 20
     },
     profile: {
     '& .image-wrapper': {
@@ -194,14 +189,13 @@ function Profile(props) {
         // se nao esetiver autenticado...
         <Paper className={classes.paper}>
 
-            {/* texto.. */}
             <Typography variant="body2" align="center">
-            No profile found, please login again
+                No profile found, please login again
             </Typography>
 
             {/* butao para logar ou se registrar */}
             <div className={classes.buttons}>
-                <Button variant="contained" color="primary" component={Link} to="/login">Login
+                <Button variant="contained" style={{backgroundColor: theme.mainColor, color: theme.fontColor}} component={Link} to="/login">Login
                 </Button>
                 <Button variant="contained" color="secondary" component={Link} to="/signup">Sign up
                 </Button>

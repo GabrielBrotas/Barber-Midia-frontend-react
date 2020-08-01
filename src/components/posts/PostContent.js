@@ -4,10 +4,11 @@ import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles';
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime' 
+import theme from '../../utils/theme'
 
 // redux
 import {useSelector, useDispatch} from 'react-redux'
-import {getPost} from '../../redux/actions/dataActions'
+import {getAllComments} from '../../redux/actions/dataActions'
 
 // Component
 import DeletePost from './DeletePost.js'
@@ -35,7 +36,15 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 600,
-    marginBottom: '4rem'
+    marginBottom: '4rem',
+    backgroundColor: theme.backgroundPageColor,
+    color: "#fff"
+  },
+  userHandle: {
+    color: "#fff"
+  },
+  dateTimePost: {
+    color: "#959595"
   },
   media: {
     height: 0,
@@ -67,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
 function RecipeReviewCard(props) {
 
   const dataList = useSelector(state => state.data)
-  const {post: {comments}} = dataList
+  const {comments} = dataList
 
   const {
     post: {bodyImage, bodyText, createdAt, userImage, userHandle, likeCount, commentCount, postId},
@@ -85,9 +94,8 @@ function RecipeReviewCard(props) {
     <DeletePost postId={postId}/>
   ) : null
   
-
   useEffect( () => {
-    dispatch(getPost(postId))
+    dispatch(getAllComments())
   }, [dispatch, postId])
 
   const handleExpandClick = () => {
@@ -101,13 +109,14 @@ function RecipeReviewCard(props) {
             <Comment key={comment.createdAt} postId={postId} comment={comment} authenticated={authenticated} handle={handle} imageUrl={imageUrl} />
         )))
     : setPostComments(<p>loading</p>)
-
+      
   }, [authenticated, handle, imageUrl, comments, postId, dataList])
 
   return (
     <Card className={classes.root}>
       
       <CardHeader
+        classes={classes.cardHeaderStyle}
         avatar={
           <Avatar aria-label="recipe">
             <img src={userImage} alt='user profile' className={classes.avatar} />
@@ -116,13 +125,13 @@ function RecipeReviewCard(props) {
         action={
           deleteButton
         }
-        title={<Link to={`/user/${userHandle}`}>{userHandle}</Link>}
-        subheader={dayjs(createdAt).fromNow()}
+        title={<Link to={`/user/${userHandle}`}><p className={classes.userHandle}>{userHandle}</p></Link>}
+        subheader={<p className={classes.dateTimePost}>{dayjs(createdAt).fromNow()}</p>}
       />
      
 
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography variant="body2" component="p">
           {bodyText}
         </Typography>
       </CardContent>
@@ -143,13 +152,14 @@ function RecipeReviewCard(props) {
       
         
         <MyButton tip="comments" onClick={handleExpandClick}>
-          <CommentIcon color="primary" />
+          <CommentIcon style={{color: theme.mainColor}} />
         </MyButton>
         <div className={classes.postDetail}>
           {commentCount} Comments
         </div>
        
         <IconButton
+          style={{color: theme.mainColor}}
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
           })}
@@ -163,7 +173,10 @@ function RecipeReviewCard(props) {
       
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent> 
-          <CommentForm imageUrl={imageUrl} postId={postId} expanded={expanded}/>
+          {authenticated 
+            ? <CommentForm imageUrl={imageUrl} postId={postId} expanded={expanded}/>
+            : <p>Log in to comment</p>}
+          
           {postCommments}
         </CardContent>
       </Collapse>

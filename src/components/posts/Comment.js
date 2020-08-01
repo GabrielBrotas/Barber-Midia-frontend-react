@@ -12,6 +12,13 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 
 const styles = {
+
+    userHandle: {
+      color: "#fff"
+    },
+    dateTimePost: {
+      color: "#959595",
+    },
     imageContent: {
         alignSelf: 'center',
         textAlign: 'center'
@@ -23,7 +30,8 @@ const styles = {
         borderRadius: '50%'
     },
     commentData: {
-        marginLeft: 20
+        marginLeft: 10,
+        marginBottom: '1rem'
     },
     visibleSeparator:{
       width: "100%",
@@ -33,7 +41,7 @@ const styles = {
     invisibleSeparator:{
       width: "100%",
       borderBottom: '1px solid rgba(0,0,0,0.1)',
-      marginBottom: 20
+      marginBottom: 10
     },
 }
 
@@ -48,25 +56,25 @@ function Comments(props) {
         
             <Grid item sm={12}>
             <Grid container>
-                
-                <Grid item sm={2} className={classes.imageContent}>
+                <Grid item sm={1} className={classes.imageContent}>
                     <img src={userImage} alt="comment" className={classes.commentImage} />
                 </Grid>
                 <Grid item sm={9}>
                 
                     <div className={classes.commentData}>
                         <Typography
-                        variant="body1"
+                        variant="subtitle1"
                         component={Link}
                         to={`/users/${userHandle}`}
                         color="primary">
-                            {userHandle}
+                            <p className={classes.userHandle}>{userHandle}</p>
                         </Typography>
 
                         <Typography
                         variant="body2"
-                        color="textSecondary">
-                            {dayjs(createdAt).fromNow()}
+                        color="textSecondary"
+                        >
+                            <span className={classes.dateTimePost}>{dayjs(createdAt).fromNow()}</span>
                         </Typography>
 
                         <Typography
@@ -77,8 +85,6 @@ function Comments(props) {
                 <hr className={classes.invisibleSeparator} />
             </Grid>
             </Grid>
-
-        
         </Grid>
     )
 }

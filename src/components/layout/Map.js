@@ -25,7 +25,7 @@ function MyComponent(props) {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
     libraries,
   })
-  const {places, loading, setUserSelected} = props
+  const {places, loading, setUserSelected, userSelected} = props
   const [selected, setSelected] = useState(null)
   const [markers, setMarkers] = useState([])
 
@@ -33,7 +33,6 @@ function MyComponent(props) {
     !loading &&  (setMarkers(places))
   }, [places, selected, loading])
 
-  // manter o estado sem ficar reenderizando
   const mapRef = useRef()
   const onMapLoad = useCallback( map => {
     mapRef.current = map
@@ -78,7 +77,9 @@ function MyComponent(props) {
         setUserSelected(null)
       }}>
         <div>
-          <h2>testing</h2>
+          {userSelected &&
+          <h2>Owner: {userSelected.userOwner}</h2>
+          }
         </div>
       </InfoWindow>) : null}
     </GoogleMap>

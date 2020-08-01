@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import MyButton from '../../utils/MyButton'
 import PropTypes from 'prop-types'
-
+import theme from '../../utils/theme'
 // icons
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
@@ -38,17 +38,17 @@ function LikeButton(props)  {
     const likeButton = !authenticated ? (
         <Link to="/login">
         <MyButton tip="Like">
-            <FavoriteBorder color="primary" />
+            <FavoriteBorder style={{ color: theme.unlikeButton }}  />
         </MyButton>
         </Link>
     ) : (
         likedPost() ? (
             <MyButton tip="Undo Like" onClick={() => unlikeThePost(props.postId)}>
-                <FavoriteIcon color="primary" />
+                <FavoriteIcon style={{ color: theme.mainColor }} />
             </MyButton>
         ) : (
             <MyButton tip="Like" onClick={() => likeThePost(props.postId)}>
-                <FavoriteBorder color="primary" />
+                <FavoriteBorder style={{ color: theme.unlikeButton }} />
             </MyButton>
         )
     )

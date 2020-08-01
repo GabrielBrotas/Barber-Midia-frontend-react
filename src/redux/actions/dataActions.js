@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {GET_POSTS_SUCCESS, GET_POSTS_ERROR, LOADING_DATA, LIKE_POST, UNLIKE_POST, DELETE_POST, SET_ERRORS, PUBLISH_POST, CLEAR_ERRORS, LOADING_UI, GET_POST_SUCCESS, STOP_LOADING_UI, SUBMIT_COMMENT, GET_PLACES} from '../types'
+import {GET_POSTS_SUCCESS, GET_POSTS_ERROR, LOADING_DATA, LIKE_POST, UNLIKE_POST, DELETE_POST, SET_ERRORS, PUBLISH_POST, CLEAR_ERRORS, LOADING_UI, GET_POST_SUCCESS, STOP_LOADING_UI, SUBMIT_COMMENT, GET_PLACES, GET_ALL_COMMENTS} from '../types'
 
 
 export const getPosts = () => (dispatch) => {
@@ -76,6 +76,17 @@ export const getPost = (postId) => (dispatch) => {
     axios.get(`/post/${postId}`)
         .then( res => {
             dispatch({type: GET_POST_SUCCESS, payload: res.data})
+            dispatch({type: STOP_LOADING_UI})
+        })
+        .catch( err => console.log(err))
+}
+
+export const getAllComments = () => (dispatch) => {
+    dispatch({type: LOADING_UI})
+
+    axios.get(`/comments`)
+        .then( res => {
+            dispatch({type: GET_ALL_COMMENTS, payload: res.data})
             dispatch({type: STOP_LOADING_UI})
         })
         .catch( err => console.log(err))

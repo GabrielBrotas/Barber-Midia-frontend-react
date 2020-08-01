@@ -38,6 +38,7 @@ function Home(props) {
         : setAllPostsInDB(<p>loading</p>)
     
     }, [dataList, loading, posts, likes, authenticated, handle, imageUrl])
+    
     return (
         // todo, posts skeletor while loading
         loading ? <p>loading...</p> :

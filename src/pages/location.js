@@ -47,7 +47,7 @@ function Location(props) {
         ? users.map( user => user.handle === userSelected.userOwner && setBarber(user))
         : setBarber(null)
         
-    }, [userSelected, barber, users])
+    }, [userSelected, users])
 
     useEffect( () => {
         barber && !posts.lenght > 0 ?
@@ -63,7 +63,7 @@ function Location(props) {
 
         <Grid container spacing={4}>
             <Grid item sm={8} xs={12}>
-               <Map places={places} loading={loading} setUserSelected={setUserSelected} />
+               <Map places={places} loading={loading} setUserSelected={setUserSelected} userSelected={userSelected} barber={barber} />
             </Grid>
 
             <Grid item sm={4} xs={12}>
