@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 600,
     marginBottom: '4rem',
-    backgroundColor: theme.backgroundPageColor,
+    backgroundColor: theme.backgroundColorSecondary,
     color: "#fff"
   },
   userHandle: {

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types'
+import LeftSideDescription from '../components/layout/LeftSideDescription'
 
 // redux
 import {useSelector, useDispatch} from 'react-redux'
@@ -8,22 +9,23 @@ import {loginUser} from '../redux/actions/userActions'
 // MUI
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress'
 
+// icons
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant="body2" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="/">
+      <Link style={{ color: '#2D62A6'}} href="/">
         BarberMidia
       </Link>{' '}
       {new Date().getFullYear()}
@@ -36,13 +38,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
   },
-  image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
-    backgroundRepeat: 'no-repeat',
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+  rightContent: {
+    backgroundColor: theme.backgroundColorMain,
+    color: theme.fontColor
   },
   paper: {
     margin: theme.spacing(8, 4),
@@ -52,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.mainColor,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -60,6 +58,12 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundColor: theme.mainColor, 
+    color: theme.fontColor,
+    fontWeight: "bold",
+    '&:hover': {
+      backgroundColor: '#664608',
+    },
   },
   progress: {
     position: 'absolute'
@@ -69,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '0.8rem',
       marginTop: 10,
       textAlign: 'center'
-  },
+  }
 }));
 
 function SignInSide(props) {
@@ -102,14 +106,15 @@ function SignInSide(props) {
 
   return (
     <Grid container component="main" className={classes.root}>
-      <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+
+      <LeftSideDescription />
+
+      <Grid item xs={12} sm={8} md={5} component={Paper} className={classes.rightContent} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
+            <LockOutlinedIcon  />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h3" variant="h5">
             Sign in
           </Typography>
 
@@ -150,11 +155,10 @@ function SignInSide(props) {
               type="submit"
               fullWidth
               variant="contained"
-              color="primary"
               className={classes.submit}
               disabled={UI.loading}
             >
-              Sign In
+              Log In
               {UI.loading && (
                 <CircularProgress size={30} className={classes.progress}/>
               )}
@@ -164,7 +168,7 @@ function SignInSide(props) {
                 
               </Grid>
               <Grid item>
-                <Link href="/signup" variant="body2">
+                <Link style={{ color: "#2D62A6"}} href="/signup" variant="body2">
                   {"Ainda não tem uma conta? Cadastre se"}
                 </Link>
               </Grid>

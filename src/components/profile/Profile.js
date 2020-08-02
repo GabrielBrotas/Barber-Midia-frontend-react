@@ -28,7 +28,7 @@ import KeyboardReturn from '@material-ui/icons/KeyboardReturn'
 
 const styles = {
     paper: {
-        backgroundColor: theme.backgroundNavColor,
+        backgroundColor: theme.backgroundColorMain,
         color: theme.fontColor,
         padding: 20
     },

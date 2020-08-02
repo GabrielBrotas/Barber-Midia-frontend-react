@@ -78,7 +78,7 @@ function Comments(props) {
                         </Typography>
 
                         <Typography
-                        variant="body1"
+                        variant="subtitle2"
                         >{bodyText}</Typography>
                     </div>
                 </Grid>
