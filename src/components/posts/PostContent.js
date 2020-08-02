@@ -38,10 +38,13 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 600,
     marginBottom: '4rem',
     backgroundColor: theme.backgroundColorSecondary,
-    color: "#fff"
+    color: "#fff",
+    "& .MuiCardHeader-content": {
+      flex: 0
+    }
   },
   userHandle: {
-    color: "#fff"
+    color: "#fff",
   },
   dateTimePost: {
     color: "#959595"

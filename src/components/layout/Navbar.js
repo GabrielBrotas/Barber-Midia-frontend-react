@@ -17,6 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Tooltip from '@material-ui/core/Tooltip';
 
 // MUI Icons
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -215,7 +216,9 @@ function PrimarySearchAppBar() {
                   onClick={handleProfileMenuOpen}
                   color="inherit"
                 >
+                  <Tooltip placement="top" title="Profile">
                   <AccountCircle />
+                  </Tooltip>
                 </IconButton>
               </Fragment>
             )

@@ -7,12 +7,11 @@ import {useSelector, useDispatch} from 'react-redux'
 import {signupUser} from '../redux/actions/userActions'
 
 // components
-import SelectForm from '../components/profile/SelectForm'
+import SelectForm from '../components/others/SelectForm'
 
 // MUI
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
@@ -22,6 +21,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress'
+import CssTextField from '../components/others/CssTextField'
 
 // icons
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -42,10 +42,14 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
+    '& .MuiFormLabel-root .Mui-focused': {
+      borderBottomColor: 'green',
+      color:"#fff"
+    },
   },
   rightContent: {
     backgroundColor: theme.backgroundColorMain,
-    color: theme.fontColor
+    color: theme.fontMainColor
   },
   paper: {
     margin: theme.spacing(8, 4),
@@ -64,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
     backgroundColor: theme.mainColor, 
-    color: theme.fontColor,
+    color: theme.fontMainColor,
     fontWeight: "bold",
     '&:hover': {
       backgroundColor: '#664608',
@@ -132,8 +136,10 @@ function SignUpSide(props) {
             Sign up
           </Typography>
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
-            <TextField
-              variant="outlined"
+            
+            <CssTextField
+              className={classes.inputForm}
+              variant="filled"
               margin="normal"
               required
               fullWidth
@@ -145,8 +151,9 @@ function SignUpSide(props) {
               onChange={(e) => setHandle(e.target.value)} 
               helperText={errors.handle} error={errors.handle ? true : false}
             />
-            <TextField
-              variant="outlined"
+            <CssTextField
+              className={classes.inputForm}
+              variant="filled"
               margin="normal"
               required
               fullWidth
@@ -154,12 +161,12 @@ function SignUpSide(props) {
               label="Email"
               name="email"
               autoComplete="email"
-              autoFocus
               onChange={(e) => setEmail(e.target.value)}
               helperText={errors.email} error={errors.email ? true : false}
             />
-            <TextField
-              variant="outlined"
+            <CssTextField
+              className={classes.inputForm}
+              variant="filled"
               margin="normal"
               required
               fullWidth
@@ -171,8 +178,9 @@ function SignUpSide(props) {
               onChange={(e) => setPassword(e.target.value)}
               helperText={errors.password} error={errors.password ? true : false}
             />
-            <TextField
-              variant="outlined"
+            <CssTextField
+              className={classes.inputForm}
+              variant="filled"
               margin="normal"
               required
               fullWidth
@@ -187,7 +195,7 @@ function SignUpSide(props) {
             <SelectForm onChangeSelect={setCategory} category={category}/>
 
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
+              control={<Checkbox value="remember" style={{color: '#A77D2D'}} />}
               label="Concordo com os termos e políticas da empresa."
             />
 
@@ -209,7 +217,7 @@ function SignUpSide(props) {
               <Grid item xs>
               </Grid>
               <Grid item>
-                <Link style={{ color: "#2D62A6"}} href="/signup" variant="body2">
+                <Link style={{ color: "#2D62A6"}} href="/login" variant="body2">
                   {"Já tem uma conta? Login"}
                 </Link>
               </Grid>

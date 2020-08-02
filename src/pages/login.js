@@ -9,7 +9,6 @@ import {loginUser} from '../redux/actions/userActions'
 // MUI
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
@@ -17,6 +16,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress'
+import CssTextField from '../components/others/CssTextField'
 
 // icons
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
   rightContent: {
     backgroundColor: theme.backgroundColorMain,
-    color: theme.fontColor
+    color: theme.fontMainColor
   },
   paper: {
     margin: theme.spacing(8, 4),
@@ -55,11 +55,15 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
+    borderColor: "#fff",
+    '& fieldset': {
+      borderColor: theme.fontSecondaryColor,
+    },
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
     backgroundColor: theme.mainColor, 
-    color: theme.fontColor,
+    color: theme.fontMainColor,
     fontWeight: "bold",
     '&:hover': {
       backgroundColor: '#664608',
@@ -73,6 +77,13 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '0.8rem',
       marginTop: 10,
       textAlign: 'center'
+  },
+  inputForm: {
+    marginTop: 0,
+    marginBottom: 25,
+    '& input': {
+      backgroundColor: '#fff',
+    }
   }
 }));
 
@@ -119,21 +130,23 @@ function SignInSide(props) {
           </Typography>
 
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
-            <TextField
-              variant="outlined"
+            <CssTextField
+              className={classes.inputForm}
               margin="normal"
+              variant="filled"
               required
               fullWidth
               id="email"
-              label="Email"
               name="email"
+              label="Email"
               autoComplete="email"
               autoFocus
               onChange={(e) => setEmail(e.target.value)}
               helperText={errors.email} error={errors.email ? true : false}
             />
-            <TextField
-              variant="outlined"
+            <CssTextField
+              className={classes.inputForm}
+              variant="filled"
               margin="normal"
               required
               fullWidth

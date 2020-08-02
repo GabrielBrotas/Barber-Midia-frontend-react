@@ -25,12 +25,15 @@ import EditIcon from '@material-ui/icons/Edit'
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn'
 
 
-
 const styles = {
     paper: {
         backgroundColor: theme.backgroundColorMain,
-        color: theme.fontColor,
-        padding: 20
+        color: theme.fontMainColor,
+        padding: 20,
+        position: 'fixed'
+    },
+    iconProfile: {
+        color: theme.secondaryColor
     },
     profile: {
     '& .image-wrapper': {
@@ -55,7 +58,7 @@ const styles = {
         verticalAlign: 'middle'
         },
         '& a': {
-        color: '#00bcd4'
+        color: theme.mainColor
         }
     },
     '& hr': {
@@ -134,7 +137,7 @@ function Profile(props) {
                 <input type="file" id="imageInput" onChange={handleImageChange} hidden="hidden"/>
 
                 <MyButton tip="Edit profile picture" onClick={handleEditPicture} btnClassName="button">
-                <EditIcon color="primary" />
+                    <EditIcon className={classes.iconProfile} />
                 </MyButton>
 
             </div>
@@ -149,22 +152,19 @@ function Profile(props) {
                 </MuiLink>
                 <hr/>
 
-                {/* bio... */}
                 {bio && <Typography variant="body2">{bio}</Typography>}
                 <hr/>
 
-                {/* localização... */}
                 {location && (
                     <Fragment>
-                        <LocationOn color="primary" /> <span>{location}</span>
-                    <hr />
+                        <LocationOn className={classes.iconProfile} /> <span>{location}</span>
+                        <hr />
                     </Fragment>
                 )}
 
-                {/* url do site.. */}
                 {instagram && (
                     <Fragment>
-                        <LinkIcon color="primary" />
+                        <LinkIcon className={classes.iconProfile} />
                         <a href={instagram} target="_blank" rel="noopener noreferrer">
                             {" "}{instagram}
                         </a>
@@ -173,12 +173,12 @@ function Profile(props) {
                 )}
 
                 {/* dia em que criou o perfil */}
-                <CalendarToday color="primary"/> {" "} <span> Joined {dayjs(createdAt).format('MMM YYYY')}</span>
+                <CalendarToday className={classes.iconProfile}/> {" "} <span> Joined {dayjs(createdAt).format('MMM YYYY')}</span>
                 
             </div>
 
             <MyButton tip="Logout" onClick={handleLogout}>
-                <KeyboardReturn color="primary" />
+                <KeyboardReturn className={classes.iconProfile} />
             </MyButton>
 
             {/* <EditDetails /> */}
@@ -195,9 +195,9 @@ function Profile(props) {
 
             {/* butao para logar ou se registrar */}
             <div className={classes.buttons}>
-                <Button variant="contained" style={{backgroundColor: theme.mainColor, color: theme.fontColor}} component={Link} to="/login">Login
+                <Button variant="contained" style={{backgroundColor: theme.mainColor, color: theme.fontMainColor}} component={Link} to="/login">Login
                 </Button>
-                <Button variant="contained" style={{backgroundColor: theme.secondaryColor, color: theme.fontColor}} component={Link} to="/signup">Sign up
+                <Button variant="contained" style={{backgroundColor: theme.secondaryColor, color: theme.fontMainColor}} component={Link} to="/signup">Sign up
                 </Button>
             </div>
 

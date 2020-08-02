@@ -1,17 +1,40 @@
 import React from 'react';
-import PropTypes from 'prop-types'
-import { makeStyles } from '@material-ui/core/styles';
+import theme from '../../utils/theme';
+import PropTypes from 'prop-types';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+
+const CssFormControl = withStyles({
+  root: {
+    '& label.Mui-focused': {
+      color: theme.fontSecondaryColor,
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: theme.fontSecondaryColor,
+      },
+      '&.Mui-focused fieldset': {
+        borderColor:  theme.mainColor,
+      },
+      '&:hover fieldset': {
+          borderColor: theme.mainColor,
+      },
+    },
+  },
+})(FormControl);
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     marginTop: '1rem',
     marginBottom: '2rem',
     minWidth: 120,
-    width: '100%'
+    width: '100%',
+    '& label': {
+      color: theme.fontSecondaryColor
+    }
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -23,9 +46,10 @@ function SimpleSelect(props) {
 
   return (
     <div>
-      <FormControl variant="outlined" className={classes.formControl}>
+      <CssFormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="demo-simple-select-outlined-label">Category</InputLabel>
         <Select
+          style={{color: "#fff"}}
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
           value={props.category}
@@ -37,7 +61,7 @@ function SimpleSelect(props) {
           <MenuItem value='Salao'>Salao</MenuItem>
           <MenuItem value="Barbearia">Barbearia</MenuItem>
         </Select>
-      </FormControl>
+      </CssFormControl>
     </div>
   );
 }

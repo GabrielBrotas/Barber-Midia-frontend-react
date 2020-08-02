@@ -40,7 +40,7 @@ function LeftSideDescription() {
         <Grid item xs={false} sm={4} md={7}>
 
             <Typography className={classes.titleBigger} component="h1" variant="h3">
-                    Encontre as melhores barbearias ou salões mais próximas de você.
+                    Encontre as melhores barbearias e salões mais próximas de você.
             </Typography>
 
             <div className={classes.appDescription}>
