@@ -12,9 +12,10 @@ import {getPosts} from '../redux/actions/dataActions'
 // * components
 import PostContent from '../components/posts/PostContent'
 import Profile from '../components/profile/Profile'
+import PostSkeleton from '../components/posts/PostSkeleton'
+import ProfileSkeleton from '../components/profile/ProfileSkeleton'
 
 function Home(props) {
-
     const dataList = useSelector(state => state.data)
     const {loading, posts} = dataList
     
@@ -41,7 +42,19 @@ function Home(props) {
     
     return (
         // todo, posts skeletor while loading
-        loading ? <p>loading...</p> :
+        loading ? <Grid container spacing={4}>
+            
+        {/* coluna das screams */}
+        <Grid item sm={8} xs={12}>
+           <PostSkeleton />
+        </Grid>
+
+        {/* coluna do perfil do usuario */}
+        <Grid item sm={4} xs={12}>
+            <ProfileSkeleton />
+        </Grid>
+        
+    </Grid> :
         // display grid que vai ser o container (pai) e dentro vai ter a quantidade de grids(colunas) que quere com a largura que cada um vai ocupar
         <Grid container spacing={4}>
             

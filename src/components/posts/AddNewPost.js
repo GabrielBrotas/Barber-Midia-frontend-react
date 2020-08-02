@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 
 // components
 import MyButton from '../../utils/MyButton'
-import UploadButton from '../others/uploadButton'
+import UploadButton from '../others/UploadButton'
 
 // redux
 import {connect} from 'react-redux'

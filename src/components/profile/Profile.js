@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom'
 import dayjs from 'dayjs'
 import MyButton from '../../utils/MyButton'
 import theme from '../../utils/theme'
+import ProfileSkeleton from './ProfileSkeleton'
 
 // redux
 import { useSelector, useDispatch } from 'react-redux'
@@ -204,7 +205,7 @@ function Profile(props) {
         </Paper>
         ))
         // carregando... 
-    : <p>loading.....</p>
+    : <ProfileSkeleton />
 
     return profileMarkup
   

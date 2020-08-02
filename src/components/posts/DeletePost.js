@@ -15,7 +15,11 @@ import DeleteOutline from '@material-ui/icons/DeleteOutline'
 import {connect} from 'react-redux'
 import {deletePost} from '../../redux/actions/dataActions'
 
-const styles = {}
+const styles = {
+    deleteButton: {
+        marginLeft: 'auto'
+    }
+}
 
 
 class DeletePost extends Component {

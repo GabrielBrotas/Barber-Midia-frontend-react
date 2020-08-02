@@ -6,6 +6,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime' 
 import theme from '../../utils/theme'
 
+
 // redux
 import {useSelector, useDispatch} from 'react-redux'
 import {getAllComments} from '../../redux/actions/dataActions'
@@ -41,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     "& .MuiCardHeader-content": {
       flex: 0
+    },
+    "& .MuiCardHeader-action": {
+      marginLeft: "auto"
     }
   },
   userHandle: {
@@ -73,6 +77,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: '.1rem',
     paddingRight: '1rem'
   }
+
   
 }));
 
@@ -94,7 +99,7 @@ function RecipeReviewCard(props) {
   const classes = useStyles();
 
   const deleteButton = authenticated && userHandle === handle ? (
-    <DeletePost postId={postId}/>
+    <DeletePost className={classes.deleteButton} postId={postId}/>
   ) : null
   
   useEffect( () => {
