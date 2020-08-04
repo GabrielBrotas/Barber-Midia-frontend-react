@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import PropTypes from 'prop-types'
 import LeftSideDescription from '../components/layout/LeftSideDescription'
+import Search from '../components/others/Search'
 
 // redux
 import {useSelector, useDispatch} from 'react-redux'
@@ -82,6 +83,10 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '0.8rem',
       marginTop: 10,
       textAlign: 'center'
+  },
+  searchInput: {
+    color: "#281414",
+    zIndex: 10,
   }
 }));
 
@@ -95,6 +100,8 @@ function SignUpSide(props) {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [category, setCategory] = useState('Usuario')
+  const [openMapInput, setOpenMapInput] = useState(false)
+  const [location, setLocaion] = useState({})
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState({})
 
@@ -118,6 +125,7 @@ function SignUpSide(props) {
       category
     }
     dispatch(signupUser(userData, props.history))
+
   }
   
   return (
@@ -194,6 +202,8 @@ function SignUpSide(props) {
             
             <SelectForm onChangeSelect={setCategory} category={category}/>
 
+            <Search />
+
             <FormControlLabel
               control={<Checkbox value="remember" style={{color: '#A77D2D'}} />}
               label="Concordo com os termos e políticas da empresa."
@@ -231,6 +241,7 @@ function SignUpSide(props) {
     </Grid>
   );
 }
+
 
 SignUpSide.protoTypes = {
   signupUser: PropTypes.func.isRequired,

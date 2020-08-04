@@ -57,9 +57,8 @@ function SimpleSelect(props) {
           label="Category"
         >
           <MenuItem value='Usuario'>Usuario</MenuItem>
-          <MenuItem value='Barber Shop'>Barber Shop</MenuItem>
-          <MenuItem value='Salao'>Salao</MenuItem>
-          <MenuItem value="Barbearia">Barbearia</MenuItem>
+          <MenuItem value='Cabeleireiro'>Cabeleireiro(a)</MenuItem>
+          <MenuItem value='Tatuador'>Tatuador(a)</MenuItem>
         </Select>
       </CssFormControl>
     </div>

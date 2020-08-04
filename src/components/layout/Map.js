@@ -1,4 +1,4 @@
-import React, {useCallback, useState, useRef, useEffect, Fragment} from 'react'
+import React, {useCallback, useState, useRef, useEffect} from 'react'
 import usePlacesAutocomplete, {getGeocode, getLatLng} from 'use-places-autocomplete'
 import {Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption} from "@reach/combobox"
 import { GoogleMap, Marker, InfoWindow, useLoadScript } from '@react-google-maps/api';
@@ -36,6 +36,7 @@ function MyComponent(props) {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
     libraries,
   })
+  
   const {places, loading, setUserSelected, userSelected} = props
   const [selected, setSelected] = useState(null)
   const [markers, setMarkers] = useState([])

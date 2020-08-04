@@ -46,6 +46,9 @@ export const signupUser = (newUserData, history) => (dispatch) => {
         await setAuthorizationHeader(res.data.userToken.i)
         dispatch(getUserData());
         dispatch({type: CLEAR_ERRORS})
+        if (newUserData.category !== "usuario") {
+            dispatch(saveLocation(newUserData))
+        }
         history.push('/')
     })
     .catch( err => {
@@ -55,6 +58,21 @@ export const signupUser = (newUserData, history) => (dispatch) => {
         })
     })
 }
+
+export const saveLocation = (data) => (dispatch) => {
+
+    axios.post('/savelocation', data.location)
+    .then( res => {
+        
+    })
+    .catch( err => {
+        dispatch({
+            type: SET_ERRORS,
+            payload: err.response.data
+        })
+    })
+}
+
 
 export const logoutUser = () => (dispatch) => {
     // remover o local Storage com os dados do user
