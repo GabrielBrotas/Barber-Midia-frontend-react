@@ -1,13 +1,37 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
-import { useLoadScript } from '@react-google-maps/api';
-import '../layout/Map'
 
-const Search = () => {
+// MUI
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import withStyles from '@material-ui/core/styles/withStyles'
+import theme from '../../utils/theme'
+import CssTextField from './CssTextField'
+
+const styles = {
+    listForm:{
+        backgroundColor: "#fff",
+        color: theme.backgroundColorSecondary
+    }
+}
+
+const Search = (props) => {
+
+    const {classes, setLocation} = props
+    const [lat, setLat] = useState(null)
+    const [lng, setLng] = useState(null)
+
+    useEffect( () => {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            setLat(position.coords.latitude);
+            setLng(position.coords.longitude);
+        });
+    }, [])
 
     const {
         ready,
@@ -17,7 +41,9 @@ const Search = () => {
         clearSuggestions,
     } = usePlacesAutocomplete({
         requestOptions: {
-        /* Define search scope here */
+            location: new window.google.maps.LatLng(lat, lng),
+            radius: 2000,
+            types: ['address']
         },
         debounce: 300,
     });
@@ -42,7 +68,7 @@ const Search = () => {
         getGeocode({ address: description })
         .then((results) => getLatLng(results[0]))
         .then(({ lat, lng }) => {
-            console.log("📍 Coordinates: ", { lat, lng });
+            setLocation({description, lat, lng})
         })
         .catch((error) => {
             console.log("😱 Error: ", error);
@@ -57,26 +83,37 @@ const Search = () => {
         } = suggestion;
 
         return (
-            <li key={id} onClick={handleSelect(suggestion)}>
-            <strong>{main_text}</strong> <small>{secondary_text}</small>
-            </li>
+            <ListItem key={id} onClick={handleSelect(suggestion)} button>
+                <ListItemText key={id} primary={main_text} secondary={secondary_text} />
+            </ListItem>
         );
         });
 
     return (
 
         <div ref={ref}>
-        <input
+        <CssTextField
             value={value}
             onChange={handleInput}
             disabled={!ready}
+            variant="filled"
+            margin="normal"
+            fullWidth
+            id="location"
+            label="Location *"
             placeholder="Localização do seu estabelecimento"
+            name="location"
+            autoComplete="location"
+             
+            // helperText={errors.handle} error={errors.handle ? true : false}
         />
         {/* We can use the "status" to decide whether we should display the dropdown or not */}
-        {status === "OK" && <ul>{renderSuggestions()}</ul>}
+        {status === "OK" && <List className={classes.listForm}>{renderSuggestions()}</List>}
+
         </div>
+        
 
     );
 };
 
-export default Search
+export default withStyles(styles)(Search)

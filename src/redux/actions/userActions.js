@@ -2,9 +2,7 @@ import {SET_ERRORS, SET_USER, GET_USERS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENT
 import axios from 'axios'
 
 export const getAllUsers = () => (dispatch) => {
-    
     dispatch({type: LOADING_USER});
-
     axios.get('/users')
     .then( res => {
         dispatch({type: GET_USERS, payload: res.data})
@@ -26,8 +24,6 @@ export const loginUser = (userData, history) => (dispatch) => {
         history.push('/')
     })
     .catch( err => {
-
-        console.log(err)
         dispatch({
             type: SET_ERRORS,
             payload: err.response.data
@@ -35,19 +31,18 @@ export const loginUser = (userData, history) => (dispatch) => {
     })
 }
 
-export const signupUser = (newUserData, history) => (dispatch) => {
+export const signupUser = (newUserData, history, locationData) => (dispatch) => {
 
-    // mandar actions para dizer que está carregando a pagina
     dispatch({type: LOADING_UI});
     dispatch(logoutUser())
-    // fazer requisição para logar o user
+
     axios.post('/signup', newUserData)
     .then( async res => {
         await setAuthorizationHeader(res.data.userToken.i)
         dispatch(getUserData());
         dispatch({type: CLEAR_ERRORS})
-        if (newUserData.category !== "usuario") {
-            dispatch(saveLocation(newUserData))
+        if (newUserData.category !== "Usuario") {
+            dispatch(saveLocation(locationData))
         }
         history.push('/')
     })
@@ -61,11 +56,12 @@ export const signupUser = (newUserData, history) => (dispatch) => {
 
 export const saveLocation = (data) => (dispatch) => {
 
-    axios.post('/savelocation', data.location)
+    axios.post('/savelocation', data)
     .then( res => {
         
     })
     .catch( err => {
+        console.log(err)
         dispatch({
             type: SET_ERRORS,
             payload: err.response.data

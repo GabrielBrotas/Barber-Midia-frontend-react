@@ -1,6 +1,6 @@
 import React, {useCallback, useState, useRef, useEffect} from 'react'
 import usePlacesAutocomplete, {getGeocode, getLatLng} from 'use-places-autocomplete'
-import {Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption} from "@reach/combobox"
+import {Combobox, ComboboxInput, ComboboxPopover, ComboboxOption} from "@reach/combobox"
 import { GoogleMap, Marker, InfoWindow, useLoadScript } from '@react-google-maps/api';
 import { makeStyles } from '@material-ui/core/styles';
 import markerIcon from '../../assets/images/barbeiro.png'

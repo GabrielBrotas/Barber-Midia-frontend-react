@@ -1,11 +1,11 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, Fragment} from 'react';
 import PropTypes from 'prop-types'
 import LeftSideDescription from '../components/layout/LeftSideDescription'
 import Search from '../components/others/Search'
 
 // redux
 import {useSelector, useDispatch} from 'react-redux'
-import {signupUser} from '../redux/actions/userActions'
+import {signupUser, saveLocation} from '../redux/actions/userActions'
 
 // components
 import SelectForm from '../components/others/SelectForm'
@@ -100,8 +100,8 @@ function SignUpSide(props) {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [category, setCategory] = useState('Usuario')
-  const [openMapInput, setOpenMapInput] = useState(false)
-  const [location, setLocaion] = useState({})
+  const [title, setTitle] = useState('')
+  const [location, setLocation] = useState({})
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState({})
 
@@ -124,9 +124,10 @@ function SignUpSide(props) {
       handle,
       category
     }
-    dispatch(signupUser(userData, props.history))
-
+    dispatch(signupUser(userData, props.history, {title, handle, category, ...location}))
+    
   }
+
   
   return (
     <Grid container component="main" className={classes.root}>
@@ -146,7 +147,6 @@ function SignUpSide(props) {
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
             
             <CssTextField
-              className={classes.inputForm}
               variant="filled"
               margin="normal"
               required
@@ -160,7 +160,6 @@ function SignUpSide(props) {
               helperText={errors.handle} error={errors.handle ? true : false}
             />
             <CssTextField
-              className={classes.inputForm}
               variant="filled"
               margin="normal"
               required
@@ -173,7 +172,6 @@ function SignUpSide(props) {
               helperText={errors.email} error={errors.email ? true : false}
             />
             <CssTextField
-              className={classes.inputForm}
               variant="filled"
               margin="normal"
               required
@@ -187,7 +185,6 @@ function SignUpSide(props) {
               helperText={errors.password} error={errors.password ? true : false}
             />
             <CssTextField
-              className={classes.inputForm}
               variant="filled"
               margin="normal"
               required
@@ -202,7 +199,24 @@ function SignUpSide(props) {
             
             <SelectForm onChangeSelect={setCategory} category={category}/>
 
-            <Search />
+            {category !== "Usuario" && 
+            <Fragment>
+              <CssTextField
+                variant="filled"
+                margin="normal"
+                required
+                fullWidth
+                id="title"
+                label="Title"
+                placeholder="Nome do estabelecimento"
+                name="title"
+                onChange={(e) => setTitle(e.target.value)} 
+                helperText={errors.title} error={errors.title ? true : false}
+              />
+              <Search setLocation={setLocation} />
+            </Fragment>
+            }
+            
 
             <FormControlLabel
               control={<Checkbox value="remember" style={{color: '#A77D2D'}} />}
