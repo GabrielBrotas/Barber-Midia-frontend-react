@@ -6,6 +6,9 @@ const styles = {
     fontMainColor: '#fff',
     fontSecondaryColor: "#939393",
     unlikeButton: '#6c6060',
+    container: {
+        marginTop: "5rem"
+    }
     
 }
 

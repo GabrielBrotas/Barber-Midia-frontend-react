@@ -19,7 +19,7 @@ export const getAllPlaces = () => (dispatch) => {
     
     dispatch({type: LOADING_DATA});
 
-    axios.get('/users/places')
+    axios.get('/places')
     .then( res => {
         dispatch({type: GET_PLACES, payload: res.data})
     })

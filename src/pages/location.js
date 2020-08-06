@@ -44,7 +44,7 @@ function Location(props) {
 
     useEffect( () => {
         userSelected 
-        ? users.map( user => user.handle === userSelected.userOwner && setBarber(user))
+        ? users.map( user => user.handle === userSelected.handle && setBarber(user))
         : setBarber(null)
         
     }, [userSelected, users])

@@ -1,9 +1,10 @@
-import React, {useCallback, useState, useRef, useEffect} from 'react'
+import React, {useCallback, useState, useRef, useEffect, Fragment} from 'react'
 import usePlacesAutocomplete, {getGeocode, getLatLng} from 'use-places-autocomplete'
 import {Combobox, ComboboxInput, ComboboxPopover, ComboboxOption} from "@reach/combobox"
 import { GoogleMap, Marker, InfoWindow, useLoadScript } from '@react-google-maps/api';
 import { makeStyles } from '@material-ui/core/styles';
 import markerIcon from '../../assets/images/barbeiro.png'
+
 const libraries = ['places']
  
 const center = {
@@ -26,7 +27,20 @@ const containerStyle = {
 const useStyles = makeStyles({
   searchInput: {
     color: "#281414",
-    zIndex: 10,
+    display: 'block',
+    borderRadius: "8px",
+    border: "none",
+    backgroundColor: "#fff",
+    borderBottom: "1px solid transparent",
+    transitionProperty: "background,box-shadow",
+    transitionDuration: "0.3s"
+
+
+    
+  },
+  mapActions: {
+    display: "flex",
+    justifyContent: "center"
   }
 });
 
@@ -60,9 +74,12 @@ function MyComponent(props) {
 
   return (
     <div className={classes.mapContent}>
-    <Search panTo={panTo} />
-    <Locate panTo={panTo} />
 
+    <div className={classes.mapActions}>
+      <Search panTo={panTo} />
+      <Locate panTo={panTo} />
+    </div>
+    
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={center}
@@ -72,6 +89,7 @@ function MyComponent(props) {
     >
       { /* Child components, such as markers, info windows, etc. */ }
       {markers.map( marker => (
+        
         <Marker 
           key={marker.createdAt}
           position={{ lat: marker.lat, lng: marker.lng}} 
@@ -99,7 +117,11 @@ function MyComponent(props) {
       }}>
         <div>
           {userSelected &&
-          <h2>Owner: {userSelected.userOwner}</h2>
+          <Fragment>
+          <h2>Owner: {userSelected.handle}</h2>
+          <h4>location: {userSelected.description}</h4>
+          </Fragment>
+          
           }
         </div>
       </InfoWindow>) : null}
@@ -128,14 +150,22 @@ function Locate({panTo}) {
  
 function Search({panTo}) {
   const classes = useStyles();
+  const [lat, setLat] = useState(null)
+  const [lng, setLng] = useState(null)
+
+  useEffect( () => {
+    navigator.geolocation.getCurrentPosition(function(position) {
+        setLat(position.coords.latitude);
+        setLng(position.coords.longitude);
+    });
+  }, [])
+
   // 200m *1000 para transformar em km 
   const {ready, value, suggestions: {status, data}, setValue, clearSuggestions} = usePlacesAutocomplete({
     requestOptions: {
-      location: {lat: () => -12.6975,
-      lng: () => -38.32417},
+      location: new window.google.maps.LatLng(lat, lng),
       radius: 200 * 1000
-    }
-  })
+  }})
 
   return (
   <Combobox 

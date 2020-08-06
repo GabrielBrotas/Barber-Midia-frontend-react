@@ -5,7 +5,7 @@ import Search from '../components/others/Search'
 
 // redux
 import {useSelector, useDispatch} from 'react-redux'
-import {signupUser, saveLocation} from '../redux/actions/userActions'
+import {signupUser} from '../redux/actions/userActions'
 
 // components
 import SelectForm from '../components/others/SelectForm'

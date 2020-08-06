@@ -28,7 +28,8 @@ import PinDrop from '@material-ui/icons/PinDrop'
 
 const useStyles = makeStyles((theme) => ({
   navbar: {
-    backgroundColor: mainStyles.backgroundColorMain
+    backgroundColor: mainStyles.backgroundColorMain,
+    position: "fixed",
   },
   leftActions: {
     marginRight: 'auto'
