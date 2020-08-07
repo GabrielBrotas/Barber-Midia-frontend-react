@@ -1,21 +1,25 @@
 import React, {useCallback, useState, useRef, useEffect, Fragment} from 'react'
 import usePlacesAutocomplete, {getGeocode, getLatLng} from 'use-places-autocomplete'
-import {Combobox, ComboboxInput, ComboboxPopover, ComboboxOption} from "@reach/combobox"
+import {Combobox,  ComboboxPopover, ComboboxOption, ComboboxInput} from "@reach/combobox"
 import { GoogleMap, Marker, InfoWindow, useLoadScript } from '@react-google-maps/api';
 import { makeStyles } from '@material-ui/core/styles';
+import useOnclickOutside from "react-cool-onclickoutside";
 import markerIcon from '../../assets/images/barbeiro.png'
+import RestoreIcon from '@material-ui/icons/Restore';
 
+// configs
 const libraries = ['places']
- 
+
 const center = {
   lat: -12.6975,
   lng: -38.32417
 };
 
 // styles = snazzymaps.com
+// todo, map styles
 const options = {
   disableDefaultUI: true,
-  zoomControl: true  
+  zoomControl: true,
 }
 
 // styles
@@ -25,18 +29,37 @@ const containerStyle = {
 };
 
 const useStyles = makeStyles({
-  searchInput: {
-    color: "#281414",
-    display: 'block',
-    borderRadius: "8px",
-    border: "none",
-    backgroundColor: "#fff",
-    borderBottom: "1px solid transparent",
-    transitionProperty: "background,box-shadow",
-    transitionDuration: "0.3s"
-
-
-    
+  comboboxInput: {
+    border: 0,
+    borderBottom:" 2px solid #9e9e9e",
+    outline: "none",
+    transition: ".2s ease-in-out",
+    boxSizing: "border-box",
+    height: "2rem",
+    marginBottom: ".3rem",
+    borderRadius: ".5rem",
+    padding: "1rem",
+    "&:focus": {
+      borderBottom: '2px solid #A77D2D'
+    }
+  },
+  goBack: {
+    color: "#A77D2D",
+    alignSelf: "center",
+    cursor: "pointer",
+    marginBottom: ".3rem",
+    marginLeft: ".5rem",
+    padding: ".1rem",
+    verticalAlign: "top",
+    borderRadius: "50%",
+    "&:hover": {
+      color: "#b1832b",
+      backgroundColor: "rgba(0,0,0,0.1)"
+    },
+    "& .MuiSvgIcon-root": {
+      width: "2rem",
+      height: "2rem"
+    }
   },
   mapActions: {
     display: "flex",
@@ -76,7 +99,7 @@ function MyComponent(props) {
     <div className={classes.mapContent}>
 
     <div className={classes.mapActions}>
-      <Search panTo={panTo} />
+      <Search setUserSelected={setUserSelected} setSelected={setSelected} panTo={panTo} />
       <Locate panTo={panTo} />
     </div>
     
@@ -130,25 +153,8 @@ function MyComponent(props) {
 
   )
 }
-
-function Locate({panTo}) {
-  return (
-    <button onClick={() => {
-      navigator.geolocation.getCurrentPosition( position => {
-        panTo({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        })
-      },
-      () => null
-      )}}
-    >
-      voltar
-    </button>
-  )
-}
  
-function Search({panTo}) {
+function Search({panTo, setUserSelected, setSelected}) {
   const classes = useStyles();
   const [lat, setLat] = useState(null)
   const [lng, setLng] = useState(null)
@@ -164,16 +170,21 @@ function Search({panTo}) {
   const {ready, value, suggestions: {status, data}, setValue, clearSuggestions} = usePlacesAutocomplete({
     requestOptions: {
       location: new window.google.maps.LatLng(lat, lng),
-      radius: 200 * 1000
+      radius: 200 * 1000,
+      types: ['address']
   }})
+
+  const ref = useOnclickOutside(() => {
+    setSelected(null)
+    setUserSelected(null)
+  });
 
   return (
   <Combobox 
-  className={classes.searchInput}
+  ref={ref}
   onSelect={ async (address) => {
     setValue(address, false)
     clearSuggestions()
-
     try{
       const results = await getGeocode({address})
       const {lat, lng} = await getLatLng(results[0])
@@ -183,7 +194,7 @@ function Search({panTo}) {
     }
   }}
   >
-    <ComboboxInput value={value} onChange={(e) => {
+    <ComboboxInput className={classes.comboboxInput} value={value} onChange={(e) => {
       setValue(e.target.value)
     }} 
     disabled={!ready}
@@ -198,5 +209,27 @@ function Search({panTo}) {
   </Combobox>
   )
 }
+
+function Locate({panTo}) {
+  const classes = useStyles();
+  return (
+    <div className={classes.goBack}>
+      <RestoreIcon onClick={() => {
+        navigator.geolocation.getCurrentPosition( position => {
+          panTo({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          })
+        },
+        () => null
+        )}}
+    
+      />
+    </div>
+  )
+}
+
+
+
 
 export default React.memo(MyComponent)
