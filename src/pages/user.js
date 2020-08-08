@@ -25,7 +25,7 @@ function User(props) {
 
     const usersList = useSelector(state => state.user)
     const {users, loading} = usersList
-
+    
     const postList = useSelector(state => state.data)
     const {posts} = postList
 
@@ -43,9 +43,12 @@ function User(props) {
     }, [dispatch])
 
     useEffect( () => {
-        setSelectedUser(users.filter( user => userHandle === user.userId))
+        users.forEach( user => {
+            userHandle === user.handle
+            && setSelectedUser(user)
+        })
     }, [userHandle, users])
-
+ 
     useEffect( () => {
         !posts.lenght > 0 ?
         setUserPosts(
@@ -59,7 +62,7 @@ function User(props) {
         (<Grid container spacing={4}>
             
             <Grid item sm={4} xs={12}>
-                <Barber selectedUser={selectedUser}/> 
+                <Barber barber={selectedUser}/> 
             </Grid>
 
             <Grid item sm={8} xs={12} className={classes.GalleryContent}>

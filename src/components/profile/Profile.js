@@ -3,10 +3,12 @@ import PropTypes from 'prop-types'
 import withStyles from '@material-ui/core/styles/withStyles'
 import {Link} from 'react-router-dom'
 import dayjs from 'dayjs'
-import MyButton from '../../utils/MyButton'
 import theme from '../../utils/theme'
-import ProfileSkeleton from './ProfileSkeleton'
 
+// components
+import MyButton from '../../utils/MyButton'
+import ProfileSkeleton from './ProfileSkeleton'
+import EditDetails from './EditDetails.js'
 // redux
 import { useSelector, useDispatch } from 'react-redux'
 import {uploadImage, logoutUser} from '../../redux/actions/userActions'
@@ -182,7 +184,7 @@ function Profile(props) {
                 <KeyboardReturn className={classes.iconProfile} />
             </MyButton>
 
-            {/* <EditDetails /> */}
+            <EditDetails />
 
             </div>
         </Paper>

@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react'
+import theme from '../../utils/theme'
 import withStyles from '@material-ui/core/styles/withStyles'
 import dayjs from 'dayjs'
 
@@ -15,49 +16,51 @@ import CalendarToday from '@material-ui/icons/CalendarToday'
 
 const styles = {
     paper: {
-    padding: 20
+        padding: 20,
+        backgroundColor: theme.backgroundColorMain,
+        color: theme.fontMainColor,
     },
     profile: {
-    '& .image-wrapper': {
-        textAlign: 'center',
-        position: 'relative',
-        '& button': {
-        position: 'absolute',
-        top: '80%',
-        left: '70%'
-        }
-    },
-    '& .profile-image': {
-        width: 200,
-        height: 200,
-        objectFit: 'cover',
-        maxWidth: '100%',
-        borderRadius: '50%'
-    },
-    '& .profile-details': {
-        textAlign: 'center',
-        '& span, svg': {
-        verticalAlign: 'middle'
+        '& .image-wrapper': {
+            textAlign: 'center',
+            position: 'relative',
+            '& button': {
+            position: 'absolute',
+            top: '80%',
+            left: '70%'
+            }
         },
-        '& a': {
-        color: '#00bcd4'
+        '& .profile-image': {
+            width: 200,
+            height: 200,
+            objectFit: 'cover',
+            maxWidth: '100%',
+            borderRadius: '50%'
+        },
+        '& .profile-details': {
+            textAlign: 'center',
+            '& span, svg': {
+            verticalAlign: 'middle'
+            },
+            '& a': {
+            color: theme.mainColor
+            }
+        },
+        '& hr': {
+            border: 'none',
+            margin: '0 0 10px 0'
+        },
+        '& svg.button': {
+            '&:hover': {
+            cursor: 'pointer'
+            }
         }
-    },
-    '& hr': {
-        border: 'none',
-        margin: '0 0 10px 0'
-    },
-    '& svg.button': {
-        '&:hover': {
-        cursor: 'pointer'
-        }
-    }
     },
     buttons: {
-    textAlign: 'center',
-    '& a': {
-        margin: '20px 10px'
-    }
+        textAlign: 'center',
+        '& a': {
+            margin: '20px 10px'
+        }
     }
     
 }
@@ -81,7 +84,7 @@ function Barber(props) {
             <div className="profile-details">
 
                 {/* link para o perfil dele */}
-                <MuiLink color="primary" variant="h5">
+                <MuiLink style={{cursor: "pointer"}} color="primary" variant="h5">
                     @{barber.handle}
                 </MuiLink>
                 <hr/>

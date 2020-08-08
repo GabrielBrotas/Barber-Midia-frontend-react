@@ -1,4 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react'
+import theme from '../utils/theme'
 
 // redux
 import {useSelector, useDispatch} from 'react-redux'
@@ -19,7 +20,12 @@ const styles = {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-around'
-    }
+    },
+    BarberContent: {
+        marginTop: "43.32px",
+        backgroundColor: theme.backgroundColorMain,
+        color: theme.fontMainColor,
+    }   
 }
 
 function Location(props) {
@@ -67,7 +73,9 @@ function Location(props) {
             </Grid>
 
             <Grid item sm={4} xs={12}>
-                <Barber barber={barber} />
+                <div className={classes.BarberContent}>
+                    <Barber barber={barber} />
+                </div>
             </Grid>      
         </Grid>
 

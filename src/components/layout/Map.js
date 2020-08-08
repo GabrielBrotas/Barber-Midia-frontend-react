@@ -36,6 +36,7 @@ const useStyles = makeStyles({
     transition: ".2s ease-in-out",
     boxSizing: "border-box",
     height: "2rem",
+    width: "15rem",
     marginBottom: ".3rem",
     borderRadius: ".5rem",
     padding: "1rem",
@@ -64,6 +65,22 @@ const useStyles = makeStyles({
   mapActions: {
     display: "flex",
     justifyContent: "center"
+  },
+  popOver: {
+    backgroundColor: "#fff",
+    marginTop: ".2rem",
+    borderRadius: "1rem",
+    width: "100%"
+  },
+  popOverOptions: {
+    listStyle: "none",
+    padding: ".8rem",
+    borderBottom:" 1px solid #9e9e9e",
+    cursor: "pointer",
+    "&:hover": {
+      color: "#b1832b",
+      backgroundColor: "rgba(0,0,0,0.1)"
+    },
   }
 });
 
@@ -174,14 +191,10 @@ function Search({panTo, setUserSelected, setSelected}) {
       types: ['address']
   }})
 
-  const ref = useOnclickOutside(() => {
-    setSelected(null)
-    setUserSelected(null)
-  });
+
 
   return (
   <Combobox 
-  ref={ref}
   onSelect={ async (address) => {
     setValue(address, false)
     clearSuggestions()
@@ -200,10 +213,10 @@ function Search({panTo, setUserSelected, setSelected}) {
     disabled={!ready}
     placeholder="Entry Address"
     />
-    <ComboboxPopover>
+    <ComboboxPopover className={classes.popOver}>
       {status === "OK" && 
         data.map(({id, description}) => (
-          <ComboboxOption key={id} value={description} />
+          <ComboboxOption className={classes.popOverOptions} key={id} value={description} />
         ))}
     </ComboboxPopover>
   </Combobox>
