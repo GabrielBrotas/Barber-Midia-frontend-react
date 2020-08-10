@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import withStyles from '@material-ui/core/styles/withStyles'
 
 import MyButton from '../../utils/MyButton'
-
+import SelectForm from '../others/SelectForm'
 // redux
 import {connect} from 'react-redux'
 import {editUserDetails} from '../../redux/actions/userActions'
@@ -25,157 +25,141 @@ const styles = (theme) => ({
     }
 })
 
-class EditDetails extends Component {
+function EditDetails(props) {
 
-    // estados ondee ficarao os dados do usuario
-    state = {
-        bio: '',
-        instagram: '',
-        location: '',
-        open: false
-    };
-
-    // quando carregar o conteudo...
-    componentDidMount(){
-        // pegar as credentials do user
-        const {credentials} = this.props
-        // colocar os dados no state 
-        this.mapUserDetailsToState(credentials)
-    }
+    // estados onde ficarao os dados do usuario
+    const [bio, setBio] = useState('')
+    const [instagram, setInstagram] = useState('')
+    const [location, setLocation] = useState('')
+    const [category, setCategory] = useState('Usuario')
+    const [open, setOpen] = useState(false)
+    const {credentials, places, classes} = props
+    
+    useEffect( () => {
+        mapUserDetailsToState(credentials)
+    }, [credentials])
 
     // colocar os dados do usuario logado no state
-    mapUserDetailsToState = (credentials) => {
-        this.setState({
-            bio: credentials.bio ? credentials.bio : '',
-            website: credentials.website ? credentials.website : '',
-            location: credentials.location ? credentials.location : ''
+    const mapUserDetailsToState = (credentials) => {
+        setBio(credentials.bio ? credentials.bio : '')
+        setInstagram(credentials.instagram ? credentials.instagram : '')
+        setCategory(credentials.category ? credentials.category : 'Usuario')
+        places.forEach( place => {
+            place.handle === credentials.handle && setLocation(place.description)
         })
     }
 
     // abrir o pop up
-    handleOpen = () => {
-        this.setState({open: true})
-        this.mapUserDetailsToState(this.props.credentials);
+    const handleOpen = () => {
+        setOpen(true)
+        mapUserDetailsToState(props.credentials);
     }
 
     // fechar pop up
-    handleClose = () => {
-        this.setState({open: false})
-    }
-
-    // alterar o valor das info do usuario
-    handleChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
+    const handleClose = () => {
+        setOpen(false)
     }
 
     // salvar dados
-    handleSubmit = () => {
+    const handleSubmit = () => {
         const userDetails = {
-            bio: this.state.bio,
-            website: this.state.website,
-            category: this.state.category,
-            location: this.state.location,
+            bio,
+            instagram,
+            category,
+            location
         }
         // mandar para a action do user os novos dados para salvar
-        this.props.editUserDetails(userDetails);
+        // todo, dispatch save details teestar
+        props.editUserDetails(userDetails);
         // fechar pop up
         this.handleClose();
     }
 
-    render() {
-        const {classes} = this.props
+    return (
+        <Fragment>
+            {/* butao para abrir o pop up */}
+            <MyButton tip="Edit Details" btnClassName={classes.button} onClick={handleOpen}>
+                <EditIcon color="primary"/>
+            </MyButton>
 
-        return (
-            <Fragment>
-                {/* butao para abrir o pop up */}
-                <MyButton tip="Edit Details" btnClassName={classes.button} onClick={this.handleOpen}>
-                    <EditIcon color="primary"/>
-                </MyButton>
+            {/* caixa do pop up */}
+            <Dialog 
+            // estado
+            open={open}
+            onClose={handleClose}
+            fullWidth
+            // os tipos de width do dialog está na documentação do material ui
+            maxWidth="sm">
+                <DialogTitle>Edit your Details</DialogTitle>
 
-                {/* caixa do pop up */}
-                <Dialog 
-                // estado
-                open={this.state.open}
-                onClose={this.handleClose}
-                fullWidth
-                // os tipos de width do dialog está na documentação do material ui
-                maxWidth="sm">
-                    <DialogTitle>Edit your Details</DialogTitle>
+                <DialogContent>
+                    <form>
+                        {/* bio text */}
+                        <TextField 
+                        name="bio" 
+                        type="text" 
+                        label="Bio" 
+                        multiline 
+                        rows="3" 
+                        placeholder="A short bio about yourself" 
+                        className={classes.textField} 
+                        value={bio} 
+                        onChange={(e) => setBio(e.target.value)} 
+                        fullWidth 
+                        />
 
-                    <DialogContent>
-                        <form>
+                        {/* instagram text */}
+                        <TextField 
+                        name="instagram" 
+                        type="text" 
+                        label="Instagram"  
+                        placeholder="your personal and professional instagram" 
+                        className={classes.textField} 
+                        value={instagram} 
+                        onChange={(e) => setInstagram(e.target.value)} 
+                        fullWidth 
+                        />
 
-                            {/* bio text */}
-                            <TextField 
-                            name="bio" 
-                            type="text" 
-                            label="Bio" 
-                            multiline 
-                            rows="3" 
-                            placeholder="A short bio about yourself" 
-                            className={classes.textField} 
-                            value={this.state.bio} 
-                            onChange={this.handleChange} 
-                            fullWidth 
-                            />
+                        {/* category text */}
+                        <SelectForm
+                        name="category" 
+                        label="Category"
+                        category={category}
+                        fontColor={"#000"}
+                        onChangeSelect={(e) => setCategory(e.target.value)} 
+                        fullWidth 
+                        />
 
-                            {/* instagram text */}
-                            <TextField 
-                            name="instagram" 
-                            type="text" 
-                            label="Instagram"  
-                            placeholder="your personal and professional instagram" 
-                            className={classes.textField} 
-                            value={this.state.instagram} 
-                            onChange={this.handleChange} 
-                            fullWidth 
-                            />
+                        {/* localização text */}
+                        <TextField 
+                        name="location" 
+                        type="text" 
+                        label="Location" 
+                        placeholder="Where you work at" 
+                        className={classes.textField} 
+                        value={location} 
+                        onChange={(e) => setLocation(e.target.value)} 
+                        fullWidth 
+                        />
 
-                            {/* category text */}
-                            <TextField 
-                            name="category" 
-                            type="text" 
-                            label="Category"  
-                            placeholder="your personal and professional category" 
-                            className={classes.textField} 
-                            value={this.state.category} 
-                            onChange={this.handleChange} 
-                            fullWidth 
-                            />
+                    </form>
+                </DialogContent>
 
-                            {/* localização text */}
-                            <TextField 
-                            name="location" 
-                            type="text" 
-                            label="Location" 
-                            placeholder="Where you live" 
-                            className={classes.textField} 
-                            value={this.state.location} 
-                            onChange={this.handleChange} 
-                            fullWidth 
-                            />
+                <DialogActions>
 
-                        </form>
-                    </DialogContent>
+                    <Button onClick={handleClose} color="primary">
+                        Cancel
+                    </Button>
 
-                    <DialogActions>
+                    <Button onClick={handleSubmit} color="primary">
+                        Save
+                    </Button>
 
-                        <Button onClick={this.handleClose} color="primary">
-                            Cancel
-                        </Button>
+                </DialogActions>
 
-                        <Button onClick={this.handleSubmit} color="primary">
-                            Save
-                        </Button>
-
-                    </DialogActions>
-
-                </Dialog>
-            </Fragment>
-        )
-    }
+            </Dialog>
+        </Fragment>
+    )
 }
 
 EditDetails.protoTypes = {

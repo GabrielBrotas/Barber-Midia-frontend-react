@@ -127,7 +127,6 @@ function SignUpSide(props) {
     dispatch(signupUser(userData, props.history, {title, handle, category, ...location}))
     
   }
-
   
   return (
     <Grid container component="main" className={classes.root}>
@@ -197,7 +196,7 @@ function SignUpSide(props) {
               helperText={errors.confirmPassword} error={errors.confirmPassword ? true : false}
             />
             
-            <SelectForm onChangeSelect={setCategory} category={category}/>
+            <SelectForm onChangeSelect={setCategory} fontColor="#fff" category={category}/>
 
             {category !== "Usuario" && 
             <Fragment>

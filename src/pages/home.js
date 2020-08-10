@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 
 // redux
 import {useDispatch, useSelector} from 'react-redux'
-import {getPosts} from '../redux/actions/dataActions'
+import {getPosts, getAllPlaces} from '../redux/actions/dataActions'
 
 // * components
 import PostContent from '../components/posts/PostContent'
@@ -17,7 +17,7 @@ import ProfileSkeleton from '../components/profile/ProfileSkeleton'
 
 function Home(props) {
     const dataList = useSelector(state => state.data)
-    const {loading, posts} = dataList
+    const {loading, posts, places} = dataList
     
     const userInfo = useSelector(state => state.user)
     const {credentials: {handle, imageUrl}, likes, authenticated} = userInfo
@@ -28,6 +28,7 @@ function Home(props) {
 
     useEffect( () => {
         dispatch(getPosts())
+        dispatch(getAllPlaces())
     }, [dispatch])
 
     useEffect( () => {

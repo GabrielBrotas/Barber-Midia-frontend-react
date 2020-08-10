@@ -3,7 +3,6 @@ import usePlacesAutocomplete, {getGeocode, getLatLng} from 'use-places-autocompl
 import {Combobox,  ComboboxPopover, ComboboxOption, ComboboxInput} from "@reach/combobox"
 import { GoogleMap, Marker, InfoWindow, useLoadScript } from '@react-google-maps/api';
 import { makeStyles } from '@material-ui/core/styles';
-import useOnclickOutside from "react-cool-onclickoutside";
 import markerIcon from '../../assets/images/barbeiro.png'
 import RestoreIcon from '@material-ui/icons/Restore';
 

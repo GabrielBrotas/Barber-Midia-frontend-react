@@ -46,15 +46,16 @@ function SimpleSelect(props) {
 
   return (
     <div>
-      <CssFormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label">Category</InputLabel>
+      <CssFormControl variant="outlined" name="category"className={classes.formControl}>
+        <InputLabel name="category" id="demo-simple-select-outlined-label">Category</InputLabel>
         <Select
-          style={{color: "#fff"}}
+          name="category"
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
           value={props.category}
           onChange={(e) => props.onChangeSelect(e.target.value)}
           label="Category"
+          style={{color: props.fontColor}}
         >
           <MenuItem value='Usuario'>Usuario</MenuItem>
           <MenuItem value='Cabeleireiro'>Cabeleireiro(a)</MenuItem>

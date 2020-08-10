@@ -4,6 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import {Link} from 'react-router-dom'
 import dayjs from 'dayjs'
 import theme from '../../utils/theme'
+import PermIdentityIcon from '@material-ui/icons/PermIdentity'
 
 // components
 import MyButton from '../../utils/MyButton'
@@ -89,24 +90,27 @@ function Profile(props) {
 
     const userInfo = useSelector(state => state.user)
     const {
-        credentials: {handle, createdAt, imageUrl, bio, instagram, location},
+        credentials: {handle, createdAt, imageUrl, bio, instagram, location, category},
         loading,
         authenticated
     } = userInfo
+
+    const dataInfo = useSelector(state => state.data)
+    const {places} = dataInfo
 
     const dispatch = useDispatch()
     
     // Mudar foto do perfil
     const handleImageChange = (event) => {
-    // pegar a imagem, mesmo escolhendo apenas uma vai vim em um array entao vamos pegar a primeira
-    const image = event.target.files[0]
+        // pegar a imagem, mesmo escolhendo apenas uma vai vim em um array entao vamos pegar a primeira
+        const image = event.target.files[0]
 
-    // criar um formData para mandar pro backend
-    const formData = new FormData();
-    // nesse form colocar um name, o arquivo e o blob name
-    formData.append('image', image, image.name)
-    // mandar para action do redux fazer o upload
-    dispatch(uploadImage(formData))
+        // criar um formData para mandar pro backend
+        const formData = new FormData();
+        // nesse form colocar um name, o arquivo e o blob name
+        formData.append('image', image, image.name)
+        // mandar para action do redux fazer o upload
+        dispatch(uploadImage(formData))
     }
 
     const handleEditPicture = () => {
@@ -155,7 +159,10 @@ function Profile(props) {
                 </MuiLink>
                 <hr/>
 
-                {bio && <Typography variant="body2">{bio}</Typography>}
+                {bio && 
+                    <Typography variant="body2">
+                        <PermIdentityIcon className={classes.iconProfile} /> {bio}
+                    </Typography>}
                 <hr/>
 
                 {location && (
@@ -175,6 +182,15 @@ function Profile(props) {
                     </Fragment>
                 )}
 
+                {category !== "Usuario" && (
+                    <Fragment>
+                        <span rel="noopener noreferrer">
+                           {category}
+                        </span>
+                        <hr />
+                    </Fragment>
+                )}
+
                 {/* dia em que criou o perfil */}
                 <CalendarToday className={classes.iconProfile}/> {" "} <span> Joined {dayjs(createdAt).format('MMM YYYY')}</span>
                 
@@ -184,7 +200,7 @@ function Profile(props) {
                 <KeyboardReturn className={classes.iconProfile} />
             </MyButton>
 
-            <EditDetails />
+            <EditDetails places={places} />
 
             </div>
         </Paper>
