@@ -4,6 +4,8 @@ import withStyles from '@material-ui/core/styles/withStyles'
 
 import MyButton from '../../utils/MyButton'
 import SelectForm from '../others/SelectForm'
+import Search from '../others/Search'
+
 // redux
 import {connect} from 'react-redux'
 import {editUserDetails} from '../../redux/actions/userActions'
@@ -30,13 +32,13 @@ function EditDetails(props) {
     // estados onde ficarao os dados do usuario
     const [bio, setBio] = useState('')
     const [instagram, setInstagram] = useState('')
-    const [location, setLocation] = useState('')
+    const [location, setLocation] = useState({})
     const [category, setCategory] = useState('Usuario')
     const [open, setOpen] = useState(false)
     const {credentials, places, classes} = props
-    
+
     useEffect( () => {
-        mapUserDetailsToState(credentials)
+        mapUserDetailsToState(credentials)  
     }, [credentials])
 
     // colocar os dados do usuario logado no state
@@ -69,11 +71,12 @@ function EditDetails(props) {
             location
         }
         // mandar para a action do user os novos dados para salvar
-        // todo, dispatch save details teestar
+        // todo, salvar nova localização
         props.editUserDetails(userDetails);
         // fechar pop up
-        this.handleClose();
+        handleClose();
     }
+    
 
     return (
         <Fragment>
@@ -126,21 +129,14 @@ function EditDetails(props) {
                         label="Category"
                         category={category}
                         fontColor={"#000"}
-                        onChangeSelect={(e) => setCategory(e.target.value)} 
+                        onChangeSelect={setCategory} 
                         fullWidth 
                         />
 
-                        {/* localização text */}
-                        <TextField 
-                        name="location" 
-                        type="text" 
-                        label="Location" 
-                        placeholder="Where you work at" 
-                        className={classes.textField} 
-                        value={location} 
-                        onChange={(e) => setLocation(e.target.value)} 
-                        fullWidth 
-                        />
+                        { category !== "Usuario" &&
+                        <Search setLocation={setLocation}/>
+                        }
+                        
 
                     </form>
                 </DialogContent>

@@ -37,10 +37,11 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
+    
   },
   rightContent: {
     backgroundColor: theme.backgroundColorMain,
-    color: theme.fontMainColor
+    color: theme.fontMainColor,
   },
   paper: {
     margin: theme.spacing(8, 4),
