@@ -18,6 +18,7 @@ import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Tooltip from '@material-ui/core/Tooltip';
+import MuiLink from '@material-ui/core/Link'
 
 // MUI Icons
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -101,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
 
 function PrimarySearchAppBar() {
   const userInfo = useSelector(state => state.user)
-    const {authenticated} = userInfo
+  const {authenticated, loading, credentials: {category}} = userInfo
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -139,7 +140,11 @@ function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <MuiLink component={Link} to={"/account"} color="primary" >
+          My account
+        </MuiLink>
+      </MenuItem>
     </Menu>
   );
 
@@ -163,7 +168,9 @@ function PrimarySearchAppBar() {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
+  
       <MenuItem onClick={handleProfileMenuOpen}>
+       
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
@@ -171,9 +178,11 @@ function PrimarySearchAppBar() {
           color="inherit"
         >
           <AccountCircle />
+          
         </IconButton>
         <p>Profile</p>
       </MenuItem>
+   
     </Menu>
   );
 
@@ -199,7 +208,7 @@ function PrimarySearchAppBar() {
           <div className={classes.sectionDesktop}>
 
           {
-            !authenticated ? (
+            !loading && !authenticated ? (
               <Fragment> 
                 <Button color="inherit" component={Link} to="/login">Login</Button>
                 <Button color="inherit" component={Link} to="/signup">Signup</Button>
@@ -208,7 +217,8 @@ function PrimarySearchAppBar() {
               <Fragment>
 
                 <Notifications />
-
+                {
+                  category !== "Usuario" &&
                 <IconButton
                   edge="end"
                   aria-label="account of current user"
@@ -218,9 +228,11 @@ function PrimarySearchAppBar() {
                   color="inherit"
                 >
                   <Tooltip placement="top" title="Profile">
-                  <AccountCircle />
+                    <AccountCircle />
                   </Tooltip>
                 </IconButton>
+                }
+                
               </Fragment>
             )
           }

@@ -4,7 +4,6 @@ import withStyles from '@material-ui/core/styles/withStyles'
 
 import MyButton from '../../utils/MyButton'
 import SelectForm from '../others/SelectForm'
-import Search from '../others/Search'
 
 // redux
 import {connect} from 'react-redux'
@@ -32,10 +31,9 @@ function EditDetails(props) {
     // estados onde ficarao os dados do usuario
     const [bio, setBio] = useState('')
     const [instagram, setInstagram] = useState('')
-    const [location, setLocation] = useState({})
     const [category, setCategory] = useState('Usuario')
     const [open, setOpen] = useState(false)
-    const {credentials, places, classes} = props
+    const {credentials, classes} = props
 
     useEffect( () => {
         mapUserDetailsToState(credentials)  
@@ -46,9 +44,6 @@ function EditDetails(props) {
         setBio(credentials.bio ? credentials.bio : '')
         setInstagram(credentials.instagram ? credentials.instagram : '')
         setCategory(credentials.category ? credentials.category : 'Usuario')
-        places.forEach( place => {
-            place.handle === credentials.handle && setLocation(place.description)
-        })
     }
 
     // abrir o pop up
@@ -67,8 +62,7 @@ function EditDetails(props) {
         const userDetails = {
             bio,
             instagram,
-            category,
-            location
+            category
         }
         // mandar para a action do user os novos dados para salvar
         // todo, salvar nova localização
@@ -132,10 +126,6 @@ function EditDetails(props) {
                         onChangeSelect={setCategory} 
                         fullWidth 
                         />
-
-                        { category !== "Usuario" &&
-                        <Search setLocation={setLocation}/>
-                        }
                         
 
                     </form>
