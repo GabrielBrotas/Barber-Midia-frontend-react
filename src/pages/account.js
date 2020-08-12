@@ -46,6 +46,7 @@ function Account(props) {
     const [name, setName] = useState('')
     const [location, setLocation] = useState({})
     
+    // todo, colocar para o id do local ficar nos dados para poder editar
     const dispatch = useDispatch()
     useEffect( () => {
         dispatch(getAllPlaces())
@@ -54,7 +55,7 @@ function Account(props) {
     const handleSubmit = () => {
         
     }
-    
+
     return (
         !loading ?(
             <Fragment>
