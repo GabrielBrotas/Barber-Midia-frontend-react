@@ -44,31 +44,44 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CustomizedTables() {
+export default function CustomizedTables(props) {
   const classes = useStyles();
+  const {places, handle, setOpenModal, setLocation, setName} = props
+
+  const handleOpenModal = (place) => {
+      setName(place.title)
+      setLocation(place)
+      setOpenModal(true)
+  }
 
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-            <StyledTableCell align="right">Calories</StyledTableCell>
-            <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+            <StyledTableCell>Nome do estabelecimento</StyledTableCell>
+            <StyledTableCell align="right">Localização</StyledTableCell>
+            <StyledTableCell align="right">Ações</StyledTableCell>
+
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+          {places.map((place) => (
+              place.handle === handle &&
+            <StyledTableRow key={place.lat}>
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                {place.title}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-              <StyledTableCell align="right">{row.protein}</StyledTableCell>
+              <StyledTableCell align="right">{place.description}</StyledTableCell>
+              <StyledTableCell align="right">
+                  <button onClick={() => handleOpenModal(place)}>
+                      editar
+                  </button>
+                  <button>
+                      excluir
+                  </button>
+              </StyledTableCell>
+
             </StyledTableRow>
           ))}
         </TableBody>

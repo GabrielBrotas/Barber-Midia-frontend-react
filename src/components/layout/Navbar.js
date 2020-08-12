@@ -141,7 +141,7 @@ function PrimarySearchAppBar() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>
-        <MuiLink component={Link} to={"/account"} color="primary" >
+        <MuiLink component={Link} to={"/account"} color="primary" style={{textDecoration: "none", color: "#000  "}}>
           My account
         </MuiLink>
       </MenuItem>

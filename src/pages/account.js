@@ -1,12 +1,108 @@
-import React from 'react'
-import Table from '../assets/others/Table'
+import React, {useEffect, useState, Fragment} from 'react'
+import theme from '../utils/theme'
 
-function account() {
+import Table from '../components/others/Table'
+import CssTextField from '../components/others/CssTextField'
+import Search from '../components/others/Search'
+import withStyles from '@material-ui/core/styles/withStyles'
+import Button from '@material-ui/core/Button'
+
+// redux
+import {useSelector, useDispatch} from 'react-redux'
+import {getAllPlaces} from '../redux/actions/dataActions'
+
+const styles = {
+    formControl: {
+        maxWidth: 300,
+        marginLeft: "auto",
+        marginRight: "auto",
+        marginBottom: "2rem"
+    },
+    buttons: {
+        marginTop: "1rem",
+        display: 'flex',
+        justifyContent: 'space-around'
+    },
+    submitButton: {
+        backgroundColor: theme.mainColor,
+        color: theme.fontMainColor,
+        "&:hover": {
+            backgroundColor: "#664608"
+        }
+    }
+}
+
+
+function Account(props) {
+
+    const userInfo = useSelector(state => state.user)
+    const {credentials: {handle}} = userInfo
+
+    const dataInfo = useSelector(state => state.data)
+    const {loading, places} = dataInfo
+
+    const {classes} = props
+    const [openModal, setOpenModal] = useState(false)
+    const [name, setName] = useState('')
+    const [location, setLocation] = useState({})
+    
+    const dispatch = useDispatch()
+    useEffect( () => {
+        dispatch(getAllPlaces())
+    }, [dispatch])
+
+    const handleSubmit = () => {
+        
+    }
+    
     return (
-        <div>
-            <Table />
-        </div>
+        !loading ?(
+            <Fragment>
+            {openModal &&
+                <div className={classes.formControl}>
+                    <CssTextField
+                    variant="filled"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="name"
+                    label="Nome do estabelecimento"
+                    name="name"
+                    autoComplete="name"
+                    autoFocus
+                    value={name}
+                    //   onChange={(e) => setHandle(e.target.value)} 
+                    //   helperText={errors.handle} error={errors.handle ? true : false}
+                    />
+
+                    <Search oldLocation={location} setLocation={setLocation} />
+                    
+                    <div className={classes.buttons}>
+                        <Button 
+                        className={classes.submitButton}
+                        variant="contained" 
+                        onClick={() => handleSubmit()}
+                        >
+                            Submit
+                        </Button>
+                        <Button 
+                        variant="contained" 
+                        color="secondary"
+                        onClick={() => setOpenModal(false)}
+                        >
+                            Cancel
+                        </Button>
+                    </div>
+                </div>
+            }
+                
+                <Table places={places} handle={handle} setOpenModal={setOpenModal} setLocation={setLocation} setName={setName} />
+            </Fragment>
+
+        ) : (
+            <p>loading...</p>
+        )
     )
 }
 
-export default account
+export default withStyles(styles)(Account)

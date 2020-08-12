@@ -16,13 +16,14 @@ import CssTextField from './CssTextField'
 const styles = {
     listForm:{
         backgroundColor: "#fff",
-        color: theme.backgroundColorSecondary
+        color: theme.backgroundColorSecondary,
+        borderRadius: "1rem"
     }
 }
 
 const Search = (props) => {
 
-    const {classes, setLocation} = props
+    const {classes, setLocation, oldLocation} = props
     const [lat, setLat] = useState(null)
     const [lng, setLng] = useState(null)
 
@@ -56,6 +57,9 @@ const Search = (props) => {
     const handleInput = (e) => {
         // Update the keyword of the input element
         setValue(e.target.value);
+        if(oldLocation) {
+            
+        }
     };
 
     const handleSelect = ({ description }) => () => {
@@ -93,7 +97,7 @@ const Search = (props) => {
 
         <div ref={ref}>
         <CssTextField
-            value={value}
+            value={value || oldLocation.description}
             onChange={handleInput}
             disabled={!ready}
             variant="filled"

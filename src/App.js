@@ -23,6 +23,7 @@ import signup from './pages/signup'
 import location from './pages/location'
 import user from './pages/user'
 import post from './pages/post'
+import account from './pages/account'
 
 // style global
 const theme = createTheme(themeFile)
@@ -58,6 +59,7 @@ function App() {
 
       <div className="container">
       <Switch>
+        <Route exact path="/account" component={account} />
         <Route exact path="/location" component={location} />
         <Route exact path="/user/:handle/post/postId" component={post} />
         <Route exact path="/user/:handle" component={user} />
