@@ -9,6 +9,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button'
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -17,7 +18,7 @@ const StyledTableCell = withStyles((theme) => ({
   },
   body: {
     fontSize: 14,
-  },
+  }
 }))(TableCell);
 
 const StyledTableRow = withStyles((theme) => ({
@@ -33,6 +34,17 @@ const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
+  buttonEdit: {
+    fontSize: "0.8rem",
+    backgroundColor: "#FFA50E",
+    marginRight: ".8rem",
+    "&:hover": {
+      backgroundColor: "#F5820C"
+    }
+  },
+  buttonDelete: {
+    fontSize: "0.8rem"
+  }
 });
 
 export default function CustomizedTables(props) {
@@ -67,12 +79,22 @@ export default function CustomizedTables(props) {
               </StyledTableCell>
               <StyledTableCell align="right">{place.description}</StyledTableCell>
               <StyledTableCell align="right">
-                  <button onClick={() => handleOpenModal(place)}>
-                      editar
-                  </button>
-                  <button>
-                      excluir
-                  </button>
+                <div>
+                      <Button 
+                      className={classes.buttonEdit}
+                      variant="contained" 
+                      onClick={() => handleOpenModal(place)}
+                      >
+                        Editar
+                      </Button>
+                      <Button 
+                      className={classes.buttonDelete}
+                      variant="contained" 
+                      color="secondary"
+                      >
+                        Deletar
+                      </Button>
+                  </div>
               </StyledTableCell>
 
             </StyledTableRow>

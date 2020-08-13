@@ -51,8 +51,10 @@ const Search = (props) => {
 
     // first render value take oldLocation
     useEffect( () => {
-        if(oldLocation) {
+        if(oldLocation.description) {
             setValue(oldLocation.description)
+        } else {
+            setValue("")
         }
     }, [oldLocation, setValue])
 

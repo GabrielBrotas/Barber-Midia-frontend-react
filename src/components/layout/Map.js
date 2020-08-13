@@ -93,7 +93,7 @@ function MyComponent(props) {
   const {places, loading, setUserSelected, userSelected} = props
   const [selected, setSelected] = useState(null)
   const [markers, setMarkers] = useState([])
-  console.log(userSelected)
+
   useEffect( () => {
     !loading &&  (setMarkers(places))
   }, [places, selected, loading])

@@ -1,15 +1,17 @@
 import React, {useEffect, useState, Fragment} from 'react'
 import theme from '../utils/theme'
 
-import Table from '../components/others/Table'
-import CssTextField from '../components/others/CssTextField'
-import Search from '../components/others/Search'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Button from '@material-ui/core/Button'
+import SelectForm from '../components/others/SelectForm'
+import Search from '../components/others/Search'
+import Table from '../components/others/Table'
+import CssTextField from '../components/others/CssTextField'
 
 // redux
 import {useSelector, useDispatch} from 'react-redux'
 import {getAllPlaces, editPlace} from '../redux/actions/dataActions'
+import {saveLocation} from '../redux/actions/userActions'
 
 const styles = {
     formControl: {
@@ -29,6 +31,14 @@ const styles = {
         "&:hover": {
             backgroundColor: "#664608"
         }
+    },
+    addButton: {
+        backgroundColor: theme.mainColor,
+        color: theme.fontMainColor,
+        "&:hover": {
+            backgroundColor: "#664608"
+        },
+        marginBottom: "1rem"
     }
 }
 
@@ -46,6 +56,7 @@ function Account(props) {
     const [id, setId] = useState('')
     const [title, setTitle] = useState('')
     const [location, setLocation] = useState({})
+    const [category, setCategory] = useState('Cabelo Masculino')
 
     const dispatch = useDispatch()
     useEffect( () => {
@@ -53,8 +64,12 @@ function Account(props) {
     }, [dispatch])
 
     const handleSubmit = () => {
-        // todo, location nao salvando
-        dispatch(editPlace(id, {...location, title}))
+        if(id){
+            // editar
+            dispatch(editPlace(id, {...location, title}))
+        } else {
+            dispatch(saveLocation({...location, title, category, handle}))
+        }
         dispatch(getAllPlaces())
         setOpenModal(false)
     }
@@ -62,7 +77,16 @@ function Account(props) {
     return (
         !loading ?(
             <Fragment>
-            {openModal &&
+    
+            {!openModal ? (
+                <Button 
+                className={classes.addButton}
+                variant="contained" 
+                onClick={() => setOpenModal(true)}
+                >
+                    Adicionar novo estabelecimento
+                </Button>
+            ) : (
                 <div className={classes.formControl}>
                     <CssTextField
                     variant="filled"
@@ -79,7 +103,14 @@ function Account(props) {
                     //   helperText={errors.handle} error={errors.handle ? true : false}
                     />
 
-                    <Search oldLocation={location} setLocation={setLocation} />
+                    {!id && 
+                    <SelectForm 
+                    onChangeSelect={setCategory} 
+                    category={category}
+                    backgroundColor="#fff"
+                    />}
+
+                    <Search oldLocation={location || " "} setLocation={setLocation}/>
                     
                     <div className={classes.buttons}>
                         <Button 
@@ -87,7 +118,7 @@ function Account(props) {
                         variant="contained" 
                         onClick={() => handleSubmit()}
                         >
-                            Editar
+                            { id ? "Editar" : "Adicionar"}
                         </Button>
                         <Button 
                         variant="contained" 
@@ -98,9 +129,10 @@ function Account(props) {
                         </Button>
                     </div>
                 </div>
-            }
+            )}
                 
-                <Table places={places} handle={handle} setOpenModal={setOpenModal} setLocation={setLocation} setTitle={setTitle} setId={setId} />
+            <Table places={places} handle={handle} setOpenModal={setOpenModal} setLocation={setLocation} setTitle={setTitle} setId={setId} />
+
             </Fragment>
 
         ) : (

@@ -33,7 +33,10 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 120,
     width: '100%',
     '& label': {
-      color: theme.fontSecondaryColor
+      color: theme.fontSecondaryColor,
+      backgroundColor: theme.backgroundColorSecondary,
+      borderRadius: "1rem",
+      padding: "0.2rem 1.1rem"
     }
   },
   selectEmpty: {
@@ -55,11 +58,13 @@ function SimpleSelect(props) {
           value={props.category}
           onChange={(e) => props.onChangeSelect(e.target.value)}
           label="Category"
-          style={{color: props.fontColor}}
+          style={{color: props.fontColor, backgroundColor: props.backgroundColor}}
         >
           <MenuItem value='Usuario'>Usuario</MenuItem>
-          <MenuItem value='Cabeleireiro'>Cabeleireiro(a)</MenuItem>
-          <MenuItem value='Tatuador'>Tatuador(a)</MenuItem>
+          <MenuItem value='Cabelo Masculino'>Cabelo Masculino</MenuItem>
+          <MenuItem value='Cabelo Feminino'>Cabelo Feminino</MenuItem>
+          <MenuItem value='Ambos'>Ambos</MenuItem>
+          <MenuItem value='Tatuagem'>Tatuagem</MenuItem>
         </Select>
       </CssFormControl>
     </div>

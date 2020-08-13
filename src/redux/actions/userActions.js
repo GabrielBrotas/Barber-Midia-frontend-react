@@ -1,4 +1,4 @@
-import {SET_ERRORS, SET_USER, GET_USERS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER, MARK_NOTIFICATIONS_READ} from '../types'
+import {SET_ERRORS, SET_USER, GET_USERS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER, MARK_NOTIFICATIONS_READ, GET_PLACES} from '../types'
 import axios from 'axios'
 
 export const getAllUsers = () => (dispatch) => {
@@ -55,10 +55,9 @@ export const signupUser = (newUserData, history, locationData) => (dispatch) => 
 }
 
 export const saveLocation = (data) => (dispatch) => {
-
     axios.post('/savelocation', data)
     .then( res => {
-        
+        dispatch({type: GET_PLACES})
     })
     .catch( err => {
         console.log(err)
@@ -68,8 +67,6 @@ export const saveLocation = (data) => (dispatch) => {
         })
     })
 }
-
-
 
 export const logoutUser = () => (dispatch) => {
     // remover o local Storage com os dados do user
