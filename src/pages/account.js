@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button'
 
 // redux
 import {useSelector, useDispatch} from 'react-redux'
-import {getAllPlaces} from '../redux/actions/dataActions'
+import {getAllPlaces, editPlace} from '../redux/actions/dataActions'
 
 const styles = {
     formControl: {
@@ -39,21 +39,21 @@ function Account(props) {
     const {credentials: {handle}} = userInfo
 
     const dataInfo = useSelector(state => state.data)
-    const {loading, places} = dataInfo
+    const {loading} = dataInfo
 
     const {classes} = props
     const [openModal, setOpenModal] = useState(false)
-    const [name, setName] = useState('')
+    const [id, setId] = useState('')
+    const [title, setTitle] = useState('')
     const [location, setLocation] = useState({})
     
-    // todo, colocar para o id do local ficar nos dados para poder editar
     const dispatch = useDispatch()
     useEffect( () => {
         dispatch(getAllPlaces())
     }, [dispatch])
 
     const handleSubmit = () => {
-        
+        dispatch(editPlace(id, {...location, title}))
     }
 
     return (
@@ -66,13 +66,13 @@ function Account(props) {
                     margin="normal"
                     required
                     fullWidth
-                    id="name"
+                    id="title"
                     label="Nome do estabelecimento"
-                    name="name"
-                    autoComplete="name"
+                    name="title"
+                    autoComplete="title"
                     autoFocus
-                    value={name}
-                    //   onChange={(e) => setHandle(e.target.value)} 
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)} 
                     //   helperText={errors.handle} error={errors.handle ? true : false}
                     />
 
@@ -97,7 +97,7 @@ function Account(props) {
                 </div>
             }
                 
-                <Table places={places} handle={handle} setOpenModal={setOpenModal} setLocation={setLocation} setName={setName} />
+                <Table handle={handle} setOpenModal={setOpenModal} setLocation={setLocation} setTitle={setTitle} setId={setId} />
             </Fragment>
 
         ) : (

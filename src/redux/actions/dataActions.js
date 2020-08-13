@@ -25,6 +25,15 @@ export const getAllPlaces = () => (dispatch) => {
     })
 }
 
+export const editPlace = (placeId, placeData) => (dispatch) => {
+
+    axios.post('/editlocation/' + placeId, placeData)
+        .then(res => {
+            dispatch({type: GET_PLACES})
+        })
+        .catch( err => console.log(err))
+}
+
 // like a POST
 export const likePost = (postId) => dispatch => {   
     axios.get(`/post/${postId}/like`)

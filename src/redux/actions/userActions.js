@@ -70,6 +70,7 @@ export const saveLocation = (data) => (dispatch) => {
 }
 
 
+
 export const logoutUser = () => (dispatch) => {
     // remover o local Storage com os dados do user
     localStorage.removeItem('FBIdToken');
@@ -109,7 +110,6 @@ export const markNotificationsRead = (notificationIds) => (dispatch) => {
 }
 
 export const getUserData = () => (dispatch) => {
-
     dispatch({type: LOADING_USER})
     axios.get('/user')
         .then( res => {

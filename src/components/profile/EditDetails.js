@@ -65,7 +65,6 @@ function EditDetails(props) {
             category
         }
         // mandar para a action do user os novos dados para salvar
-        // todo, salvar nova localização
         props.editUserDetails(userDetails);
         // fechar pop up
         handleClose();

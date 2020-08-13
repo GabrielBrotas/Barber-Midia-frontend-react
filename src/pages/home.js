@@ -44,7 +44,6 @@ function Home(props) {
     }, [dataList, loading, posts, likes, authenticated, handle, imageUrl])
     
     return (
-        // todo, posts skeletor while loading
         loading ? <Grid container spacing={4}>
             
         {/* coluna das screams */}

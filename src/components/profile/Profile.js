@@ -8,7 +8,6 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity'
 
 // components
 import MyButton from '../../utils/MyButton'
-import ProfileSkeleton from './ProfileSkeleton'
 import EditDetails from './EditDetails.js'
 // redux
 import { useSelector, useDispatch } from 'react-redux'
@@ -91,7 +90,6 @@ function Profile(props) {
     const userInfo = useSelector(state => state.user)
     const {
         credentials: {handle, createdAt, imageUrl, bio, instagram, location, category},
-        loading,
         authenticated
     } = userInfo
 
@@ -123,11 +121,11 @@ function Profile(props) {
     const handleLogout = () => {
         dispatch(logoutUser())
     }
-
+    
     // se nao estiver carregando os dados...
-    let profileMarkup = !loading 
+    let profileMarkup = 
     // verificar se esta autenticado
-    ? (authenticated 
+     (authenticated 
         // se estiver...
         ? ( 
         // colocar o profile em um content 'Papeer'
@@ -222,8 +220,8 @@ function Profile(props) {
 
         </Paper>
         ))
-        // carregando... 
-    : <ProfileSkeleton />
+        
+    
 
     return profileMarkup
   

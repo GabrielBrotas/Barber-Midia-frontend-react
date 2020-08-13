@@ -48,6 +48,14 @@ const Search = (props) => {
         },
         debounce: 300,
     });
+
+    // first render value take oldLocation
+    useEffect( () => {
+        if(oldLocation) {
+            setValue(oldLocation.description)
+        }
+    }, [oldLocation, setValue])
+
     const ref = useOnclickOutside(() => {
         // When user clicks outside of the component, we can dismiss
         // the searched suggestions by calling this method
@@ -56,10 +64,9 @@ const Search = (props) => {
 
     const handleInput = (e) => {
         // Update the keyword of the input element
+        
         setValue(e.target.value);
-        if(oldLocation) {
-            
-        }
+        
     };
 
     const handleSelect = ({ description }) => () => {
@@ -92,12 +99,12 @@ const Search = (props) => {
             </ListItem>
         );
         });
-
+        
     return (
-
+        
         <div ref={ref}>
         <CssTextField
-            value={value || oldLocation.description}
+            value={value}
             onChange={handleInput}
             disabled={!ready}
             variant="filled"
