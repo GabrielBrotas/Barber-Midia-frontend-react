@@ -39,21 +39,24 @@ function Account(props) {
     const {credentials: {handle}} = userInfo
 
     const dataInfo = useSelector(state => state.data)
-    const {loading} = dataInfo
+    const {loading, places} = dataInfo
 
     const {classes} = props
     const [openModal, setOpenModal] = useState(false)
     const [id, setId] = useState('')
     const [title, setTitle] = useState('')
     const [location, setLocation] = useState({})
-    
+
     const dispatch = useDispatch()
     useEffect( () => {
         dispatch(getAllPlaces())
     }, [dispatch])
 
     const handleSubmit = () => {
+        // todo, location nao salvando
         dispatch(editPlace(id, {...location, title}))
+        dispatch(getAllPlaces())
+        setOpenModal(false)
     }
 
     return (
@@ -84,7 +87,7 @@ function Account(props) {
                         variant="contained" 
                         onClick={() => handleSubmit()}
                         >
-                            Submit
+                            Editar
                         </Button>
                         <Button 
                         variant="contained" 
@@ -97,7 +100,7 @@ function Account(props) {
                 </div>
             }
                 
-                <Table handle={handle} setOpenModal={setOpenModal} setLocation={setLocation} setTitle={setTitle} setId={setId} />
+                <Table places={places} handle={handle} setOpenModal={setOpenModal} setLocation={setLocation} setTitle={setTitle} setId={setId} />
             </Fragment>
 
         ) : (

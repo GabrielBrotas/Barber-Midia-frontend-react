@@ -1,5 +1,4 @@
 import React from 'react';
-import {useSelector} from 'react-redux'
 
 // MUI
 import { withStyles, makeStyles } from '@material-ui/core/styles';
@@ -39,10 +38,7 @@ const useStyles = makeStyles({
 export default function CustomizedTables(props) {
   const classes = useStyles();
 
-  const dataInfo = useSelector(state => state.data)
-  const {places} = dataInfo
-  const {handle, setOpenModal, setLocation, setTitle, setId} = props
-
+  const {places, handle, setOpenModal, setLocation, setTitle, setId} = props
 
   const handleOpenModal = (place) => {
     setTitle(place.title)
@@ -65,7 +61,7 @@ export default function CustomizedTables(props) {
         <TableBody>
           {places && places.map((place) => (
               place.handle === handle &&
-            <StyledTableRow key={place.lat}>
+            <StyledTableRow key={place.placeId}>
               <StyledTableCell component="th" scope="row">
                 {place.title}
               </StyledTableCell>

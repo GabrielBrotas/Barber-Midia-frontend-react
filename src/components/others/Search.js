@@ -79,7 +79,7 @@ const Search = (props) => {
         getGeocode({ address: description })
         .then((results) => getLatLng(results[0]))
         .then(({ lat, lng }) => {
-            setLocation({description, lat, lng})
+            setLocation({...oldLocation, description, lat, lng})
         })
         .catch((error) => {
             console.log("😱 Error: ", error);
@@ -114,7 +114,7 @@ const Search = (props) => {
             label="Location *"
             placeholder="Localização do seu estabelecimento"
             name="location"
-            autoComplete="location"
+            autoComplete="off"
              
             // helperText={errors.handle} error={errors.handle ? true : false}
         />
