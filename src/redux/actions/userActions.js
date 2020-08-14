@@ -1,4 +1,4 @@
-import {SET_ERRORS, SET_USER, GET_USERS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER, MARK_NOTIFICATIONS_READ, GET_PLACES} from '../types'
+import {SET_ERRORS, SET_USER, GET_USERS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER, MARK_NOTIFICATIONS_READ} from '../types'
 import axios from 'axios'
 
 export const getAllUsers = () => (dispatch) => {
@@ -41,26 +41,12 @@ export const signupUser = (newUserData, history, locationData) => (dispatch) => 
         await setAuthorizationHeader(res.data.userToken.i)
         dispatch(getUserData());
         dispatch({type: CLEAR_ERRORS})
-        if (newUserData.category !== "Usuario") {
-            dispatch(saveLocation(locationData))
-        }
+        // if (newUserData.category !== "Usuario") {
+        //     dispatch(saveLocation(locationData))
+        // }
         history.push('/')
     })
     .catch( err => {
-        dispatch({
-            type: SET_ERRORS,
-            payload: err.response.data
-        })
-    })
-}
-
-export const saveLocation = (data) => (dispatch) => {
-    axios.post('/savelocation', data)
-    .then( res => {
-        dispatch({type: GET_PLACES})
-    })
-    .catch( err => {
-        console.log(err)
         dispatch({
             type: SET_ERRORS,
             payload: err.response.data

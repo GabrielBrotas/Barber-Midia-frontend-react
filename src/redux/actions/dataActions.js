@@ -15,6 +15,20 @@ export const getPosts = () => (dispatch) => {
     })
 }
 
+export const saveLocation = (data) => (dispatch) => {
+    axios.post('/savelocation', data)
+    .then( () => {
+        dispatch(getAllPlaces())
+    })
+    .catch( err => {
+        console.log(err)
+        dispatch({
+            type: SET_ERRORS,
+            payload: err.response.data
+        })
+    })
+}
+
 export const getAllPlaces = () => (dispatch) => {
     
     dispatch({type: LOADING_DATA});
@@ -29,7 +43,16 @@ export const editPlace = (placeId, placeData) => (dispatch) => {
 
     axios.post('/editlocation/' + placeId, placeData)
         .then(res => {
-            dispatch({type: GET_PLACES})
+            dispatch(getAllPlaces())
+        })
+        .catch( err => console.log(err))
+}
+
+export const deletePlace = (placeId) => (dispatch) => {
+
+    axios.post('/deletelocation/' + placeId)
+        .then(res => {
+            dispatch(getAllPlaces())
         })
         .catch( err => console.log(err))
 }

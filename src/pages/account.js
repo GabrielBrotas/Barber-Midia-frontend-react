@@ -10,8 +10,7 @@ import CssTextField from '../components/others/CssTextField'
 
 // redux
 import {useSelector, useDispatch} from 'react-redux'
-import {getAllPlaces, editPlace} from '../redux/actions/dataActions'
-import {saveLocation} from '../redux/actions/userActions'
+import {getAllPlaces, editPlace, saveLocation} from '../redux/actions/dataActions'
 
 const styles = {
     formControl: {
