@@ -1,6 +1,7 @@
 import React, {Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import withStyles from '@material-ui/core/styles/withStyles'
+import filesize from 'filesize'
 import theme from '../../utils/theme'
 
 // components
@@ -67,8 +68,9 @@ function AddNewPost(props) {
     const [open, setOpen] = useState(false)
     const [bodyText, setBodyText] = useState('')
     const [imageToUpload, setImageToUpload] = useState({})
+    const [imageToUploadData, setImageToUploadData] = useState({})
     const [errors, setErrors] = useState({})
-
+    console.log(imageToUploadData)
     const {classes, UI: {loading, progress}} = props
     
     useEffect( () => {
@@ -88,12 +90,12 @@ function AddNewPost(props) {
         setErrors({})
         props.clearErrors()
     }
-
+    
     const handleSubmit = (event) => {
         event.preventDefault();
         props.publishPost({bodyText, bodyImage: ""}, imageToUpload)
     }
-        
+    
 
     return (
         <Fragment>
@@ -143,8 +145,9 @@ function AddNewPost(props) {
                             {loading && (<CircularProgress size={30} className={classes.progressSpinner}/>)}
                         </Button>
                     </form>
+                    
                     <div className={classes.uploadContent}>
-                        <UploadButton takeImageToUpload={setImageToUpload} />
+                        <UploadButton setImageToUploadData={setImageToUploadData} takeImageToUpload={setImageToUpload} />
                         <CircularProgressbar
                         styles={{
                             root: {width: 24},
@@ -153,7 +156,15 @@ function AddNewPost(props) {
                         strokeWidth={10}
                         value={progress}
                         />
+
                     </div>
+
+                    {imageToUploadData.name &&
+                        <Fragment>
+                            <p><strong>Name: </strong>{imageToUploadData.name}</p>
+                            <p><strong>Size: </strong>{filesize(imageToUploadData.size)}</p>
+                        </Fragment>
+                    }
                     
 
                 </DialogContent>
