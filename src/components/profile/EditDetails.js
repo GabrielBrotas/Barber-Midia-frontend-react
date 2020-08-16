@@ -4,6 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 
 import MyButton from '../../utils/MyButton'
 import SelectForm from '../others/SelectForm'
+import CssTextField from '../others/CssTextField'
 
 // redux
 import {connect} from 'react-redux'
@@ -11,7 +12,6 @@ import {editUserDetails} from '../../redux/actions/userActions'
 
 // Material UI Stuffs
 import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
@@ -21,8 +21,21 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import EditIcon from '@material-ui/icons/Edit'
 
 const styles = (theme) => ({
+    paperTitle: {
+        backgroundColor: theme.backgroundColorSecondary,
+        color: theme.mainColor
+    },
+    paperContent: {
+        backgroundColor: theme.backgroundColorSecondary,
+        color: '#fff'
+    },
     button: {
         float: "right"
+    },
+    buttonSubmit:{
+        color: theme.mainColor,
+        transition: "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms"
+       
     }
 })
 
@@ -84,33 +97,39 @@ function EditDetails(props) {
             open={open}
             onClose={handleClose}
             fullWidth
+            
             // os tipos de width do dialog está na documentação do material ui
             maxWidth="sm">
-                <DialogTitle>Edit your Details</DialogTitle>
+                <DialogTitle className={classes.paperTitle}>Edit your Details</DialogTitle>
 
-                <DialogContent>
+                <DialogContent className={classes.paperContent}>
                     <form>
                         {/* bio text */}
-                        <TextField 
+                        <CssTextField 
+                        variant="filled"
+                        margin="normal"
+                        required
+                        autoFocus
                         name="bio" 
                         type="text" 
                         label="Bio" 
                         multiline 
                         rows="3" 
                         placeholder="A short bio about yourself" 
-                        className={classes.textField} 
                         value={bio} 
                         onChange={(e) => setBio(e.target.value)} 
                         fullWidth 
                         />
 
                         {/* instagram text */}
-                        <TextField 
+                        <CssTextField 
+                        variant="filled"
+                        margin="normal"
+                        required
                         name="instagram" 
                         type="text" 
                         label="Instagram"  
                         placeholder="your personal and professional instagram" 
-                        className={classes.textField} 
                         value={instagram} 
                         onChange={(e) => setInstagram(e.target.value)} 
                         fullWidth 
@@ -130,13 +149,13 @@ function EditDetails(props) {
                     </form>
                 </DialogContent>
 
-                <DialogActions>
+                <DialogActions className={classes.paperContent}>
 
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={handleClose} color="secondary">
                         Cancel
                     </Button>
 
-                    <Button onClick={handleSubmit} color="primary">
+                    <Button onClick={handleSubmit} className={classes.buttonSubmit}>
                         Save
                     </Button>
 

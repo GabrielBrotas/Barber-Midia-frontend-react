@@ -97,7 +97,7 @@ function AddNewPost(props) {
                 </MyButton>
 
                 <DialogTitle>
-                    Post new Scream
+                    Adicionar Post
                 </DialogTitle>
                 
                 
@@ -106,7 +106,7 @@ function AddNewPost(props) {
                         <TextField 
                         name="body"
                         type="text"
-                        label="Scream !!"
+                        label="Texto breve"
                         rows="2"
                         multiline
                         placeholder="type something"

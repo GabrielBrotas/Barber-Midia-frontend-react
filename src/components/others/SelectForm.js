@@ -32,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '2rem',
     minWidth: 120,
     width: '100%',
+    backgroundColor: '#fff',
+    borderRadius: 4,
     '& label': {
       color: theme.fontSecondaryColor,
       backgroundColor: theme.backgroundColorSecondary,
@@ -58,7 +60,6 @@ function SimpleSelect(props) {
           value={props.category}
           onChange={(e) => props.onChangeSelect(e.target.value)}
           label="Category"
-          style={{color: props.fontColor, backgroundColor: props.backgroundColor}}
         >
           <MenuItem value='Usuario'>Usuario</MenuItem>
           <MenuItem value='Cabelo Masculino'>Cabelo Masculino</MenuItem>

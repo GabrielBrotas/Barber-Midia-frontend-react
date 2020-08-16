@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
   },
   dateTimePost: {
+    width: "max-content",
     color: "#959595"
   },
   media: {
@@ -77,7 +78,6 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: '.1rem',
     paddingRight: '1rem'
   }
-
   
 }));
 

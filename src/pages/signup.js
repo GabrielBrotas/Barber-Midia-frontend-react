@@ -196,7 +196,7 @@ function SignUpSide(props) {
               helperText={errors.confirmPassword} error={errors.confirmPassword ? true : false}
             />
             
-            <SelectForm onChangeSelect={setCategory} fontColor="#fff" category={category}/>
+            <SelectForm onChangeSelect={setCategory} category={category}/>
 
             {category !== "Usuario" && 
             <Fragment>

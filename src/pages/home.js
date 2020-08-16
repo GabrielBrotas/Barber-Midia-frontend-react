@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 // redux
 import {useDispatch, useSelector} from 'react-redux'
 import {getPosts, getAllPlaces} from '../redux/actions/dataActions'
-import {getUserData} from '../redux/actions/userActions'
+
 
 // * components
 import PostContent from '../components/posts/PostContent'
@@ -30,7 +30,6 @@ function Home(props) {
     useEffect( () => {
         dispatch(getPosts())
         dispatch(getAllPlaces())
-        dispatch(getUserData())
     }, [dispatch])
 
     useEffect( () => {

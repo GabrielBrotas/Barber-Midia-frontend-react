@@ -6,7 +6,10 @@ const CssTextField = withStyles({
     root: {
       '& input': {
         backgroundColor: theme.fontMainColor,
-        borderRadius: 5,
+        borderRadius: 5
+      },
+      '& .MuiInputBase-root': {
+        backgroundColor: "#fff"
       },
       '& label.Mui-focused': {
         color: theme.mainColor,

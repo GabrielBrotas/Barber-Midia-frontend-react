@@ -23,7 +23,7 @@ const styles = {
 
 const Search = (props) => {
 
-    const {classes, setLocation, oldLocation} = props
+    const {classes, setLocation, oldLocation = ""} = props
     const [lat, setLat] = useState(null)
     const [lng, setLng] = useState(null)
 

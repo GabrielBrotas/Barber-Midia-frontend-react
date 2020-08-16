@@ -95,7 +95,12 @@ export const publishPost = (newPost, imageToUpload) => dispatch => {
 }
 
 export const uploadPostPicture = (formData, postId) => (dispatch) => {
-    axios.post(`/post/image/${postId}`, formData)
+    axios.post(`/post/image/${postId}`, formData, {
+        onUploadProgress: e => {
+            const progress = parseInt(Math.round( (e.loaded * 100) / e.total ))
+            // todo, pegar progresso e passar para o front end
+            console.log(progress) 
+        }})
     .then( (res) => {
         dispatch(clearErrors())
     })
