@@ -7,6 +7,7 @@ import theme from '../../utils/theme'
 import MyButton from '../../utils/MyButton'
 import UploadButton from '../others/UploadButton'
 import CssTextField from '../others/CssTextField'
+import {CircularProgressbar} from 'react-circular-progressbar'
 
 // redux
 import {connect} from 'react-redux'
@@ -55,6 +56,9 @@ const styles = {
     iconWrap: {
         display: 'flex',
         justifyContent: 'center'
+    },
+    uploadContent: {
+        display: 'flex',
     }
 }
 
@@ -65,8 +69,8 @@ function AddNewPost(props) {
     const [imageToUpload, setImageToUpload] = useState({})
     const [errors, setErrors] = useState({})
 
-    const {classes, UI: {loading}} = props
-
+    const {classes, UI: {loading, progress}} = props
+    
     useEffect( () => {
         if(props.UI.errors){
             setErrors(
@@ -139,7 +143,19 @@ function AddNewPost(props) {
                             {loading && (<CircularProgress size={30} className={classes.progressSpinner}/>)}
                         </Button>
                     </form>
-                    <UploadButton takeImageToUpload={setImageToUpload} />
+                    <div className={classes.uploadContent}>
+                        <UploadButton takeImageToUpload={setImageToUpload} />
+                        <CircularProgressbar
+                        styles={{
+                            root: {width: 24},
+                            path: {stroke: theme.mainColor},
+                        }}
+                        strokeWidth={10}
+                        value={progress}
+                        />
+                    </div>
+                    
+
                 </DialogContent>
             </Dialog>
             

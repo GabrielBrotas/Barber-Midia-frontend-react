@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {GET_POSTS_SUCCESS, GET_POSTS_ERROR, LOADING_DATA, LIKE_POST, UNLIKE_POST, DELETE_POST, SET_ERRORS, PUBLISH_POST, CLEAR_ERRORS, LOADING_UI, GET_POST_SUCCESS, STOP_LOADING_UI, SUBMIT_COMMENT, GET_PLACES, GET_ALL_COMMENTS} from '../types'
+import {GET_POSTS_SUCCESS, GET_POSTS_ERROR, LOADING_DATA, LIKE_POST, UNLIKE_POST, DELETE_POST, SET_ERRORS, PUBLISH_POST, CLEAR_ERRORS, LOADING_UI, UPLOADING_PROGRESS, GET_POST_SUCCESS, STOP_LOADING_UI, SUBMIT_COMMENT, GET_PLACES, GET_ALL_COMMENTS} from '../types'
 
 
 export const getPosts = () => (dispatch) => {
@@ -84,9 +84,8 @@ export const unlikePost = (postId) => dispatch => {
 export const publishPost = (newPost, imageToUpload) => dispatch => {
     dispatch({type: LOADING_UI})
     axios.post('/post', newPost)
-        .then( res => {
-            dispatch(uploadPostPicture(imageToUpload, res.data.postId))
-            dispatch({ type: PUBLISH_POST, payload: res.data})
+        .then( (res) => {
+            dispatch(uploadPostPicture(imageToUpload, res.data))
         })
         .catch( err => {
             console.log(err)
@@ -94,17 +93,21 @@ export const publishPost = (newPost, imageToUpload) => dispatch => {
         })
 }
 
-export const uploadPostPicture = (formData, postId) => (dispatch) => {
-    axios.post(`/post/image/${postId}`, formData, {
+export const uploadPostPicture = (formData, post) => (dispatch) => {
+    
+    axios.post(`/post/image/${post.postId}`, formData, {
         onUploadProgress: e => {
             const progress = parseInt(Math.round( (e.loaded * 100) / e.total ))
-            // todo, pegar progresso e passar para o front end
-            console.log(progress) 
+            dispatch({type: UPLOADING_PROGRESS, payload: progress})
+
+            if(progress === 100) dispatch({ type: PUBLISH_POST, payload: post})
         }})
-    .then( (res) => {
+    .then( () => {
+        dispatch(getPosts())
         dispatch(clearErrors())
     })
     .catch( (err) => console.log(err))
+    
 }
 
 export const getPost = (postId) => (dispatch) => {

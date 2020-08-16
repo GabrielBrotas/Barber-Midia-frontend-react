@@ -1,8 +1,9 @@
-import {SET_ERRORS, CLEAR_ERRORS, LOADING_UI, STOP_LOADING_UI} from '../types'
+import {SET_ERRORS, CLEAR_ERRORS, LOADING_UI, STOP_LOADING_UI, UPLOADING_PROGRESS} from '../types'
 
 const initialState = {
     loading: false,
-    errors: null
+    errors: null,
+    progress: 0
 }
 
 export default function(state = initialState, action){
@@ -18,15 +19,19 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 loading: false,
-                errors: null
+                errors: null,
+                progress: 0
             }
         case LOADING_UI: 
             return {
                 ...state, 
                 loading: true
             }
+        case UPLOADING_PROGRESS: 
+            return {...state, progress: action.payload}
+            
         case STOP_LOADING_UI:
-            return {...state, loading: false}
+            return {...state, loading: false, progress: 0}
         default:
             return state
     }

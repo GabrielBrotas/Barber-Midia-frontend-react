@@ -200,9 +200,12 @@ function PrimarySearchAppBar() {
               <PinDrop />
             </IconButton>
 
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <PostScream />
-            </IconButton>
+            {authenticated &&
+              <IconButton aria-label="show 4 new mails" color="inherit">
+                <PostScream /> 
+              </IconButton>
+            } 
+           
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
