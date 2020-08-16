@@ -106,7 +106,7 @@ function AddNewPost(props) {
             maxWidth="sm"
             >
                 <MyButton tip="Close" onClick={() => handleClose()} tipClassName={classes.closeButton}>
-                    <CloseIcon />
+                    <CloseIcon style={{color: "#fff"}} />
                 </MyButton>
 
                 <DialogTitle className={classes.paperTitle}>
