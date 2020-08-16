@@ -1,10 +1,12 @@
 import React, {Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import withStyles from '@material-ui/core/styles/withStyles'
+import theme from '../../utils/theme'
 
 // components
 import MyButton from '../../utils/MyButton'
 import UploadButton from '../others/UploadButton'
+import CssTextField from '../others/CssTextField'
 
 // redux
 import {connect} from 'react-redux'
@@ -12,7 +14,6 @@ import {publishPost, clearErrors} from '../../redux/actions/dataActions'
 
 // Material UI Stuffs
 import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
 import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
@@ -23,10 +24,22 @@ import AddIcon from '@material-ui/icons/Add'
 import CloseIcon from '@material-ui/icons/Close'
 
 const styles = {
+    paperTitle: {
+        backgroundColor: theme.backgroundColorSecondary,
+        color: theme.mainColor
+    },
+    paperContent: {
+        backgroundColor: theme.backgroundColorSecondary,
+        color: '#fff'
+    },
     submitButton: {
         position: 'relative',
-        margin: '1rem 0',
-        float: 'right'
+        backgroundColor: theme.mainColor,
+        margin: '2rem 0',
+        float: 'right',
+        "&:hover": {
+            backgroundColor: "#664608"
+        }
     },
     progressSpinner: {
         position: 'absolute'
@@ -96,14 +109,18 @@ function AddNewPost(props) {
                     <CloseIcon />
                 </MyButton>
 
-                <DialogTitle>
+                <DialogTitle className={classes.paperTitle}>
                     Adicionar Post
                 </DialogTitle>
                 
                 
-                <DialogContent>
+                <DialogContent className={classes.paperContent}>
                     <form onSubmit={(e) => handleSubmit(e)} >
-                        <TextField 
+                        <CssTextField  
+                        variant="filled"
+                        margin="normal"
+                        required
+                        autoFocus
                         name="body"
                         type="text"
                         label="Texto breve"

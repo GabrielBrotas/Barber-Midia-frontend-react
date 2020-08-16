@@ -5,7 +5,11 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    margin: theme.spacing(1),
+    backgroundColor: theme.secondaryColor,
+    margin: '2rem 0',
+    "&:hover": {
+      backgroundColor: "#2d62a6a8"
+    }
   },
 }));
 
