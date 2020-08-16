@@ -70,7 +70,7 @@ function AddNewPost(props) {
     const [imageToUpload, setImageToUpload] = useState({})
     const [imageToUploadData, setImageToUploadData] = useState({})
     const [errors, setErrors] = useState({})
-    console.log(imageToUploadData)
+
     const {classes, UI: {loading, progress}} = props
     
     useEffect( () => {
@@ -88,6 +88,8 @@ function AddNewPost(props) {
     const handleClose = () => {
         setOpen(false)
         setErrors({})
+        setImageToUploadData({})
+        setImageToUpload({})
         props.clearErrors()
     }
     
