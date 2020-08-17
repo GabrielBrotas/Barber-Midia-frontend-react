@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -10,11 +10,18 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
+    marginTop: "2rem"
   },
   gridList: {
-    flexWrap: 'nowrap',
-    transform: 'translateZ(0)',
+    width: 900,
+    height: 450,
+    backgroundColor: theme.backgroundColorMain
+  },
+  gridImage: {
+    height: "100%",
+    width: "100%",
+    padding: ".5rem",
+    borderRadius: "10%"
   },
   title: {
     color: theme.palette.primary.light,
@@ -26,27 +33,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function GalleryLocation(props) {
-    const {post} = props
+  const {posts, barber} = props
 
-    const classes = useStyles();
+  const classes = useStyles();
+  
+  return (
+    <div className={classes.root}>
 
-    return (
-        <div className={classes.root}>
-        <GridList className={classes.gridList} cols={2.5}>
+      <GridList cellHeight={250} className={classes.gridList} cols={3}>
 
-            <GridListTile>
-                <img src={post.bodyImage} alt={post.bodyText} />
-                <GridListTileBar
-                title={post.bodyText}
-                classes={{
-                    root: classes.titleBar,
-                    title: classes.title,
-                }}
-               
-                />
-            </GridListTile>
+      {posts.map( post => (
+      post.userHandle === barber.handle &&
 
-        </GridList>
-        </div>
-    );
+        <GridListTile key={post.postId} cols={1} className={classes.gridContent}>
+          <img src={post.bodyImage} alt={post.bodyText} className={classes.gridImage} />
+        </GridListTile>
+
+      ))}
+
+      </GridList>
+      
+    </div>
+  );
 }

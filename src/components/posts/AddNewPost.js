@@ -96,6 +96,8 @@ function AddNewPost(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
         props.publishPost({bodyText, bodyImage: ""}, imageToUpload)
+        setImageToUploadData({})
+        setImageToUpload({})
     }
     
 

@@ -9,6 +9,7 @@ import {getAllPlaces, getPosts} from '../redux/actions/dataActions'
 // mui
 import withStyles from '@material-ui/core/styles/withStyles'
 import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography';
 
 // components
 import Barber from '../components/profile/Barber'
@@ -17,15 +18,27 @@ import GalleryLocation from '../components/layout/GalleryLocation'
 
 const styles = {
     GalleryContent:{
+        marginTop: "3rem",
         display: 'flex',
+        flexDirection: 'column',
         flexWrap: 'wrap',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        backgroundColor: theme.backgroundColorMain,
     },
     BarberContent: {
         marginTop: "43.32px",
         backgroundColor: theme.backgroundColorMain,
         color: theme.fontMainColor,
-    }   
+    },
+    Font: {
+        color: theme.mainColor
+    },
+    HorizontalRow: {
+        width: "80%",
+        alignSelf: "center",
+        height: ".1rem",
+        borderBottom: "none"
+    }
 }
 
 function Location(props) {
@@ -58,18 +71,17 @@ function Location(props) {
     useEffect( () => {
         barber && !posts.lenght > 0 ?
         setUserPosts(
-            posts.map( (post) => (
-                post.userHandle === barber.handle && <GalleryLocation key={post.postId} post={post} />
-            )))
+         <GalleryLocation posts={posts} barber={barber} />
+        )   
         : setUserPosts(<p>loading</p>)
     }, [posts, barber])
-
+ 
     return (
         <Fragment>
 
         <Grid container spacing={4}>
             <Grid item sm={8} xs={12}>
-               <Map places={places} loading={loading} setUserSelected={setUserSelected} userSelected={userSelected} barber={barber} />
+                <Map places={places} loading={loading} setUserSelected={setUserSelected} userSelected={userSelected} barber={barber} />
             </Grid>
 
             <Grid item sm={4} xs={12}>
@@ -80,7 +92,22 @@ function Location(props) {
         </Grid>
 
         <div className={classes.GalleryContent}>
-            {userPosts}
+            
+            { barber && 
+                <Fragment>
+                    <Typography
+                    variant="h3"
+                    align="center"
+                    className={classes.Font}
+                    >
+                        Trabalhos de {barber.handle}:
+                    </Typography>
+                    <hr className={classes.HorizontalRow} />
+                    {userPosts}
+                </Fragment>
+
+           
+            }
         </div>
         </Fragment>
     )

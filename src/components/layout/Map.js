@@ -1,10 +1,16 @@
 import React, {useCallback, useState, useRef, useEffect, Fragment} from 'react'
-import usePlacesAutocomplete, {getGeocode, getLatLng} from 'use-places-autocomplete'
 import {Combobox,  ComboboxPopover, ComboboxOption, ComboboxInput} from "@reach/combobox"
-import { GoogleMap, Marker, InfoWindow, useLoadScript } from '@react-google-maps/api';
-import { makeStyles } from '@material-ui/core/styles';
+import theme from '../../utils/theme'
 import markerIcon from '../../assets/images/barbeiro.png'
+
+// Map
+import { GoogleMap, Marker, InfoWindow, useLoadScript } from '@react-google-maps/api';
+import usePlacesAutocomplete, {getGeocode, getLatLng} from 'use-places-autocomplete'
+
+// MUI
+import { makeStyles } from '@material-ui/core/styles';
 import RestoreIcon from '@material-ui/icons/Restore';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // configs
 const libraries = ['places']
@@ -80,6 +86,18 @@ const useStyles = makeStyles({
       color: "#b1832b",
       backgroundColor: "rgba(0,0,0,0.1)"
     },
+  },
+  userPictureContent: {
+      height: 100,
+      width: 100,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      marginBottom: '1rem'
+  },
+  userPicture: {
+      color: theme.mainColor,
+      width: "100%",
+      height: "100%"
   }
 });
 
@@ -109,7 +127,11 @@ function MyComponent(props) {
   }, [])
 
   if(loadError) return "error loading map"
-  if(!isLoaded) return "loading maps"
+  if(!isLoaded) return (
+    <div className={classes.userPictureContent}>
+      <CircularProgress className={classes.userPicture} size={100} thickness={1}/>  
+    </div>
+  )
 
   return (
     <div className={classes.mapContent}>
@@ -130,7 +152,7 @@ function MyComponent(props) {
       {markers.map( marker => (
         
         <Marker 
-          key={marker.createdAt}
+          key={marker.placeId}
           position={{ lat: marker.lat, lng: marker.lng}} 
           icon={{
             url: markerIcon,

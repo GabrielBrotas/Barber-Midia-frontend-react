@@ -132,14 +132,15 @@ export const getAllComments = () => (dispatch) => {
         .catch( err => console.log(err))
 }
 
-export const submitComment = (postId, commentData) => (dispatch) => {
-    axios.post(`/post/${postId}/comment`, commentData)
+export const submitComment = (postId, bodyText) => (dispatch) => {
+    axios.post(`/post/${postId}/comment`, bodyText)
         .then( res => {
             dispatch({type: SUBMIT_COMMENT, payload: res.data})
             dispatch(clearErrors())
         })
         .catch( err => {
-            dispatch({type: SET_ERRORS, payload: err.response.data})
+            console.log(err)
+            dispatch({type: SET_ERRORS, payload: err.response})
         })
 }
 
