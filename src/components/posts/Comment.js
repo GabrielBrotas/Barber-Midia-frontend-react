@@ -12,7 +12,6 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 
 const styles = {
-
     userHandle: {
       color: "#fff"
     },
@@ -51,9 +50,8 @@ function Comments(props) {
     dayjs.extend(relativeTime)
 
     return(
-        <Grid container>
+        <Grid container >
 
-        
             <Grid item sm={12}>
             <Grid container>
                 <Grid item sm={1} className={classes.imageContent}>

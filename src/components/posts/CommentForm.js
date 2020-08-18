@@ -45,7 +45,7 @@ export default function InputWithIcon(props) {
 
     const {postId, comments, expanded} = props
     const UI = useSelector( state => state.UI)
-
+    
     const [bodyText, setBodyText] = useState('')
     const [errors, setErrors] = useState({})
     const classes = useStyles();
@@ -59,8 +59,7 @@ export default function InputWithIcon(props) {
         }
         if(!UI.errors && !UI.loading){
             setBodyText('')
-        }
-        
+        }  
     }, [UI])
 
     useEffect( () => {

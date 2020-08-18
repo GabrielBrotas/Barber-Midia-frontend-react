@@ -77,6 +77,17 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 13,
     paddingLeft: '.1rem',
     paddingRight: '1rem'
+  },
+  allComments: {
+    maxHeight: 500,
+    overflowY: "scroll",
+    
+  },
+  "::-webkit-scrollbar-track": {
+    webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.3)",
+    borderRadius: 10,
+    backgroundColor: "#F5F5F5"
+    
   }
   
 }));
@@ -180,7 +191,7 @@ function RecipeReviewCard(props) {
       </CardActions>
       
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent> 
+        <CardContent className={classes.allComments}> 
           {authenticated 
             ? <CommentForm imageUrl={imageUrl} postId={postId} expanded={expanded}/>
             : <p>Log in to comment</p>}

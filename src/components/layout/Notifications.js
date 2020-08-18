@@ -89,7 +89,7 @@ function Notifications(props) {
         notifications && notifications.length > 0 ? (
             notifications.map( not => {
                 // constants
-                const verb = not.type === 'like' ? 'liked' : 'commented on'
+                const verb = not.type === 'like' ? 'curtiu' : 'comentou na'
                 const time = dayjs(not.createdAt).fromNow()
                 const iconColor = not.read ? 'primary' : 'secondary'
                 const icon = not.type === 'like' ? (
@@ -104,7 +104,7 @@ function Notifications(props) {
                     <MenuItem key={not.createdAt} onClick={handleClose}>
                         {icon}
                         <Typography component={Link} color="primary" variant="body1" to={`/users/${not.recipient}/scream/${not.screamId}`}>
-                            {not.sender} {verb} your scream {time}
+                            {not.sender} {verb} sua publicação {time}
                         </Typography>
                     </MenuItem>
                 )
@@ -112,7 +112,7 @@ function Notifications(props) {
         ) : (
             // caso nao tenha notificações
             <MenuItem onClick={handleClose}>
-                You have no notifications yet
+                Você não tem notificações
             </MenuItem>
         )
 
