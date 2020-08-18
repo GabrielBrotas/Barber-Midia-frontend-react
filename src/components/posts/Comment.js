@@ -1,14 +1,12 @@
 import React from 'react'
-import withStyles from '@material-ui/core/styles/withStyles'
 import {Link} from 'react-router-dom'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime' 
-
-// redux
-
+import DeleteButton from './DeleteButton.js'
 
 // MUI
 import Grid from '@material-ui/core/Grid'
+import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 
 const styles = {
@@ -41,14 +39,14 @@ const styles = {
       width: "100%",
       borderBottom: '1px solid rgba(0,0,0,0.1)',
       marginBottom: 10
-    },
+    }
 }
 
 function Comments(props) {
-    
-    const {classes, comment:{bodyText, createdAt, userHandle, userImage}} = props
-    dayjs.extend(relativeTime)
 
+    const {classes, handle, comment:{bodyText, createdAt, userHandle, userImage, commentId}} = props
+    dayjs.extend(relativeTime)
+    
     return(
         <Grid container >
 
@@ -79,7 +77,11 @@ function Comments(props) {
                         variant="subtitle2"
                         >{bodyText}</Typography>
                     </div>
+
                 </Grid>
+                
+                {handle === userHandle &&  <DeleteButton className={classes.deleteButton} commentId={commentId} />}
+                
                 <hr className={classes.invisibleSeparator} />
             </Grid>
             </Grid>

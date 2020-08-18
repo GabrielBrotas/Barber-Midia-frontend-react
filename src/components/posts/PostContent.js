@@ -12,7 +12,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {getAllComments} from '../../redux/actions/dataActions'
 
 // Component
-import DeletePost from './DeletePost.js'
+import DeletePost from './DeleteButton.js'
 import LikeButton from './LikeButton'
 import MyButton from '../../utils/MyButton'
 import Comment from './Comment'
@@ -36,7 +36,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 600,
     marginBottom: '4rem',
     backgroundColor: theme.backgroundColorSecondary,
     color: "#fff",

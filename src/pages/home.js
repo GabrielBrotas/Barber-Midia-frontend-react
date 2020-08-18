@@ -19,7 +19,7 @@ import ProfileSkeleton from '../components/profile/ProfileSkeleton'
 function Home(props) {
     const dataList = useSelector(state => state.data)
     const {loading, posts} = dataList
-    
+
     const userInfo = useSelector(state => state.user)
     const {credentials: {handle, imageUrl}, likes, authenticated} = userInfo
 

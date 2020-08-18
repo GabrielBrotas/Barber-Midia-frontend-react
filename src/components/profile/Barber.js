@@ -159,7 +159,7 @@ function Barber(props) {
             </div>
 
             <div style={{textAlign: "center", marginTop: "4rem"}}>
-            <Typography className={classes.message} component="body1" variant="body1">
+            <Typography className={classes.message} component="p" variant="body1">
                 Divirta-se !!!
             </Typography>
             </div>

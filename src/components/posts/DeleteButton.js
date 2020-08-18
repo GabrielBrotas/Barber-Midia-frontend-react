@@ -13,7 +13,7 @@ import DeleteOutline from '@material-ui/icons/DeleteOutline'
 
 // redux
 import {connect} from 'react-redux'
-import {deletePost} from '../../redux/actions/dataActions'
+import {deletePost, deleteComment} from '../../redux/actions/dataActions'
 
 const styles = {
     deleteButton: {
@@ -22,7 +22,7 @@ const styles = {
 }
 
 
-class DeletePost extends Component {
+class DeleteButton extends Component {
 
     state = {
         open: false
@@ -37,7 +37,10 @@ class DeletePost extends Component {
     }
 
     deletePost = () =>{
-        this.props.deletePost(this.props.postId)
+        this.props.commentId
+        ? this.props.deleteComment(this.props.commentId)
+        : this.props.deletePost(this.props.postId)
+        
         this.setState({open: false})
     }
 
@@ -45,7 +48,7 @@ class DeletePost extends Component {
         const {classes} = this.props
         return (
             <Fragment>
-                <MyButton tip="Deletar Post" onClick={this.handleOpen} btnClassName={classes.deleteButton}>
+                <MyButton tip="Deletar" onClick={this.handleOpen} btnClassName={classes.deleteButton}>
                     <DeleteOutline color="secondary" />
                 </MyButton>
                 <Dialog
@@ -55,7 +58,7 @@ class DeletePost extends Component {
                 maxWidth="sm"
                 >
                     <DialogTitle>
-                        Tem certeza que quer deletar este post?
+                        Tem certeza que quer deletar este documento?
                     </DialogTitle>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
@@ -71,14 +74,15 @@ class DeletePost extends Component {
     }
 }
 
-DeletePost.protoTypes = {
+DeleteButton.protoTypes = {
     deletePost: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
     postId: PropTypes.string.isRequired,
 }
 
 const mapActionsToProps = {
-    deletePost
+    deletePost,
+    deleteComment
 }
 
-export default connect(null, mapActionsToProps)(withStyles(styles)(DeletePost))
+export default connect(null, mapActionsToProps)(withStyles(styles)(DeleteButton))

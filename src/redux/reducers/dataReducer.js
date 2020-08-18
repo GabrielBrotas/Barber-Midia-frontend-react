@@ -1,4 +1,4 @@
-import {GET_POSTS_ERROR, LOADING_DATA, GET_POSTS_SUCCESS, LIKE_POST, UNLIKE_POST, DELETE_POST, PUBLISH_POST, GET_POST_SUCCESS, SUBMIT_COMMENT, GET_PLACES, GET_ALL_COMMENTS} from '../types'
+import {GET_POSTS_ERROR, LOADING_DATA, GET_POSTS_SUCCESS, LIKE_POST, UNLIKE_POST, DELETE_POST, PUBLISH_POST, GET_POST_SUCCESS, SUBMIT_COMMENT, GET_PLACES, GET_ALL_COMMENTS, DELETE_COMMENT} from '../types'
 
 const initialState = {
     loading: false,
@@ -13,8 +13,10 @@ export default function(state = initialState, action){
     switch(action.type){
         case LOADING_DATA:
             return {...state, loading: true};
+
         case GET_PLACES:
             return {...state, places: action.payload, loading: false};
+
         case GET_POSTS_SUCCESS:
             return {...state, posts: action.payload, loading: false};
         
@@ -26,6 +28,7 @@ export default function(state = initialState, action){
             
         case GET_ALL_COMMENTS:
             return {...state, comments: action.payload, loading: false}
+            
         case LIKE_POST:
         case UNLIKE_POST:
             let index = state.posts.findIndex((post) => post.postId === action.payload.postId);
@@ -48,6 +51,11 @@ export default function(state = initialState, action){
         case SUBMIT_COMMENT:
             return {...state, comments: [action.payload, ...state.comments]}
         
+        case DELETE_COMMENT:
+            indexToDelete = state.comments.findIndex( comment => comment.commentId === action.payload);
+            state.comments.splice(indexToDelete, 1)
+            return {...state}
+
         default:
             return state
 
