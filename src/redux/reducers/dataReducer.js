@@ -41,8 +41,8 @@ export default function(state = initialState, action){
             return {...state}
             
         case DELETE_POST:
-            let indexToDelete = state.posts.findIndex( post => post.postId === action.payload);
-            state.posts.splice(indexToDelete, 1)
+            let indexToDeletePost = state.posts.findIndex( post => post.postId === action.payload);
+            state.posts.splice(indexToDeletePost, 1)
             return {...state}
         
         case PUBLISH_POST:
@@ -52,8 +52,8 @@ export default function(state = initialState, action){
             return {...state, comments: [action.payload, ...state.comments]}
         
         case DELETE_COMMENT:
-            indexToDelete = state.comments.findIndex( comment => comment.commentId === action.payload);
-            state.comments.splice(indexToDelete, 1)
+            let indexToDeleteComment = state.comments.findIndex( comment => comment.commentId === action.payload);
+            state.comments.splice(indexToDeleteComment, 1)
             return {...state}
 
         default:

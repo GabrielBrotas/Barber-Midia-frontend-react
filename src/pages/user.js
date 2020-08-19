@@ -50,11 +50,10 @@ function User(props) {
     }, [userHandle, users])
  
     useEffect( () => {
-        !posts.lenght > 0 ?
-        setUserPosts(
-            posts.map( (post) => (
-                post.userHandle === userHandle && <Gallery key={post.postId} post={post} />
-            )))
+        !posts.lenght > 0 
+        ? setUserPosts(
+            <Gallery  posts={posts} barber={userHandle} />
+        )
         : setUserPosts(<p>loading</p>)
     }, [posts, userHandle])
 

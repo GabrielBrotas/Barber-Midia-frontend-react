@@ -2,6 +2,7 @@ import React, {Fragment} from 'react'
 import theme from '../../utils/theme'
 import withStyles from '@material-ui/core/styles/withStyles'
 import dayjs from 'dayjs'
+import {Link} from 'react-router-dom'
 
 // MUI stuffs
 import { Paper } from '@material-ui/core'
@@ -77,8 +78,7 @@ const styles = {
     },
     message: {
         fontStyle: "italic"
-    }
-    
+    }   
 }
 
 function Barber(props) {
@@ -100,7 +100,7 @@ function Barber(props) {
                 <div className="profile-details">
 
                     {/* link para o perfil dele */}
-                    <MuiLink style={{cursor: "pointer"}} color="primary" variant="h5">
+                    <MuiLink style={{cursor: "pointer"}} component={Link} to={`/user/${barber.handle}`} color="primary" variant="h5">
                         @{barber.handle}
                     </MuiLink>
                     <hr/>
@@ -140,7 +140,7 @@ function Barber(props) {
             <div className={classes.iconContent}>
             <PersonIcon className={classes.iconImage} />
             <Typography className={classes.iconDescription} component="h2" variant="h5">
-                Selecione uma das opções no mapa para poder ver seus trabalhos e detalhes.
+                Selecione uma das opções no mapa para poder ver os trabalhos e detalhes.
             </Typography>
             </div>
 
@@ -163,7 +163,6 @@ function Barber(props) {
                 Divirta-se !!!
             </Typography>
             </div>
-            
             
         </Fragment>
         

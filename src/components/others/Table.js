@@ -37,10 +37,11 @@ const useStyles = makeStyles({
   },
   buttonEdit: {
     fontSize: "0.8rem",
-    backgroundColor: "#FFA50E",
+    backgroundColor: "#A77D2D",
+    color: "#fff",
     marginRight: ".8rem",
     "&:hover": {
-      backgroundColor: "#F5820C"
+      backgroundColor: "#664608"
     }
   },
   buttonDelete: {

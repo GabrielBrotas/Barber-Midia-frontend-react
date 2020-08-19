@@ -1,49 +1,57 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
 
-const useStyles = makeStyles({
+
+const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 200,
-    maxHeight: 250,
-    marginBottom: '2rem',
-    width: '100%'
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    marginTop: "2rem"
   },
-  media: {
-    height: 140,
-    backgroundSize: 'contain'
+  gridList: {
+    width: 900,
+    height: 450,
+    backgroundColor: theme.backgroundColorMain
   },
-  description: {
-    height: 100
-  }
-});
+  gridImage: {
+    height: "100%",
+    width: "100%",
+    padding: ".5rem",
+  },
+  title: {
+    color: theme.palette.primary.light,
+  },
+  titleBar: {
+    background:
+      'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+  },
+}));
 
-function MediaCard(props) {
+export default function GalleryLocation(props) {
+  const {posts, barber} = props
+
   const classes = useStyles();
-  const {post: {bodyImage, bodyText}} = props
-
+  
   return (
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={bodyImage}
-          title="Contemplative Reptile"
-        />
+    <div className={classes.root}>
 
-      </CardActionArea>
-      <CardContent className={classes.description}>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {bodyText}
-        </Typography>
-      </CardContent>
-    </Card>
+      <GridList cellHeight={250} className={classes.gridList} cols={3}>
+
+      {posts.map( post => (
+      post.userHandle === barber &&
+
+        <GridListTile key={post.postId} cols={1} className={classes.gridContent}>
+          <img src={post.bodyImage} alt={post.bodyText} className={classes.gridImage} />
+        </GridListTile>
+
+      ))}
+
+      </GridList>
+      
+    </div>
   );
 }
-
-export default MediaCard
-

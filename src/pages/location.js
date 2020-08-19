@@ -14,21 +14,23 @@ import Typography from '@material-ui/core/Typography';
 // components
 import Barber from '../components/profile/Barber'
 import Map from '../components/layout/Map'
-import GalleryLocation from '../components/layout/GalleryLocation'
+import Gallery from '../components/layout/Gallery'
 
 const styles = {
     GalleryContent:{
         marginTop: "3rem",
         display: 'flex',
-        flexDirection: 'column',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
         backgroundColor: theme.backgroundColorMain,
+        width: "80%",
+        marginLeft: 'auto',
+        marginRight: "auto"
     },
     BarberContent: {
         marginTop: "43.32px",
         backgroundColor: theme.backgroundColorMain,
-        color: theme.fontMainColor,
+        color: theme.fontMainColor
     },
     Font: {
         color: theme.mainColor
@@ -71,7 +73,7 @@ function Location(props) {
     useEffect( () => {
         barber && !posts.lenght > 0 ?
         setUserPosts(
-         <GalleryLocation posts={posts} barber={barber} />
+         <Gallery posts={posts} barber={barber.handle} />
         )   
         : setUserPosts(<p>loading</p>)
     }, [posts, barber])
