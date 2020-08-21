@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
 
 function PrimarySearchAppBar() {
   const userInfo = useSelector(state => state.user)
-  const {authenticated, loading, credentials: {category}} = userInfo
+  const {authenticated, loading, credentials: {category, handle}} = userInfo
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -139,7 +139,12 @@ function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <MuiLink component={Link} to={`/user/${handle}`} color="primary" style={{textDecoration: "none", color: "#000"}}>
+          Perfil
+        </MuiLink>
+      </MenuItem>
+
       <MenuItem onClick={handleMenuClose}>
         <MuiLink component={Link} to={"/account"} color="primary" style={{textDecoration: "none", color: "#000  "}}>
           My account
@@ -169,7 +174,7 @@ function PrimarySearchAppBar() {
         <p>Notifications</p>
       </MenuItem>
   
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={handleProfileMenuOpen} >
        
         <IconButton
           aria-label="account of current user"
@@ -230,7 +235,7 @@ function PrimarySearchAppBar() {
                   onClick={handleProfileMenuOpen}
                   color="inherit"
                 >
-                  <Tooltip placement="top" title="Profile">
+                  <Tooltip placement="top"  title="Profile">
                     <AccountCircle />
                   </Tooltip>
                 </IconButton>

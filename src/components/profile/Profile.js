@@ -87,12 +87,11 @@ function Profile(props) {
 
     const {classes} = props
 
-    const userInfo = useSelector(state => state.user)
     const {
         credentials: {handle, createdAt, imageUrl, bio, instagram, location, category},
-        authenticated
-    } = userInfo
-
+        authenticated, authenticatedUser
+    } = props
+    
     const dataInfo = useSelector(state => state.data)
     const {places} = dataInfo
 
@@ -122,10 +121,12 @@ function Profile(props) {
         dispatch(logoutUser())
     }
     
+    // todo, poder ver o perfil de outros usuarios sem estar logado
+    
     // se nao estiver carregando os dados...
     let profileMarkup = 
     // verificar se esta autenticado
-     (authenticated 
+     (authenticated || handle 
         // se estiver...
         ? ( 
         // colocar o profile em um content 'Papeer'
@@ -140,11 +141,11 @@ function Profile(props) {
 
                 {/* input para trocar de imagem */}
                 <input type="file" id="imageInput" onChange={handleImageChange} hidden="hidden"/>
-
-                <MyButton tip="Edit profile picture" onClick={handleEditPicture} btnClassName="button">
-                    <EditIcon className={classes.iconProfile} />
-                </MyButton>
-
+                { authenticatedUser === handle && 
+                    <MyButton tip="Edit profile picture" onClick={handleEditPicture} btnClassName="button">
+                        <EditIcon className={classes.iconProfile} />
+                    </MyButton>
+                }
             </div>
             <hr />
 
@@ -152,25 +153,32 @@ function Profile(props) {
             <div className="profile-details">
 
                 {/* link para o perfil dele */}
-                <MuiLink component={Link} to={`/user/${handle}`} color="primary" variant="h5">
-                    @{handle}
-                </MuiLink>
+                {category !== "Usuario" 
+                    ?   <MuiLink component={Link} to={`/user/${handle}`} color="primary" variant="h5">
+                            @{handle}
+                        </MuiLink>
+                    :
+                    <Typography variant="h5" style={{color: theme.mainColor}}>
+                            @{handle}
+                    </Typography>
+                }
+                
                 <hr/>
 
-                {bio && 
+                { category !== "Usuario" && bio && 
                     <Typography variant="body2">
                         <PermIdentityIcon className={classes.iconProfile} /> {bio}
                     </Typography>}
                 <hr/>
 
-                {location && (
+                { category !== "Usuario" && location && (
                     <Fragment>
                         <LocationOn className={classes.iconProfile} /> <span>{location}</span>
                         <hr />
                     </Fragment>
                 )}
 
-                {instagram && (
+                { category !== "Usuario" && instagram && (
                     <Fragment>
                         <LinkIcon className={classes.iconProfile} />
                         <a href={instagram} target="_blank" rel="noopener noreferrer">
@@ -183,7 +191,7 @@ function Profile(props) {
                 {category !== "Usuario" && (
                     <Fragment>
                         <span rel="noopener noreferrer">
-                           {category}
+                           Especializado em {category === "Ambos" ? "cabelo masculino e feminino" : category}
                         </span>
                         <hr />
                     </Fragment>
@@ -194,11 +202,15 @@ function Profile(props) {
                 
             </div>
 
-            <MyButton tip="Logout" onClick={handleLogout}>
-                <KeyboardReturn className={classes.iconProfile} />
-            </MyButton>
+            { authenticatedUser === handle && 
+            <Fragment>
+                <MyButton tip="Logout" onClick={handleLogout}>
+                    <KeyboardReturn className={classes.iconProfile} />
+                </MyButton>
 
-            <EditDetails places={places} />
+                <EditDetails places={places} />
+            </Fragment>
+            }
 
             </div>
         </Paper>

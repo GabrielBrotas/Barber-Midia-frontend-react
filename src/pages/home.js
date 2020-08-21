@@ -21,7 +21,7 @@ function Home(props) {
     const {loading, posts} = dataList
 
     const userInfo = useSelector(state => state.user)
-    const {credentials: {handle, imageUrl}, likes, authenticated} = userInfo
+    const {credentials, likes, authenticated} = userInfo
 
     const [allPostsInDB, setAllPostsInDB] = useState(null)
 
@@ -36,14 +36,14 @@ function Home(props) {
         !loading ?
         setAllPostsInDB(
             posts.map( (post) => (
-                <PostContent key={post.postId} post={post} likes={likes} authenticated={authenticated} handle={handle} imageUrl={imageUrl} />
+                <PostContent key={post.postId} post={post} likes={likes} authenticated={authenticated} handle={credentials.handle} imageUrl={credentials.imageUrl} />
             )))
         : setAllPostsInDB(<p>loading</p>)
     
-    }, [dataList, loading, posts, likes, authenticated, handle, imageUrl])
+    }, [dataList, loading, posts, likes, authenticated, credentials.handle, credentials.imageUrl])
     
     return (
-        loading ? <Grid container spacing={4}>
+        loading || userInfo.loading ? <Grid container spacing={4}>
             
         {/* coluna das screams */}
         <Grid item sm={8} xs={12}>
@@ -66,7 +66,7 @@ function Home(props) {
 
             {/* coluna do perfil do usuario */}
             <Grid item sm={4} xs={12}>
-                <Profile />
+                <Profile authenticatedUser={credentials.handle} credentials={credentials} authenticated={authenticated} />
             </Grid>
             
         </Grid>
@@ -81,4 +81,3 @@ Home.protoTypes = {
 }
 
 export default Home
-

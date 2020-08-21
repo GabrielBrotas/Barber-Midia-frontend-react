@@ -10,17 +10,27 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    marginTop: "2rem"
+    margin: "2rem 0",
   },
   gridList: {
-    width: 900,
-    height: 450,
-    backgroundColor: theme.backgroundColorMain
+    backgroundColor: theme.backgroundColorMain,
+    maxHeight: "40rem",
+    maxWidth: 800,
+    display: 'flex',
+    flexWrap: 'wrap',
+    overflowY: "scroll",
+    listStyle: "none", 
+    justifyContent: "center"
   },
   gridImage: {
-    height: "100%",
-    width: "100%",
     padding: ".5rem",
+    width: 200,
+    borderRadius: "1rem",
+    transition: ".3s ease-in-out",
+    cursor: "pointer",
+    "&:hover": {
+      transform: "scale(1.2)"
+    }
   },
   title: {
     color: theme.palette.primary.light,
@@ -39,18 +49,18 @@ export default function GalleryLocation(props) {
   return (
     <div className={classes.root}>
 
-      <GridList cellHeight={250} className={classes.gridList} cols={3}>
+      <ul cellHeight={250} className={classes.gridList}>
 
       {posts.map( post => (
       post.userHandle === barber &&
 
-        <GridListTile key={post.postId} cols={1} className={classes.gridContent}>
+        <li key={post.postId} cols={1} className={classes.gridContent}>
           <img src={post.bodyImage} alt={post.bodyText} className={classes.gridImage} />
-        </GridListTile>
+        </li>
 
       ))}
-
-      </GridList>
+      
+      </ul>
       
     </div>
   );

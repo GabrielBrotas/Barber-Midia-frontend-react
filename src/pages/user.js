@@ -10,7 +10,7 @@ import {getPosts} from '../redux/actions/dataActions'
 import Grid from '@material-ui/core/Grid'
 
 // components
-import Barber from '../components/profile/Barber'
+import Profile from '../components/profile/Profile'
 import Gallery from '../components/layout/Gallery'
 
 const styles = {
@@ -23,9 +23,9 @@ const styles = {
 
 function User(props) {
 
-    const usersList = useSelector(state => state.user)
-    const {users, loading} = usersList
-    
+    const userInfo = useSelector(state => state.user)
+    const {users, loading, authenticated, credentials: {handle}} = userInfo
+
     const postList = useSelector(state => state.data)
     const {posts} = postList
 
@@ -48,7 +48,7 @@ function User(props) {
             && setSelectedUser(user)
         })
     }, [userHandle, users])
- 
+
     useEffect( () => {
         !posts.lenght > 0 
         ? setUserPosts(
@@ -61,7 +61,7 @@ function User(props) {
         (<Grid container spacing={4}>
             
             <Grid item sm={4} xs={12}>
-                <Barber barber={selectedUser}/> 
+                <Profile authenticatedUser={handle} credentials={selectedUser} authenticated={authenticated}/> 
             </Grid>
 
             <Grid item sm={8} xs={12} className={classes.GalleryContent}>
