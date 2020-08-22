@@ -1,35 +1,30 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    margin: "2rem 0",
-  },
   gridList: {
     backgroundColor: theme.backgroundColorMain,
-    maxHeight: "40rem",
-    maxWidth: 800,
+    width: "100%",
     display: 'flex',
     flexWrap: 'wrap',
-    overflowY: "scroll",
     listStyle: "none", 
-    justifyContent: "center"
+    justifyContent: "center",
+    background: `linear-gradient(to top, ${theme.backgroundColorMain}, ${theme.mainColor})`
+  },
+  gridContent: {
+    alignSelf: "center"
   },
   gridImage: {
-    padding: ".5rem",
+    margin: ".3rem",
     width: 200,
+    height: 200,
     borderRadius: "1rem",
     transition: ".3s ease-in-out",
+    position: "relative",
     cursor: "pointer",
     "&:hover": {
-      transform: "scale(1.2)"
+      transform: "scale(1.2)",
+      zIndex: 100
     }
   },
   title: {
@@ -47,21 +42,19 @@ export default function GalleryLocation(props) {
   const classes = useStyles();
   
   return (
-    <div className={classes.root}>
 
-      <ul cellHeight={250} className={classes.gridList}>
+    <ul className={classes.gridList}>
 
-      {posts.map( post => (
-      post.userHandle === barber &&
+    {posts.map( post => (
+    post.userHandle === barber &&
 
-        <li key={post.postId} cols={1} className={classes.gridContent}>
-          <img src={post.bodyImage} alt={post.bodyText} className={classes.gridImage} />
-        </li>
+      <li key={post.postId} className={classes.gridContent}>
+        <img src={post.bodyImage} alt={post.bodyText} className={classes.gridImage} />
+      </li>
 
-      ))}
-      
-      </ul>
-      
-    </div>
+    ))}
+    
+    </ul>
+    
   );
 }

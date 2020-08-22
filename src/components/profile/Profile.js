@@ -91,7 +91,7 @@ function Profile(props) {
         credentials: {handle, createdAt, imageUrl, bio, instagram, location, category},
         authenticated, authenticatedUser
     } = props
-    
+
     const dataInfo = useSelector(state => state.data)
     const {places} = dataInfo
 
@@ -152,6 +152,7 @@ function Profile(props) {
             {/* detalhes do usuario */}
             <div className="profile-details">
 
+                
                 {/* link para o perfil dele */}
                 {category !== "Usuario" 
                     ?   <MuiLink component={Link} to={`/user/${handle}`} color="primary" variant="h5">
@@ -165,10 +166,10 @@ function Profile(props) {
                 
                 <hr/>
 
-                { category !== "Usuario" && bio && 
-                    <Typography variant="body2">
-                        <PermIdentityIcon className={classes.iconProfile} /> {bio}
-                    </Typography>}
+                <Typography variant="body2">
+                    <PermIdentityIcon className={classes.iconProfile} /> {bio}
+                </Typography>
+
                 <hr/>
 
                 { category !== "Usuario" && location && (

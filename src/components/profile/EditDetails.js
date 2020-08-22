@@ -44,7 +44,6 @@ function EditDetails(props) {
     // estados onde ficarao os dados do usuario
     const [bio, setBio] = useState('')
     const [instagram, setInstagram] = useState('')
-    const [category, setCategory] = useState('Usuario')
     const [open, setOpen] = useState(false)
     const {credentials, classes} = props
 
@@ -56,7 +55,6 @@ function EditDetails(props) {
     const mapUserDetailsToState = (credentials) => {
         setBio(credentials.bio ? credentials.bio : '')
         setInstagram(credentials.instagram ? credentials.instagram : '')
-        setCategory(credentials.category ? credentials.category : 'Usuario')
     }
 
     // abrir o pop up
@@ -75,7 +73,7 @@ function EditDetails(props) {
         const userDetails = {
             bio,
             instagram,
-            category
+            category: credentials.category
         }
         // mandar para a action do user os novos dados para salvar
         props.editUserDetails(userDetails);
@@ -134,17 +132,6 @@ function EditDetails(props) {
                         onChange={(e) => setInstagram(e.target.value)} 
                         fullWidth 
                         />
-
-                        {/* category text */}
-                        <SelectForm
-                        name="category" 
-                        label="Category"
-                        category={category}
-                        fontColor={"#000"}
-                        onChangeSelect={setCategory} 
-                        fullWidth 
-                        />
-                        
 
                     </form>
                 </DialogContent>

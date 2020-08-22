@@ -139,17 +139,17 @@ function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>
-        <MuiLink component={Link} to={`/user/${handle}`} color="primary" style={{textDecoration: "none", color: "#000"}}>
+      <MuiLink component={Link} to={`/user/${handle}`} color="primary" style={{textDecoration: "none", color: "#000"}}>
+        <MenuItem onClick={handleMenuClose}>
           Perfil
-        </MuiLink>
-      </MenuItem>
+        </MenuItem>
+      </MuiLink>
 
-      <MenuItem onClick={handleMenuClose}>
-        <MuiLink component={Link} to={"/account"} color="primary" style={{textDecoration: "none", color: "#000  "}}>
+      <MuiLink component={Link} to={"/account"} color="primary" style={{textDecoration: "none", color: "#000  "}}>
+        <MenuItem onClick={handleMenuClose}>
           My account
-        </MuiLink>
-      </MenuItem>
+        </MenuItem>
+      </MuiLink>
     </Menu>
   );
 
@@ -205,7 +205,7 @@ function PrimarySearchAppBar() {
               <PinDrop />
             </IconButton>
 
-            {authenticated &&
+            {authenticated && category !== "Usuario" &&
               <IconButton aria-label="show 4 new mails" color="inherit">
                 <PostScream /> 
               </IconButton>

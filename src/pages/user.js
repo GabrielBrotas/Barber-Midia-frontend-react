@@ -18,6 +18,10 @@ const styles = {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-around'
+    },
+    gridContainer: {
+        display: 'flex',
+        flexWrap: 'wrap',
     }
 }
 
@@ -25,7 +29,7 @@ function User(props) {
 
     const userInfo = useSelector(state => state.user)
     const {users, loading, authenticated, credentials: {handle}} = userInfo
-
+    
     const postList = useSelector(state => state.data)
     const {posts} = postList
 
@@ -58,9 +62,9 @@ function User(props) {
     }, [posts, userHandle])
 
     return ( !loading ?
-        (<Grid container spacing={4}>
+        (<Grid container spacing={4} className={classes.gridContainer}>
             
-            <Grid item sm={4} xs={12}>
+            <Grid item sm={4} xs={5}>
                 <Profile authenticatedUser={handle} credentials={selectedUser} authenticated={authenticated}/> 
             </Grid>
 
