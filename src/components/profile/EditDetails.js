@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import withStyles from '@material-ui/core/styles/withStyles'
 
 import MyButton from '../../utils/MyButton'
-import SelectForm from '../others/SelectForm'
 import CssTextField from '../others/CssTextField'
 
 // redux

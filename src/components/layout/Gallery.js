@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -9,19 +9,18 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     listStyle: "none", 
     justifyContent: "center",
-    background: `linear-gradient(to top, ${theme.backgroundColorMain}, ${theme.mainColor})`
+    background: `linear-gradient(to top, ${theme.backgroundColorMain}, ${theme.mainColor})`,
   },
   gridContent: {
     alignSelf: "center"
   },
   gridImage: {
     margin: ".3rem",
-    width: 200,
     height: 200,
-    borderRadius: "1rem",
+    borderRadius: ".3rem",
     transition: ".3s ease-in-out",
-    position: "relative",
     cursor: "pointer",
+    maxWidth: 300,
     "&:hover": {
       transform: "scale(1.2)",
       zIndex: 100
@@ -37,23 +36,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function GalleryLocation(props) {
-  const {posts, barber} = props
-
   const classes = useStyles();
+  const {posts, barber} = props
+  const [imagesGallery, setImagesGallery] = useState(null)
+
+  const loaded = () => {
+    const galleryImagesList = document.querySelector('ul');
+    
+    console.log(galleryImagesList.innerText)
+  }
+
+  useEffect( () => {
+    setImagesGallery(
+      posts.map( post => (
+        post.userHandle === barber && (
+          <li key={post.postId} className={classes.gridContent}>
+            <img src={post.bodyImage} alt={post.bodyText} className={classes.gridImage} />
+          </li>
+        )  
+    )))
+    loaded()
+  }, [posts, barber, classes.gridContent, classes.gridImage])
   
+
   return (
 
     <ul className={classes.gridList}>
-
-    {posts.map( post => (
-    post.userHandle === barber &&
-
-      <li key={post.postId} className={classes.gridContent}>
-        <img src={post.bodyImage} alt={post.bodyText} className={classes.gridImage} />
-      </li>
-
-    ))}
-    
+      {imagesGallery}
     </ul>
     
   );

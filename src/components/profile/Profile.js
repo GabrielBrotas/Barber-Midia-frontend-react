@@ -32,8 +32,7 @@ const styles = {
     paper: {
         backgroundColor: theme.backgroundColorMain,
         color: theme.fontMainColor,
-        padding: 20,
-        position: 'fixed'
+        padding: 20
     },
     iconProfile: {
         color: theme.secondaryColor
@@ -130,7 +129,7 @@ function Profile(props) {
         // se estiver...
         ? ( 
         // colocar o profile em um content 'Papeer'
-        <Paper className={classes.paper} > 
+        <Paper className={classes.paper} style={{position: props.paperPosition}} > 
             <div className={classes.profile}>
 
             {/* imagem do perfil content */}
@@ -217,7 +216,7 @@ function Profile(props) {
         </Paper>
         ) : (
         // se nao esetiver autenticado...
-        <Paper className={classes.paper}>
+        <Paper className={classes.paper} style={{position: 'fixed'}}>
 
             <Typography variant="body2" align="center">
                 No profile found, please login again

@@ -14,14 +14,16 @@ import Profile from '../components/profile/Profile'
 import Gallery from '../components/layout/Gallery'
 
 const styles = {
+    root:{
+        "&.MuiPaper-root": {
+            position: 'relative',
+            width: "100%"
+        }
+    },
     GalleryContent:{
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: 'space-around'
-    },
-    gridContainer: {
-        display: 'flex',
-        flexWrap: 'wrap',
+        justifyContent: 'space-around',
     }
 }
 
@@ -56,21 +58,20 @@ function User(props) {
     useEffect( () => {
         !posts.lenght > 0 
         ? setUserPosts(
-            <Gallery  posts={posts} barber={userHandle} />
+            <Gallery posts={posts} barber={userHandle} />
         )
         : setUserPosts(<p>loading</p>)
     }, [posts, userHandle])
 
     return ( !loading ?
-        (<Grid container spacing={4} className={classes.gridContainer}>
+        (<Grid container spacing={1}>
             
-            <Grid item sm={4} xs={5}>
-                <Profile authenticatedUser={handle} credentials={selectedUser} authenticated={authenticated}/> 
+            <Grid className={classes.profileColumn} item sm={4} xs={12}>
+                <Profile authenticatedUser={handle} credentials={selectedUser} authenticated={authenticated}paperPosition="relative"/> 
             </Grid>
-
-            <Grid item sm={8} xs={12} className={classes.GalleryContent}>
+            <Grid item sm={8} xs={12}>
                 {userPosts}
-            </Grid>
+            </Grid>  
             
         </Grid>) : (
             <p>loading...</p>
