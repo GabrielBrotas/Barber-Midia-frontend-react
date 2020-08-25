@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -15,12 +15,12 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: "center"
   },
   gridImage: {
-    margin: ".3rem",
+    margin: "5px",
     height: 200,
     borderRadius: ".3rem",
     transition: ".3s ease-in-out",
     cursor: "pointer",
-    maxWidth: 300,
+    maxWidth: 400,
     "&:hover": {
       transform: "scale(1.2)",
       zIndex: 100
@@ -38,31 +38,29 @@ const useStyles = makeStyles((theme) => ({
 export default function GalleryLocation(props) {
   const classes = useStyles();
   const {posts, barber} = props
-  const [imagesGallery, setImagesGallery] = useState(null)
 
-  const loaded = () => {
-    const galleryImagesList = document.querySelector('ul');
-    
-    console.log(galleryImagesList.innerText)
-  }
-
+  const allImages = document.getElementsByTagName('img')
+  
   useEffect( () => {
-    setImagesGallery(
-      posts.map( post => (
-        post.userHandle === barber && (
-          <li key={post.postId} className={classes.gridContent}>
-            <img src={post.bodyImage} alt={post.bodyText} className={classes.gridImage} />
-          </li>
-        )  
-    )))
-    loaded()
-  }, [posts, barber, classes.gridContent, classes.gridImage])
+    for(let i = 0; i < allImages.length; i++){
+      allImages[i].className !== 'profile-image' &&
+        allImages[i].naturalWidth - allImages[i].naturalHeight >= 500 ?
+          allImages[i].style = 'width: 400px; margin-left: .75rem; margin-right: .75rem'
+        : allImages[i].style = 'width: 200px'
+    }
+  }, [allImages])
   
 
   return (
 
     <ul className={classes.gridList}>
-      {imagesGallery}
+     { posts.map( post => (
+        post.userHandle === barber && (
+          <li key={post.postId} className={classes.gridContent}>
+            <img src={post.bodyImage} alt={post.bodyText} className={classes.gridImage} />
+          </li>
+        )  
+      ))}
     </ul>
     
   );

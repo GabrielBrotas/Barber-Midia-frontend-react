@@ -219,7 +219,7 @@ function Profile(props) {
         <Paper className={classes.paper} style={{position: 'fixed'}}>
 
             <Typography variant="body2" align="center">
-                No profile found, please login again
+                Nenhum perfil encontrado
             </Typography>
 
             {/* butao para logar ou se registrar */}

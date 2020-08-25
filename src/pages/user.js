@@ -33,7 +33,7 @@ function User(props) {
     const {users, loading, authenticated, credentials: {handle}} = userInfo
     
     const postList = useSelector(state => state.data)
-    const {posts} = postList
+    const {posts, loading: postLoading} = postList
 
     const {classes} = props
     const userHandle = props.match.params.handle
@@ -56,15 +56,15 @@ function User(props) {
     }, [userHandle, users])
 
     useEffect( () => {
-        !posts.lenght > 0 
+        !postLoading > 0 
         ? setUserPosts(
             <Gallery posts={posts} barber={userHandle} />
         )
         : setUserPosts(<p>loading</p>)
-    }, [posts, userHandle])
+    }, [posts, userHandle, postLoading])
 
-    return ( !loading ?
-        (<Grid container spacing={1}>
+    return ( !loading && !postLoading ?
+        (<Grid container spacing={3}>
             
             <Grid className={classes.profileColumn} item sm={4} xs={12}>
                 <Profile authenticatedUser={handle} credentials={selectedUser} authenticated={authenticated}paperPosition="relative"/> 
