@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function IconLabelButtons(props) {
+function IconLabelButtons(props) {
   const {takeImageToUpload, setImageToUploadData} = props
 
   const classes = useStyles();
@@ -53,3 +53,5 @@ export default function IconLabelButtons(props) {
     </div>
   );
 }
+
+export default IconLabelButtons
