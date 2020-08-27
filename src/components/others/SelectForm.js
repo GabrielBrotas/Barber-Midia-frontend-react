@@ -37,8 +37,9 @@ const useStyles = makeStyles((theme) => ({
     '& label': {
       color: theme.fontSecondaryColor,
       backgroundColor: theme.backgroundColorSecondary,
-      borderRadius: "1rem",
-      padding: "0.2rem 1.1rem"
+      borderRadius: ".2rem",
+      padding: "0.3rem 1.8rem",
+      left: "-0.5rem"
     }
   },
   selectEmpty: {
@@ -52,7 +53,7 @@ function SimpleSelect(props) {
   return (
     <div>
       <CssFormControl variant="outlined" name="category"className={classes.formControl}>
-        <InputLabel name="category" id="demo-simple-select-outlined-label">Category</InputLabel>
+        <InputLabel name="category" id="demo-simple-select-outlined-label">Perfil</InputLabel>
         <Select
           name="category"
           labelId="demo-simple-select-outlined-label"

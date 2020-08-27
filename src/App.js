@@ -24,6 +24,7 @@ import location from './pages/location'
 import user from './pages/user'
 import post from './pages/post'
 import account from './pages/account'
+import verify from './pages/verify'
 
 // style global
 const theme = createTheme(themeFile)
@@ -51,6 +52,8 @@ function App() {
     }
   }, [token])
 
+  // todo, se o usuario nao estiver autenticado nao acessar account
+  // todo, nao acessar a rota verify
   return (
   <MuiThemeProvider theme={theme}>
   <Provider store={store}>
@@ -59,6 +62,7 @@ function App() {
 
       <div className="container">
       <Switch>
+        <Route exact path="/verify" component={verify} />
         <Route exact path="/account" component={account} />
         <Route exact path="/location" component={location} />
         <Route exact path="/user/:handle/post/postId" component={post} />
