@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 function Verify(props) {
   const classes = useStyles();
   console.log(props)
+  
   return (
     <div className={classes.root}>
       <Alert severity="success">Conta confirmada com sucesso!</Alert>

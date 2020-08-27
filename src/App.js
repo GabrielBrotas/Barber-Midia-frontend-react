@@ -15,6 +15,8 @@ import {logoutUser, getUserData} from './redux/actions/userActions'
 
 // components
 import Navbar from './components/layout/Navbar.js'
+import AuthRoute from './utils/AuthRoute'
+import NotAuthRoute from './utils/NotAuthRoute'
 
 // pages
 import home from './pages/home'
@@ -62,13 +64,13 @@ function App() {
 
       <div className="container">
       <Switch>
-        <Route exact path="/verify" component={verify} />
-        <Route exact path="/account" component={account} />
+        <NotAuthRoute exact path="/verify" component={verify} />
+        <AuthRoute exact path="/account" component={account} />
         <Route exact path="/location" component={location} />
         <Route exact path="/user/:handle/post/postId" component={post} />
         <Route exact path="/user/:handle" component={user} />
-        <Route exact path="/signup" component={signup} />
-        <Route exact path="/login" component={login} />
+        <NotAuthRoute exact path="/signup" component={signup} />
+        <NotAuthRoute exact path="/login" component={login} />
         <Route exact path="/" component={home}  />
       </Switch>
 
