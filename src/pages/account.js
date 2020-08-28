@@ -45,7 +45,7 @@ const styles = {
 function Account(props) {
 
     const userInfo = useSelector(state => state.user)
-    const {credentials: {handle}, authenticated} = userInfo
+    const {credentials: {handle}} = userInfo
 
     const dataInfo = useSelector(state => state.data)
     const {loading, places} = dataInfo

@@ -1,36 +1,134 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import {Link} from 'react-router-dom'
 
 // MUI
 import { Alert } from '@material-ui/lab';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
+import PersonPinCircleIcon from '@material-ui/icons/PersonPinCircle'
+import WorkIcon from '@material-ui/icons/Work';
+import PeopleIcon from '@material-ui/icons/People';
+
 const useStyles = makeStyles((theme) => ({
-    root: {
-        maxWidth: 500,
-        marginLeft: 'auto',
-        marginRight: "auto",
-        marginTop: "2rem"
+  root: {
+      maxWidth: 500,
+      marginLeft: 'auto',
+      marginRight: "auto",
+      marginTop: "2rem",
+      backgroundColor: theme.mainColor,
+      color: theme.backgroundColorMain,
+      boxShadow: "0px 0px 36px -12px #A77D2D;"
+  },
+  alertDisplay: {
+    justifyContent: 'center'
+  },
+  welcomeMessage: {
+    padding: "1rem 0",
+    textAlign: "center",
+    fontSize: 'xx-large'
+  },
+  appInfo: {
+    textAlign: 'center',
+    color: '#c5c5c5',
+    backgroundColor: theme.backgroundColorSecondary,
+    padding: ".8rem 0"
+  },
+  appDescription: {
+    display: 'flex',
+    textAlign: 'left',
+    alignItems: 'center',
+    marginBottom: '1rem',
+  },
+  iconImage: {
+    color: theme.mainColor, 
+    margin: "0 .8rem",
+    width: 40,
+    height: 40,
+  },
+  submit: {
+    padding: '1rem 2rem',
+    margin: ".7rem 0",
+    cursor: "pointer",
+    backgroundColor: theme.mainColor, 
+    color: theme.fontMainColor,
+    fontWeight: "bold",
+    '&:hover': {
+      backgroundColor: '#664608',
     },
-    userInfo: {
-        textAlign: 'center',   
-    }
+  }
 }));
 
 function Verify(props) {
   const classes = useStyles();
-  console.log(props)
+
+  const [handle, setHandle] = useState(null)
+  const [email, setEmail] = useState(null)
   
+  console.log(props)
+
+  useEffect( () => {
+    if(props.location.state) {
+      setHandle(props.location.state.handle)
+      setEmail(props.location.state.email)
+    }
+  }, [props])
+
   return (
+    <>
+    <Alert className={classes.alertDisplay} severity={handle ? "warning" : "success" }>
+      { handle ? "Agora só falta confirmar a conta no seu email!" : "Conta confirmada com sucesso"}
+    !</Alert>
+
     <div className={classes.root}>
-      <Alert severity="success">Conta confirmada com sucesso!</Alert>
-      <div className={classes.userInfo}>
-      <Typography className={classes.titleBigger} component="h4" variant="h6">
-            Bem vindo ao nosso App ! Divirta-se.
-        </Typography>
-      </div>
-      
+
+      { handle ? (
+        <p>loading ,,m,</p>
+      ) : (
+        <>
+      <Typography className={classes.welcomeMessage} component="h4" variant="h5">
+          <strong>Bem vindo ao nosso App !</strong>
+      </Typography>
+
+        <div className={classes.appInfo}>
+        
+          <div className={classes.appDescription}>
+            <PersonPinCircleIcon className={classes.iconImage}/>
+            <Typography component="h3" variant="h6">
+              Se conecte com todos profissionais próximos a você
+            </Typography>
+          </div>
+
+          <div className={classes.appDescription}>
+            <WorkIcon className={classes.iconImage}/>
+            <Typography component="h3" variant="h6">
+              Trabalhe conosco e divulgue seu trabalho
+            </Typography>
+          </div>
+
+          <div className={classes.appDescription}>
+            <PeopleIcon className={classes.iconImage}/>
+            <Typography component="h3" variant="h6">
+              Se inspire com a arte dos profissionais 
+            </Typography>
+          </div>
+        
+          <Typography style={{ color: "#c5c5c5"}} component="h4" variant="h6">
+            Divirta-se !!
+          </Typography>
+
+          <Link to="/">
+            <Typography className={classes.submit}>
+              Home Page
+            </Typography>
+          </Link>
+          
+        </div>
+        </>
+      )}
+
     </div>
+    </>
   );
 }
 

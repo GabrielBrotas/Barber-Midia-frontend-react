@@ -38,13 +38,8 @@ export const signupUser = (newUserData, history, locationData) => (dispatch) => 
 
     axios.post('/signup', newUserData)
     .then( async res => {
-        await setAuthorizationHeader(res.data.userToken.i)
-        dispatch(getUserData());
         dispatch({type: CLEAR_ERRORS})
-        // if (newUserData.category !== "Usuario") {
-        //     dispatch(saveLocation(locationData))
-        // }
-        history.push('/')
+        history.push('/verify', newUserData)
     })
     .catch( err => {
         dispatch({
