@@ -71,7 +71,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   progress: {
-    position: 'absolute'
+    position: 'absolute',
+    color: theme.mainColor
   },
   customError: {
       color: 'red',

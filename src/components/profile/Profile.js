@@ -120,25 +120,16 @@ function Profile(props) {
         dispatch(logoutUser())
     }
     
-    // todo, poder ver o perfil de outros usuarios sem estar logado
-    
-    // se nao estiver carregando os dados...
     let profileMarkup = 
-    // verificar se esta autenticado
      (authenticated || handle 
-        // se estiver...
         ? ( 
-        // colocar o profile em um content 'Papeer'
         <Paper className={classes.paper} style={{position: props.paperPosition}} > 
             <div className={classes.profile}>
 
-            {/* imagem do perfil content */}
             <div className="image-wrapper">
 
-                {/* imagem */}
                 <img className="profile-image" src={imageUrl} alt="profile"></img>
 
-                {/* input para trocar de imagem */}
                 <input type="file" id="imageInput" onChange={handleImageChange} hidden="hidden"/>
                 { authenticatedUser === handle && 
                     <MyButton tip="Edit profile picture" onClick={handleEditPicture} btnClassName="button">
@@ -148,11 +139,8 @@ function Profile(props) {
             </div>
             <hr />
 
-            {/* detalhes do usuario */}
             <div className="profile-details">
 
-                
-                {/* link para o perfil dele */}
                 {category !== "Usuario" 
                     ?   <MuiLink component={Link} to={`/user/${handle}`} color="primary" variant="h5">
                             @{handle}
@@ -165,11 +153,14 @@ function Profile(props) {
                 
                 <hr/>
 
-                <Typography variant="body2">
-                    <PermIdentityIcon className={classes.iconProfile} /> {bio}
-                </Typography>
-
-                <hr/>
+                { bio && 
+                    <Fragment>
+                    <Typography variant="body2">
+                        <PermIdentityIcon className={classes.iconProfile} /> {bio}
+                    </Typography>
+                    <hr/>
+                    </Fragment>
+                }
 
                 { category !== "Usuario" && location && (
                     <Fragment>

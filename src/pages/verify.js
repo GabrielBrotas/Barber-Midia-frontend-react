@@ -115,9 +115,9 @@ function Verify(props) {
             Divirta-se !!
           </Typography>
 
-          <Link to="/">
+          <Link to="/login">
             <Typography className={classes.submit}>
-              Home Page
+              Login
             </Typography>
           </Link>
           

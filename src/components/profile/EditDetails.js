@@ -10,6 +10,7 @@ import {connect} from 'react-redux'
 import {editUserDetails} from '../../redux/actions/userActions'
 
 // Material UI Stuffs
+import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
@@ -18,6 +19,7 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 
 // icons
 import EditIcon from '@material-ui/icons/Edit'
+import InstagramIcon from '@material-ui/icons/Instagram';
 
 const styles = (theme) => ({
     paperTitle: {
@@ -34,7 +36,27 @@ const styles = (theme) => ({
     buttonSubmit:{
         color: theme.mainColor,
         transition: "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms"
-       
+    },
+    igContent: {
+        display: 'flex',
+        "& input": {
+            padding: 9
+        },
+        "& label": {
+            display: 'none'
+        }
+    },
+    igFixedContent: {
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: 'large',
+        marginRight: '.5rem',
+        color: 'linear-gradient(to right, red , yellow)'
+    },
+    igIcon: {
+        width: '2rem',
+        height: '2rem',
+        marginRight: '.5rem'
     }
 })
 
@@ -118,19 +140,27 @@ function EditDetails(props) {
                         fullWidth 
                         />
 
-                        {/* instagram text */}
-                        <CssTextField 
-                        variant="filled"
-                        margin="normal"
-                        required
-                        name="instagram" 
-                        type="text" 
-                        label="Instagram"  
-                        placeholder="your personal and professional instagram" 
-                        value={instagram} 
-                        onChange={(e) => setInstagram(e.target.value)} 
-                        fullWidth 
-                        />
+                        <div className={classes.igContent}>
+                            <div className={classes.igFixedContent}>
+                                <InstagramIcon className={classes.igIcon}/>
+                                <Typography variant='inherit'>
+                                    https://www.instagram.com/
+                                </Typography>
+                            </div>
+                        
+                            <CssTextField 
+                            variant="filled"
+                            margin="normal"
+                            required
+                            name="instagram" 
+                            type="text" 
+                            label="Instagram"   
+                            fullWidth
+                            placeholder="your professional instagram" 
+                            value={instagram} 
+                            onChange={(e) => setInstagram(e.target.value)} 
+                            />
+                        </div>
 
                     </form>
                 </DialogContent>

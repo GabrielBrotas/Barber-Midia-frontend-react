@@ -1,4 +1,5 @@
 import {SET_ERRORS, SET_USER, GET_USERS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER, MARK_NOTIFICATIONS_READ} from '../types'
+import {saveLocation} from './dataActions'
 import axios from 'axios'
 
 export const getAllUsers = () => (dispatch) => {
@@ -39,6 +40,7 @@ export const signupUser = (newUserData, history, locationData) => (dispatch) => 
     axios.post('/signup', newUserData)
     .then( res => {
         dispatch({type: CLEAR_ERRORS})
+        dispatch(saveLocation(locationData))
         history.push(`/verify/${newUserData.handle}`)
     })
     .catch( err => {
