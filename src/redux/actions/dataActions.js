@@ -5,7 +5,7 @@ import {GET_POSTS_SUCCESS, GET_POSTS_ERROR, LOADING_DATA, LIKE_POST, UNLIKE_POST
 export const getPosts = () => (dispatch) => {
     dispatch({type: LOADING_DATA})
     // pegar todas as POSTs na api, foi definida a url da api no package.json em 'proxy'
-    axios.get('/posts')
+    axios.get('https://us-central1-barber-midia.cloudfunctions.net/api/posts')
     .then( res => {
         dispatch({type: GET_POSTS_SUCCESS, payload: res.data})
     })
@@ -33,7 +33,7 @@ export const getAllPlaces = () => (dispatch) => {
     
     dispatch({type: LOADING_DATA});
 
-    axios.get('/places')
+    axios.get('https://us-central1-barber-midia.cloudfunctions.net/api/places')
     .then( res => {
         dispatch({type: GET_PLACES, payload: res.data})
     })

@@ -89,7 +89,12 @@ const useStyles = makeStyles({
       color: theme.mainColor,
       width: "100%",
       height: "100%"
+  },
+  "& .gm-style-iw .gm-style-iw-c": {
+    backgroundColor: "#f45212",
+    padding: 0
   }
+
 });
 
 function MyComponent(props) {
@@ -150,12 +155,14 @@ function MyComponent(props) {
       ))}
 
       {selected ? (
-      <InfoWindow 
-      position={{lat: selected.lat, lng: selected.lng}}
-      onCloseClick={() => {
-        setSelected(null)
-        setUserSelected(null)
-      }}>
+
+        <InfoWindow 
+        position={{lat: selected.lat, lng: selected.lng}}
+        
+        onCloseClick={() => {
+          setSelected(null)
+          setUserSelected(null)
+        }}>
         <div>
           {userSelected &&
           <Fragment>
@@ -164,7 +171,9 @@ function MyComponent(props) {
           </Fragment>
           }
         </div>
-      </InfoWindow>) : null}
+      </InfoWindow>
+
+      ) : null}
     </GoogleMap>
     </div>
 
