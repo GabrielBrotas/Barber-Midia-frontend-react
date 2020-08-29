@@ -1,3 +1,4 @@
+// styles = snazzymaps.com
 export default [
     {
         "featureType": "all",

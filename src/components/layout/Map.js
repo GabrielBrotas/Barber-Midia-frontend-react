@@ -1,7 +1,8 @@
 import React, {useCallback, useState, useRef, useEffect, Fragment} from 'react'
 import {Combobox,  ComboboxPopover, ComboboxOption, ComboboxInput} from "@reach/combobox"
 import theme from '../../utils/theme'
-import markerIcon from '../../assets/images/barbeiro.png'
+import homemIcon from '../../assets/images/homem.png'
+import mulherIcon from '../../assets/images/mulher.png'
 
 // Map
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
@@ -16,9 +17,6 @@ const center = {
   lat: -12.6975,
   lng: -38.32417
 };
-
-// styles = snazzymaps.com
-
 
 // styles
 const containerStyle = {
@@ -112,7 +110,7 @@ function MyComponent(props) {
 
   const panTo = React.useCallback(({lat, lng}) => {
     mapRef.current.panTo({lat, lng})
-    mapRef.current.setZoom(14)
+    mapRef.current.setZoom(16)
   }, [])
 
   return (
@@ -127,7 +125,8 @@ function MyComponent(props) {
       mapContainerStyle={containerStyle}
       center={center}
       zoom={13}
-      options={{styles: mapStyle}}
+      options={{styles: mapStyle, disableDefaultUI: true}}
+      
       onLoad={onMapLoad}
     >
       { /* Child components, such as markers, info windows, etc. */ }
@@ -137,9 +136,8 @@ function MyComponent(props) {
           key={marker.placeId}
           position={{ lat: marker.lat, lng: marker.lng}} 
           icon={{
-            url: markerIcon,
-            // tamanho do icone
-            scaledSize: new window.google.maps.Size(20,20),
+            url: marker.category === "Cabelo Masculino" && (homemIcon) || marker.category === "Cabelo Feminino" && (mulherIcon),
+            scaledSize: new window.google.maps.Size(30,30),
             // onde vai ficar, nesse caso no centro do clique ou lat
             origin: new window.google.maps.Point(0,0),
             anchor: new window.google.maps.Point(0,0)
