@@ -4,16 +4,13 @@ import theme from '../../utils/theme'
 import markerIcon from '../../assets/images/barbeiro.png'
 
 // Map
-import { GoogleMap, Marker, InfoWindow, useLoadScript } from '@react-google-maps/api';
+import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
 import usePlacesAutocomplete, {getGeocode, getLatLng} from 'use-places-autocomplete'
+import mapStyle from '../../utils/MapStyle'
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
 import RestoreIcon from '@material-ui/icons/Restore';
-import CircularProgress from '@material-ui/core/CircularProgress';
-
-// configs
-const libraries = ['places']
 
 const center = {
   lat: -12.6975,
@@ -21,11 +18,7 @@ const center = {
 };
 
 // styles = snazzymaps.com
-// todo, map styles
-const options = {
-  disableDefaultUI: true,
-  zoomControl: true,
-}
+
 
 // styles
 const containerStyle = {
@@ -103,11 +96,7 @@ const useStyles = makeStyles({
 
 function MyComponent(props) {
   const classes = useStyles();
-  const {isLoaded, loadError} = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
-    libraries,
-  })
-  
+
   const {places, loading, setUserSelected, userSelected} = props
   const [selected, setSelected] = useState(null)
   const [markers, setMarkers] = useState([])
@@ -126,13 +115,6 @@ function MyComponent(props) {
     mapRef.current.setZoom(14)
   }, [])
 
-  if(loadError) return "error loading map"
-  if(!isLoaded) return (
-    <div className={classes.userPictureContent}>
-      <CircularProgress className={classes.userPicture} size={100} thickness={1}/>  
-    </div>
-  )
-
   return (
     <div className={classes.mapContent}>
 
@@ -145,7 +127,7 @@ function MyComponent(props) {
       mapContainerStyle={containerStyle}
       center={center}
       zoom={13}
-      options={options}
+      options={{styles: mapStyle}}
       onLoad={onMapLoad}
     >
       { /* Child components, such as markers, info windows, etc. */ }
@@ -191,7 +173,7 @@ function MyComponent(props) {
   )
 }
  
-function Search({panTo, setUserSelected, setSelected}) {
+function Search({panTo}) {
   const classes = useStyles();
   const [lat, setLat] = useState(null)
   const [lng, setLng] = useState(null)
@@ -210,8 +192,6 @@ function Search({panTo, setUserSelected, setSelected}) {
       radius: 200 * 1000,
       types: ['address']
   }})
-
-
 
   return (
   <Combobox 
