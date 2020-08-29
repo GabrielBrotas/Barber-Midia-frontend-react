@@ -143,6 +143,7 @@ function SignUpSide(props) {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
+          
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
             
             <CssTextField

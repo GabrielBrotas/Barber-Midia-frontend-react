@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom'
-
+import {getTokenAndHandleFromParams} from '../utils/helpers'
 // MUI
 import { Alert } from '@material-ui/lab';
 import Typography from '@material-ui/core/Typography';
@@ -63,31 +63,29 @@ function Verify(props) {
   const classes = useStyles();
 
   const [handle, setHandle] = useState(null)
-  const [email, setEmail] = useState(null)
-  
-  console.log(props)
+  const [token, setToken] = useState(null)
 
   useEffect( () => {
-    if(props.location.state) {
-      setHandle(props.location.state.handle)
-      setEmail(props.location.state.email)
-    }
+    setToken(getTokenAndHandleFromParams(props.match.params.handleAndToken).token)
+    setHandle(getTokenAndHandleFromParams(props.match.params.handleAndToken).handle)
   }, [props])
 
   return (
     <>
-    <Alert className={classes.alertDisplay} severity={handle ? "warning" : "success" }>
-      { handle ? "Agora só falta confirmar a conta no seu email!" : "Conta confirmada com sucesso"}
+    <Alert className={classes.alertDisplay} severity={!token ? "warning" : "success" }>
+      { !token ? "Agora só falta confirmar a conta no seu email!" : "Conta confirmada com sucesso"}
     !</Alert>
 
     <div className={classes.root}>
 
-      { handle ? (
-        <p>loading ,,m,</p>
+      { !token ? (
+        <Typography style={{padding: '1rem', textAlign: "center"}} component="h4" variant="h6">
+          <strong>Olá {handle}, falta pouco para você ter acesso total ao nosso app !</strong>
+        </Typography>
       ) : (
         <>
       <Typography className={classes.welcomeMessage} component="h4" variant="h5">
-          <strong>Bem vindo ao nosso App !</strong>
+          <strong>Bem vindo ao nosso App {handle} !</strong>
       </Typography>
 
         <div className={classes.appInfo}>

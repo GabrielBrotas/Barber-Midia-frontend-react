@@ -54,8 +54,6 @@ function App() {
     }
   }, [token])
 
-  // todo, se o usuario nao estiver autenticado nao acessar account
-  // todo, nao acessar a rota verify
   return (
   <MuiThemeProvider theme={theme}>
   <Provider store={store}>
@@ -64,7 +62,7 @@ function App() {
 
       <div className="container">
       <Switch>
-        <NotAuthRoute exact path="/verify" component={verify} />
+        <NotAuthRoute exact path="/verify/:handleAndToken" component={verify} />
         <AuthRoute exact path="/account" component={account} />
         <Route exact path="/location" component={location} />
         <Route exact path="/user/:handle/post/postId" component={post} />
@@ -73,7 +71,6 @@ function App() {
         <NotAuthRoute exact path="/login" component={login} />
         <Route exact path="/" component={home}  />
       </Switch>
-
       </div>
     </Router>
   </Provider>

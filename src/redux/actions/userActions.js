@@ -37,9 +37,9 @@ export const signupUser = (newUserData, history, locationData) => (dispatch) => 
     dispatch(logoutUser())
 
     axios.post('/signup', newUserData)
-    .then( async res => {
+    .then( res => {
         dispatch({type: CLEAR_ERRORS})
-        history.push('/verify', newUserData)
+        history.push(`/verify/${newUserData.handle}`)
     })
     .catch( err => {
         dispatch({
