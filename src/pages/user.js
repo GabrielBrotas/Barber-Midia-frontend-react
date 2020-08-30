@@ -53,15 +53,15 @@ function User(props) {
             userHandle === user.handle
             && setSelectedUser(user)
         })
-    }, [userHandle, users])
 
-    useEffect( () => {
-        !postLoading > 0 
-        ? setUserPosts(
-            <Gallery posts={posts} barber={userHandle} />
-        )
-        : setUserPosts(<p>loading</p>)
-    }, [posts, userHandle, postLoading])
+        !postLoading > 0
+        && setUserPosts(
+            posts.filter( post => (
+                post.userHandle === userHandle && post  
+            )))
+
+    }, [userHandle, users, posts, postLoading])
+
 
     return ( !loading && !postLoading ?
         (<Grid container spacing={3}>
@@ -69,8 +69,11 @@ function User(props) {
             <Grid className={classes.profileColumn} item sm={4} xs={12}>
                 <Profile authenticatedUser={handle} credentials={selectedUser} authenticated={authenticated}paperPosition="relative"/> 
             </Grid>
+
             <Grid item sm={8} xs={12}>
-                {userPosts}
+            {!postLoading > 0 &&
+                <Gallery userPosts={userPosts} />   
+            }    
             </Grid>  
             
         </Grid>) : (

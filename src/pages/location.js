@@ -71,11 +71,12 @@ function Location(props) {
     }, [userSelected, users])
 
     useEffect( () => {
-        barber && !posts.lenght > 0 ?
+        barber && !posts.lenght > 0 &&
         setUserPosts(
-         <Gallery posts={posts} barber={barber.handle} />
-        )   
-        : setUserPosts(<p>loading</p>)
+            posts.filter( post => (
+                post.userHandle === barber.handle && post  
+            )))
+        
     }, [posts, barber])
  
     return (
@@ -105,10 +106,8 @@ function Location(props) {
                         Trabalhos de {barber.handle}:
                     </Typography>
                     <hr className={classes.HorizontalRow} />
-                    {userPosts}
+                    <Gallery userPosts={userPosts} /> 
                 </Fragment>
-
-           
             }
         </div>
         </Fragment>

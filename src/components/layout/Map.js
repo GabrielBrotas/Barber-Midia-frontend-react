@@ -79,20 +79,16 @@ const useStyles = makeStyles({
     },
   },
   userPictureContent: {
-      height: 100,
-      width: 100,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      marginBottom: '1rem'
+    height: 100,
+    width: 100,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginBottom: '1rem'
   },
   userPicture: {
       color: theme.mainColor,
       width: "100%",
       height: "100%"
-  },
-  "& .gm-style-iw .gm-style-iw-c": {
-    backgroundColor: "#f45212",
-    padding: 0
   }
 
 });
@@ -155,23 +151,25 @@ function MyComponent(props) {
       ))}
 
       {selected ? (
-
-        <InfoWindow 
-        position={{lat: selected.lat, lng: selected.lng}}
-        
-        onCloseClick={() => {
-          setSelected(null)
-          setUserSelected(null)
-        }}>
-        <div>
-          {userSelected &&
-          <Fragment>
-          <h2>{userSelected.title}</h2>
-          <h4>location: {userSelected.description}</h4>
-          </Fragment>
-          }
+        <div className={classes.infoWindow}>
+          <InfoWindow 
+          position={{lat: selected.lat, lng: selected.lng}}
+          options={{styles: [{}]}}
+          onCloseClick={() => {
+            setSelected(null)
+            setUserSelected(null)
+          }}>
+          <div>
+            {userSelected &&
+            <Fragment>
+            <h2>{userSelected.title}</h2>
+            <h4>location: {userSelected.description}</h4>
+            </Fragment>
+            }
+          </div>
+          </InfoWindow>
         </div>
-      </InfoWindow>
+        
 
       ) : null}
     </GoogleMap>
