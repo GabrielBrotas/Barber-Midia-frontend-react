@@ -1,14 +1,13 @@
-import React, {Fragment, useState} from 'react'
+import React, {useState} from 'react'
 import dayjs from 'dayjs' // vamos usar ela para formatar o tempo do post
 import relativeTime from 'dayjs/plugin/relativeTime' //2days ago.., 2 hours agor...
 
 
 // MUI Stuffs
-import withStyles from '@material-ui/core/styles/withStyles'
+import {makeStyles} from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 
@@ -21,17 +20,19 @@ import ChatIcon from '@material-ui/icons/Chat'
 import {useSelector, useDispatch} from 'react-redux';
 import {markNotificationsRead} from '../../redux/actions/userActions'
 
-const styles = {
-    NotificationStyle: {
-        color: "#fff"
+const useStyles = makeStyles((theme) => ({
+    notificationText: {
+        "@media only screen and (min-width: 960px)": {
+            display: 'none'
+        }
     }
-}
+}))
+
 
 function Notifications(props) {
-
+    const classes = useStyles();
     const userInfo = useSelector(state => state.user)
     const {notifications} = userInfo
-    const {classes} = props
     const [anchorEl, setAnchorEl] = useState(null)
 
     const dispatch = useDispatch()
@@ -59,7 +60,6 @@ function Notifications(props) {
         dispatch(markNotificationsRead(unreadNotificationsIds))
     }
 
-
     dayjs.extend(relativeTime)
 
     let notificationsIcon;
@@ -72,15 +72,15 @@ function Notifications(props) {
             ? notificationsIcon = (
                 // quantidade das notificações, gera um pequeno emblema no canto superior direito de seu(s) filho(s). ex: 6
             <Badge badgeContent={notifications.filter( not => not.read === false).length} color="secondary">
-                <NotificationsIcon className={classes.NotificationStyle} />
+                <NotificationsIcon  />
             </Badge>
         ) : (
             // as notificações que estiverem lidas apenas retornar.
-            notificationsIcon = <NotificationsIcon className={classes.NotificationStyle} />
+            notificationsIcon = <NotificationsIcon  />
         )
     } else {
         // Retornar as notificações antigas...
-        notificationsIcon = <NotificationsIcon className={classes.NotificationStyle} />
+        notificationsIcon = <NotificationsIcon style={{color: props.iconColor}} />
     }
 
     // dropdown do menu
@@ -116,16 +116,15 @@ function Notifications(props) {
         )
 
     return(
-        <Fragment>
+        <div>
 
-            {/* icone da notificação */}
-            <Tooltip placement="top" title="Notifications">
-                <IconButton aria-owns={anchorEl ? 'simple-menu' : undefined} aria-haspopup="true" onClick={handleOpen}>
+            <div onClick={handleOpen}>
+                <IconButton aria-owns={anchorEl ? 'simple-menu' : undefined} aria-haspopup="true">
                     {notificationsIcon}
                 </IconButton>
-            </Tooltip>
+                <span className={classes.notificationText}>Notificações</span>
+            </div>
 
-            {/* menu dropdown */}
             <Menu 
             anchorEl={anchorEl} 
             open={Boolean(anchorEl)} 
@@ -135,11 +134,11 @@ function Notifications(props) {
                 {notificationsMarkup}
             </Menu>
 
-        </Fragment>
+        </div>
     )
 
     
 }
 
 
-export default withStyles(styles)(Notifications)
+export default Notifications

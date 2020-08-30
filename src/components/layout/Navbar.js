@@ -14,7 +14,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -22,10 +21,10 @@ import MuiLink from '@material-ui/core/Link'
 
 // MUI Icons
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button'
 import PinDrop from '@material-ui/icons/PinDrop'
+import ChatIcon from '@material-ui/icons/Chat';
 
 const useStyles = makeStyles((theme) => ({
   navbar: {
@@ -37,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     color: mainStyles.mainColor,
-
   },
   navContainer:{
     maxWidth: 1000,
@@ -98,13 +96,18 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  mobileMenu: {
+    "& li": {
+      padding: 0
+    }
+  }
 }));
 
 function PrimarySearchAppBar() {
+  const classes = useStyles();
   const userInfo = useSelector(state => state.user)
   const {authenticated, loading, credentials: {category, handle}} = userInfo
 
-  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -147,7 +150,7 @@ function PrimarySearchAppBar() {
 
       <MuiLink component={Link} to={"/account"} color="primary" style={{textDecoration: "none", color: "#000  "}}>
         <MenuItem onClick={handleMenuClose}>
-          My account
+          Configurações
         </MenuItem>
       </MuiLink>
     </Menu>
@@ -163,15 +166,10 @@ function PrimarySearchAppBar() {
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
+      className={classes.mobileMenu}
     >
-
       <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
+        <Notifications iconColor="#000" />
       </MenuItem>
   
       <MenuItem onClick={handleProfileMenuOpen} >
@@ -185,7 +183,7 @@ function PrimarySearchAppBar() {
           <AccountCircle />
           
         </IconButton>
-        <p>Profile</p>
+        <p>Perfil</p>
       </MenuItem>
    
     </Menu>
@@ -223,8 +221,7 @@ function PrimarySearchAppBar() {
               </Fragment>
             ) : (
               <Fragment>
-
-                <Notifications />
+                <Notifications iconColor="#fff" />
                 {
                   category !== "Usuario" &&
                 <IconButton

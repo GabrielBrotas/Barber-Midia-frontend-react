@@ -1,8 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+
 
 const useStyles = makeStyles((theme) => ({
   boardz: {
+    marginTop: '1rem',
     display: 'flex',
     justifyContent: 'center',
     flex: 'auto',
@@ -28,6 +31,13 @@ const useStyles = makeStyles((theme) => ({
         transform: "scale(1.2)",
         zIndex: 100
     }
+  },
+  divToNoPosts: {
+    marginTop: '1rem', 
+    marginBottom: '10rem',
+  },
+  textToNoPosts: {
+    color: theme.fontMainColor,
   }
 }));
 
@@ -35,8 +45,10 @@ const useStyles = makeStyles((theme) => ({
 export default function GalleryLocation(props) {
   const classes = useStyles();
   const {userPosts} = props
-
+  
+  
   return (
+    userPosts.length > 0 ? (
     <div className={classes.boardz}>
       
       <ul className={classes.boardzUl}>
@@ -59,7 +71,15 @@ export default function GalleryLocation(props) {
           ))}
       </ul>
 
-    </div>
+    </div> 
+    ) : (
+      <div className={classes.divToNoPosts}>
+      <Typography variant="h5" className={classes.textToNoPosts}>
+        Este usuário não tem trabalhos publicado.
+      </Typography>
+      </div>
+     
+    )
   );
 }
 

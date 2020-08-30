@@ -75,7 +75,7 @@ function EditDetails(props) {
     // colocar os dados do usuario logado no state
     const mapUserDetailsToState = (credentials) => {
         setBio(credentials.bio ? credentials.bio : '')
-        setInstagram(credentials.instagram ? credentials.instagram : '')
+        setInstagram(credentials.instagram ? credentials.instagram.split('.com/')[1] : '')
     }
 
     // abrir o pop up

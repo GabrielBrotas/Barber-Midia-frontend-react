@@ -33,6 +33,7 @@ const styles = {
         backgroundColor: theme.backgroundColorMain,
         color: theme.fontMainColor,
         margin: 20,
+        minWidth: 200,
     },
     iconProfile: {
         color: theme.secondaryColor
@@ -48,9 +49,9 @@ const styles = {
         }
     },
     '& .profile-image': {
-        width: 175,
-        height: 175,
-        margin: '1rem 2rem',
+        width: 150,
+        height: 150,
+        margin: '1rem 0rem',
         objectFit: 'cover',
         maxWidth: '100%',
         borderRadius: '50%'
