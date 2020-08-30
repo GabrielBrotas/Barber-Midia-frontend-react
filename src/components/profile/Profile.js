@@ -199,7 +199,11 @@ function Profile(props) {
                 )}
 
                 {/* dia em que criou o perfil */}
-                <CalendarToday className={classes.iconProfile}/> {" "} <span> Joined {dayjs(createdAt).format('MMM YYYY')}</span>
+                <div style={{padding: '1.5rem 0'}}>
+                    <CalendarToday className={classes.iconProfile}/> 
+                    {" "} <span> Registrado desde {dayjs(createdAt).format('MMM YYYY')}</span>
+                </div>
+                
                 
             </div>
 
@@ -234,8 +238,6 @@ function Profile(props) {
         </Paper>
         ))
         
-    
-
     return profileMarkup
   
 }
