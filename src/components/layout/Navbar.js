@@ -6,10 +6,11 @@ import mainStyles from '../../utils/theme'
 
 // components
 import Notifications from './Notifications'
+import ChatButton from './ChatButton'
 import PostScream from '../posts/AddNewPost'
 
 // MUI
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -24,7 +25,6 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button'
 import PinDrop from '@material-ui/icons/PinDrop'
-import ChatIcon from '@material-ui/icons/Chat';
 
 const useStyles = makeStyles((theme) => ({
   navbar: {
@@ -42,7 +42,8 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: 'center',
     width: '100%',
     justifyContent: 'space-between',
-    padding: 0
+    padding: 0,
+    
   },
   sectionDesktop: {
     display: 'none',
@@ -58,10 +59,16 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
+    '& .MuiIconButton-edgeEnd button': {
+      marginRight: 0
+    }
   },
   mobileMenu: {
     "& li": {
       padding: 0
+    },
+    '& .MuiIconButton-edgeEnd': {
+      marginRight: 0
     }
   }
 }));
@@ -131,12 +138,20 @@ function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
       className={classes.mobileMenu}
     >
+      {
+        category !== "Usuario" &&
+        <MenuItem>
+          <ChatButton iconColor="#000" />
+        </MenuItem>
+      }
+
       <MenuItem>
         <Notifications iconColor="#000" />
       </MenuItem>
 
-      <MenuItem onClick={handleProfileMenuOpen} >
-       
+      {
+        category !== "Usuario" &&
+        <MenuItem onClick={handleProfileMenuOpen} >
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
@@ -148,7 +163,8 @@ function PrimarySearchAppBar() {
         </IconButton>
         <p>Perfil</p>
       </MenuItem>
-   
+      }
+
     </Menu>
   );
 
@@ -183,17 +199,11 @@ function PrimarySearchAppBar() {
               </Fragment>
             ) : (
               <Fragment>
-                <IconButton
-                  edge="end"
-                  aria-label="chat"
-                  aria-haspopup="true"
-                  color="inherit"
-                >
-                  <Tooltip placement="top"  title="Chat">
-                    <ChatIcon />
-                  </Tooltip>
-                </IconButton>
-
+                {
+                  category !== "Usuario" &&
+                  <ChatButton iconColor="#fff"/>
+                }
+                
                 <Notifications iconColor="#fff" />
                 {
                   category !== "Usuario" &&

@@ -23,6 +23,7 @@ import {markNotificationsRead} from '../../redux/actions/userActions'
 
 const useStyles = makeStyles((theme) => ({
     notificationText: {
+        marginRight: '.5rem',
         "@media only screen and (min-width: 960px)": {
             display: 'none'
         }
@@ -73,11 +74,11 @@ function Notifications(props) {
             ? notificationsIcon = (
                 // quantidade das notificações, gera um pequeno emblema no canto superior direito de seu(s) filho(s). ex: 6
             <Badge badgeContent={notifications.filter( not => not.read === false).length} color="secondary">
-                <NotificationsIcon  />
+                <NotificationsIcon style={{color: props.iconColor}} />
             </Badge>
         ) : (
             // as notificações que estiverem lidas apenas retornar.
-            notificationsIcon = <NotificationsIcon  />
+            notificationsIcon = <NotificationsIcon style={{color: props.iconColor}} />
         )
     } else {
         // Retornar as notificações antigas...
@@ -140,7 +141,6 @@ function Notifications(props) {
         </div>
     )
 
-    
 }
 
 
