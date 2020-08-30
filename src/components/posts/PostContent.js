@@ -6,7 +6,6 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime' 
 import theme from '../../utils/theme'
 
-
 // redux
 import {useSelector, useDispatch} from 'react-redux'
 import {getAllComments} from '../../redux/actions/dataActions'
@@ -92,6 +91,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function RecipeReviewCard(props) {
+  const dispatch = useDispatch();
+  const classes = useStyles();
+  dayjs.extend(relativeTime)
 
   const dataList = useSelector(state => state.data)
   const {comments} = dataList
@@ -103,10 +105,6 @@ function RecipeReviewCard(props) {
 
   const [postCommments, setPostComments] = useState([])
   const [expanded, setExpanded] = useState(false);
-
-  dayjs.extend(relativeTime)
-  const dispatch = useDispatch();
-  const classes = useStyles();
 
   const deleteButton = authenticated && userHandle === handle ? (
     <DeletePost className={classes.deleteButton} postId={postId}/>
@@ -154,10 +152,13 @@ function RecipeReviewCard(props) {
       </CardContent>
         
       {bodyImage &&
+      <Link to={`/post/${postId}`}>
       <CardMedia
       className={classes.media}
       image={bodyImage}
       />
+      </Link>
+      
       }
       
       <CardActions disableSpacing>

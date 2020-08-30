@@ -14,7 +14,7 @@ import {likePost, unlikePost} from '../../redux/actions/dataActions'
 function LikeButton(props)  {
 
     const {authenticated, likes} = props
-    
+
     const dispatch = useDispatch()
 
     // verificar se a scream tem like

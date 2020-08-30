@@ -10,7 +10,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 import Avatar from '@material-ui/core/Avatar';
 
-const styles = {
+const styles = (theme) => ({
     userHandle: {
       color: "#fff"
     },
@@ -19,7 +19,7 @@ const styles = {
     },
     imageContent: {
         alignSelf: 'center',
-        textAlign: 'center'
+        textAlign: '-webkit-center'
     },
     commentImage: {
         maxWidth: '100%',
@@ -40,8 +40,12 @@ const styles = {
       width: "100%",
       borderBottom: '1px solid rgba(0,0,0,0.1)',
       marginBottom: 10
-    }
-}
+    },
+    small: {
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+    },
+})
 
 function Comments(props) {
 
@@ -51,13 +55,13 @@ function Comments(props) {
     return(
         <Grid container >
 
-            <Grid item sm={12}>
-            <Grid container>
+            <Grid item sm={12} style={{width: "100%"}} >
+            <Grid container style={{flexFlow: "nowrap"}}>
+  
                 <Grid item sm={1} className={classes.imageContent}>
-                    <Avatar alt="Remy Sharp" src={userImage} />
+                    <Avatar alt="Remy Sharp" src={userImage} className={classes.small} />
                 </Grid>
-                <Grid item sm={9}>
-                
+                <Grid item sm={9} style={{flexFlow: "nowrap"}}>
                     <div className={classes.commentData}>
                         <Typography
                         variant="subtitle1"
@@ -76,16 +80,18 @@ function Comments(props) {
 
                         <Typography
                         variant="subtitle2"
+                        style={{color: "#fff"}}
                         >{bodyText}</Typography>
                     </div>
-
                 </Grid>
+        
                 
                 {handle === userHandle &&  <DeleteButton className={classes.deleteButton} commentId={commentId} />}
                 
-                <hr className={classes.invisibleSeparator} />
             </Grid>
+            
             </Grid>
+            <hr className={classes.invisibleSeparator} />
         </Grid>
     )
 }

@@ -1,6 +1,12 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
+
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles((theme) => ({
   boardz: {
@@ -16,28 +22,14 @@ const useStyles = makeStyles((theme) => ({
     },
     "& li": {
       transition: ".3s ease-in-out",
-      "& span": {
-        bottom: '0px',
+      '& div': {
         display: 'none',
-        opacity: 0,
-        visibility: 'hidden',
-        backgroundColor: 'rgba(92, 91, 87, 0)',
-        color: 'rgba(92, 91, 87, 0)',
       },
       "&:hover": {
         transform: "scale(1.2)",
-        zIndex: 100,
-        "& span": {
-          position: 'absolute',
-          bottom: 'auto',
-          display: 'block',
-          background: 'white',
-          width: '-webkit-fill-available',
-          padding: '1rem .5rem',
-          visibility: 'visible',
-          opacity: 1,
-          color: 'rgba(0, 0, 0, 0.8)'
-        },
+        '& div': {
+          display: 'flex'
+        }
       }
     }
   },
@@ -57,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
   },
   textToNoPosts: {
     color: theme.fontMainColor,
+  },
+  icon: {
+    color: 'rgba(255, 255, 255, 0.54)',
   }
 }));
 
@@ -64,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 export default function GalleryLocation(props) {
   const classes = useStyles();
   const {userPosts} = props
-  
+
   return (
     userPosts.length > 0 ? (
     <div className={classes.boardz}>
@@ -74,7 +69,19 @@ export default function GalleryLocation(props) {
           index % 2 === 0 && (
             <li key={post.postId}>
               <img src={post.bodyImage} alt={post.bodyText} className={classes.gridImage} />
-              <span>{post.bodyText}</span>
+              <div className={classes.onHoverImage}>
+              <GridListTileBar
+              title={post.bodyText}
+              actionIcon={
+                <Link to={`/post/${post.postId}`}>
+                <IconButton className={classes.icon}>
+                  <MoreHorizIcon />
+                </IconButton>
+                </Link>
+                
+              }
+              />
+              </div>
             </li>
           ) 
         ))}
@@ -85,7 +92,16 @@ export default function GalleryLocation(props) {
             index % 2 === 1 && (
               <li key={post.postId}>
                 <img src={post.bodyImage} alt={post.bodyText} className={classes.gridImage} />
-                <span>{post.bodyText}</span>
+                <div className={classes.onHoverImage}>
+                <GridListTileBar
+                title={post.bodyText}
+                actionIcon={
+                  <IconButton className={classes.icon}>
+                    <MoreHorizIcon />
+                  </IconButton>
+                }
+                />
+                </div>
               </li>
             ) 
           ))}

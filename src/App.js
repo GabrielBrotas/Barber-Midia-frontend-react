@@ -67,7 +67,7 @@ function App() {
         <AuthRoute exact path="/messages" component={messages} />
         <AuthRoute exact path="/account" component={account} />
         <Route exact path="/location" component={location} />
-        <Route exact path="/user/:handle/post/postId" component={post} />
+        <Route exact path="/post/:postId" component={post} />
         <Route exact path="/user/:handle" component={user} />
         <NotAuthRoute exact path="/signup" component={signup} />
         <NotAuthRoute exact path="/login" component={login} />
