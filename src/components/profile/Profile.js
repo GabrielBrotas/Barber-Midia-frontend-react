@@ -32,7 +32,7 @@ const styles = {
     paper: {
         backgroundColor: theme.backgroundColorMain,
         color: theme.fontMainColor,
-        padding: 20
+        margin: 20,
     },
     iconProfile: {
         color: theme.secondaryColor
@@ -48,8 +48,9 @@ const styles = {
         }
     },
     '& .profile-image': {
-        width: 200,
-        height: 200,
+        width: 175,
+        height: 175,
+        margin: '1rem 2rem',
         objectFit: 'cover',
         maxWidth: '100%',
         borderRadius: '50%'
@@ -78,6 +79,12 @@ const styles = {
     '& a': {
         margin: '20px 10px'
     }
+    },
+    backgroundProfileImage: {
+        backgroundImage: `linear-gradient(${theme.mainColor}, ${theme.backgroundColorMain})`,
+        width: '100%',
+        height: '40%',
+        position: 'absolute',
     }
     
 }
@@ -125,9 +132,11 @@ function Profile(props) {
         ? ( 
         <Paper className={classes.paper} style={{position: props.paperPosition}} > 
             <div className={classes.profile}>
-
+            
+            <div className={classes.backgroundProfileImage}></div>
+            
             <div className="image-wrapper">
-
+            
                 <img className="profile-image" src={imageUrl} alt="profile"></img>
 
                 <input type="file" id="imageInput" onChange={handleImageChange} hidden="hidden"/>
