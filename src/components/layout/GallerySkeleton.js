@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles((theme) => ({
   boardz: {
@@ -8,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
     flex: 'auto',
     "& ul li":{
       flex: 'auto',
-      boxShadow: "0px 0px 36px -12px #A77D2D",
       maxWidth: 300,
       margin: '0.1rem',
     }
@@ -31,31 +31,25 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
-export default function GalleryLocation(props) {
+export default function GallerySkeleton() {
   const classes = useStyles();
-  const {userPosts} = props
 
   return (
     <div className={classes.boardz}>
       
       <ul className={classes.boardzUl}>
-        {userPosts.map( (post, index) => (
-          index % 2 === 0 && (
-            <li key={post.postId}>
-              <img src={post.bodyImage} alt={post.bodyText} className={classes.gridImage} />
+        {[200, 250, 100, 350, 250, 100, 130].map( (height, index) => (
+            <li key={index}>
+              <Skeleton variant="rect" width={300} height={height} />
             </li>
-          ) 
         ))}
       </ul>
 
       <ul className={classes.boardzUl}>
-        {userPosts.map( (post, index) => (
-            index % 2 === 1 && (
-              <li key={post.postId}>
-                <img src={post.bodyImage} alt={post.bodyText} className={classes.gridImage} />
-              </li>
-            ) 
+        {[130, 200, 110, 250, 150, 200, 305].map( (height, index) => (
+            <li key={index}>
+                <Skeleton variant="rect" width={300} height={height} />
+            </li>
           ))}
       </ul>
 

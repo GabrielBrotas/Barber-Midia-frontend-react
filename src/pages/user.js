@@ -12,6 +12,8 @@ import Grid from '@material-ui/core/Grid'
 // components
 import Profile from '../components/profile/Profile'
 import Gallery from '../components/layout/Gallery'
+import ProfileSkeleton from '../components/profile/ProfileSkeleton'
+import GallerySkeleton from '../components/layout/GallerySkeleton'
 
 const styles = {
     root:{
@@ -77,7 +79,15 @@ function User(props) {
             </Grid>  
             
         </Grid>) : (
-            <p>loading...</p>
+            <Grid container spacing={3}>
+                <Grid className={classes.profileColumn} item sm={4} xs={12}>
+                    <ProfileSkeleton />
+                </Grid>
+
+                <Grid item sm={8} xs={12}>
+                    <GallerySkeleton />
+                </Grid>  
+            </Grid>
         )
     )
 }

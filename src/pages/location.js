@@ -36,7 +36,7 @@ const styles = {
         color: theme.mainColor
     },
     HorizontalRow: {
-        width: "80%",
+        width: "100%",
         alignSelf: "center",
         height: ".1rem",
         borderBottom: "none"

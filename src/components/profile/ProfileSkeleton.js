@@ -1,12 +1,11 @@
 import React from 'react'
 
-import withStyles from '@material-ui/core/styles/withStyles'
-
-
 // MUI stuffs
 import { Paper } from '@material-ui/core'
 import CardContent from '@material-ui/core/CardContent'
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Skeleton from '@material-ui/lab/Skeleton';
+import withStyles from '@material-ui/core/styles/withStyles'
 
 const styles = theme => ({
     paper: {
@@ -30,34 +29,16 @@ const styles = theme => ({
         height: "100%"
     },
     handle: {
-        width: 100,
+        width: 150,
         height: 18,
         backgroundColor: theme.mainColor,
-        marginBottom: 7,
+        marginBottom: '.8rem',
         marginLeft: 'auto',
         marginRight: 'auto'
     },
-    date: {
-        height: 14,
-        width: 75,
-        backgroundColor: 'rgba(0,0,0,0.3)',
-        marginBottom: 10,
-        marginLeft: 'auto',
-        marginRight: 'auto'
-    },
-    fullLine: {
-        height: 15,
-        width: '90%',
-        backgroundColor: 'rgba(0,0,0,0.6)',
-        marginBottom: 10,
-        marginLeft: 'auto',
-        marginRight: 'auto'
-    },
-    halfLine: {
-        height: 15,
-        width: '50%',
-        backgroundColor: 'rgba(0,0,0,0.6)',
-        marginBottom: 10
+    subHandle: {
+        backgroundColor: '#5d5d5d',
+        marginBottom: '.5rem'
     }
     
 })
@@ -75,9 +56,9 @@ function ProfileSkeleton(props) {
                 <div className={classes.userPictureContent}>
                     <CircularProgress className={classes.userPicture} size={100} thickness={1}/>
                 </div>
-                <div className={classes.handle} />
-                <div className={classes.date} />
-                <div className={classes.fullLine} />
+                <Skeleton variant="text" className={classes.handle} />
+                <Skeleton variant="text" className={classes.subHandle} />
+                <Skeleton variant="text" className={classes.subHandle} />
             </CardContent>
         </div>
 

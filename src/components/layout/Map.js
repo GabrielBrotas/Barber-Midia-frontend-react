@@ -127,12 +127,9 @@ function MyComponent(props) {
       center={center}
       zoom={13}
       options={{styles: mapStyle, disableDefaultUI: true}}
-      
       onLoad={onMapLoad}
     >
-      { /* Child components, such as markers, info windows, etc. */ }
       {markers.map( marker => (
-        
         <Marker 
           key={marker.placeId}
           position={{ lat: marker.lat, lng: marker.lng}} 
@@ -169,8 +166,6 @@ function MyComponent(props) {
           </div>
           </InfoWindow>
         </div>
-        
-
       ) : null}
     </GoogleMap>
     </div>
