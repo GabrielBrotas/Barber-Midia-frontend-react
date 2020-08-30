@@ -1,44 +1,62 @@
 import React, {useState, useEffect} from 'react';
 import MyButton from '../../utils/MyButton'
 import theme from '../../utils/theme'
+
 // Redux
 import {useDispatch, useSelector} from 'react-redux'
 import {submitComment} from '../../redux/actions/dataActions'
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
-
+import Avatar from '@material-ui/core/Avatar';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import SendIcon from '@material-ui/icons/Send';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        color: 'white'
-    },
-    label: {
-    textTransform: 'capitalize',
-    color: "#fff"
-    },
-    margin: {
-        marginBottom: '2rem'
-    },
+    
     formContent: {
         display: 'flex',
-        color:"#fff"
+        '& textarea': {
+            borderRadius: 5,
+            color: theme.fontMainColor,
+            fontSize: "smaller"
+        },
+        '& label.Mui-focused': {
+            color: theme.mainColor,
+            borderColor: theme.mainColor
+        },
+        '& .MuiInput-underline:after': {
+          borderBottomColor: theme.mainColor,
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+            borderColor: theme.mainColor,
+            },
+            '&.Mui-focused fieldset': {
+            borderColor:  theme.mainColor,
+            },
+            '&:hover fieldset': {
+            borderColor: theme.mainColor,
+            },
+        },
+    },
+    small: {
+      width: theme.spacing(3),
+      height: theme.spacing(3),
     },
     imageContent: {
         alignSelf: 'center',
         textAlign: 'center',
         margin: '1.5rem 1rem'
     },
-    commentImage: {
-        maxWidth: '100%',
-        height: 30,
-        objectFit: 'cover',
-        borderRadius: '50%',
-        color:"#fff" 
-    }
+    label: {
+        textTransform: 'capitalize',
+        color: "#fff"
+    },
+    margin: {
+        marginBottom: '2rem'
+    },
 }));
 
 export default function InputWithIcon(props) {
@@ -51,7 +69,6 @@ export default function InputWithIcon(props) {
     const classes = useStyles();
     const dispatch = useDispatch()
     const {imageUrl} = props
-
     
     useEffect( () => {
         if(UI.errors){
@@ -78,6 +95,8 @@ export default function InputWithIcon(props) {
         <div className={classes.formContent}  >
 
         <TextField
+        required
+        multiline={true}
         className={classes.margin}
         id="input-with-icon-textfield"
         label="Comentar no post"
@@ -89,14 +108,13 @@ export default function InputWithIcon(props) {
         InputProps={
             {startAdornment: (
             <InputAdornment position="start" className={classes.imageContent}>
-                <img src={imageUrl} alt="profile" className={classes.commentImage}/>
+                <Avatar alt="Remy Sharp" src={imageUrl} className={classes.small} />
             </InputAdornment>
             )  
             }
         } 
         />
 
-        
         <MyButton tip="Send" btnClassName="button" onClick={handleSubmit}>
             <SendIcon style={{ color: theme.mainColor}} />
         </MyButton>

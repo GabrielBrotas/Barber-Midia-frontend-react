@@ -8,6 +8,7 @@ import DeleteButton from './DeleteButton.js'
 import Grid from '@material-ui/core/Grid'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
+import Avatar from '@material-ui/core/Avatar';
 
 const styles = {
     userHandle: {
@@ -53,7 +54,7 @@ function Comments(props) {
             <Grid item sm={12}>
             <Grid container>
                 <Grid item sm={1} className={classes.imageContent}>
-                    <img src={userImage} alt="comment" className={classes.commentImage} />
+                    <Avatar alt="Remy Sharp" src={userImage} />
                 </Grid>
                 <Grid item sm={9}>
                 

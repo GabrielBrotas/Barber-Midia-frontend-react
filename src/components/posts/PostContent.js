@@ -137,7 +137,7 @@ function RecipeReviewCard(props) {
         classes={classes.cardHeaderStyle}
         avatar={
           <Avatar aria-label="recipe">
-            <img src={userImage} alt='user profile' className={classes.avatar} />
+            <Avatar alt="Remy Sharp" src={userImage} />
           </Avatar>
         }
         action={
@@ -146,7 +146,6 @@ function RecipeReviewCard(props) {
         title={<Link to={`/user/${userHandle}`}><p className={classes.userHandle}>{userHandle}</p></Link>}
         subheader={<p className={classes.dateTimePost}>{dayjs(createdAt).fromNow()}</p>}
       />
-     
 
       <CardContent>
         <Typography variant="body2" component="p">
