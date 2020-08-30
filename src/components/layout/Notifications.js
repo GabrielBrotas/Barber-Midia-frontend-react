@@ -10,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
+import Tooltip from '@material-ui/core/Tooltip';
 
 // icons
 import NotificationsIcon from '@material-ui/icons/Notifications'
@@ -119,9 +120,11 @@ function Notifications(props) {
         <div>
 
             <div onClick={handleOpen}>
+                <Tooltip placement="top"  title="Notificações">
                 <IconButton aria-owns={anchorEl ? 'simple-menu' : undefined} aria-haspopup="true">
                     {notificationsIcon}
                 </IconButton>
+                </Tooltip>
                 <span className={classes.notificationText}>Notificações</span>
             </div>
 
