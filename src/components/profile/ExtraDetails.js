@@ -2,11 +2,7 @@ import React from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 import theme from '../../utils/theme'
 
-// // components
-// import MyButton from '../../utils/MyButton'
-// import EditDetails from './EditDetails.js'
-// // redux
-// import { useSelector, useDispatch } from 'react-redux'
+import EditExtraDetails from './EditExtraDetails'
 
 // MUI stuffs
 import { Paper } from '@material-ui/core'
@@ -14,7 +10,6 @@ import Typography from '@material-ui/core/Typography'
 
 // Icons
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-
 
 const styles = {
     paper:{ 
@@ -27,7 +22,7 @@ const styles = {
         paddingTop: '1rem',
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         backgroundColor: theme.backgroundColorMain,
         width: "80%",
         marginLeft: 'auto',
@@ -42,32 +37,45 @@ const styles = {
     detailsItem: {
         display: 'flex',
         alignItems: 'center',
-        padding: '1rem 0.5rem',
+        padding: '0.5rem',
     },
     iconTrue: {
         color: theme.mainColor,
         marginRight: '.4rem'
+    },
+    iconEdit: {
+        color: theme.secondaryColor
     }
 }
 
 function ExtraDetails(props) {
-
-    const {classes} = props
-        
+    const {classes, userExtraDetails} = props
+    
     return(
-        <Paper className={classes.paper}>
-            <div className={classes.detailsHeader}>
-                <Typography variant="h5">Detalhes</Typography>
-                <hr className={classes.HorizontalRow} />
-            </div>
-
-            <div className={classes.detailsBody}>
-                <div className={classes.detailsItem}>
-                    <CheckCircleIcon className={classes.iconTrue} />
-                    CADEIRA HIDRÁULICA
+        userExtraDetails && userExtraDetails.length > 0 ? (
+            <Paper className={classes.paper}>
+                <div className={classes.detailsHeader}>
+                    <Typography variant="h5" style={{marginRight: 'auto', marginLeft: 'auto'}}>Detalhes</Typography>
+                    <EditExtraDetails className={classes.iconEdit} />
                 </div>
+                <hr className={classes.HorizontalRow} />
+                <div className={classes.detailsBody}>
+                    { userExtraDetails.map( (detail, index) => (
+                        <div key={index} className={classes.detailsItem}>
+                        <CheckCircleIcon className={classes.iconTrue} />
+                            {detail}
+                        </div>
+                    ))}
+                    
+                </div>
+            </Paper>
+        ) : (
+            <Paper className={classes.paper}>
+            <div className={classes.detailsHeader}>
+                <Typography variant="h5">Sem Detalhes</Typography>
             </div>
-        </Paper>
+            </Paper>
+        )
     )
   
 }

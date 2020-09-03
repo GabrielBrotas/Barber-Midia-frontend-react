@@ -33,7 +33,7 @@ const styles = {
         backgroundColor: theme.backgroundColorMain,
         color: theme.fontMainColor,
         margin: 20,
-        minWidth: 200,
+        minWidth: 250,
     },
     iconProfile: {
         color: theme.secondaryColor

@@ -78,7 +78,6 @@ export default function GalleryLocation(props) {
                   <MoreHorizIcon />
                 </IconButton>
                 </Link>
-                
               }
               />
               </div>
@@ -96,9 +95,11 @@ export default function GalleryLocation(props) {
                 <GridListTileBar
                 title={post.bodyText}
                 actionIcon={
+                  <Link to={`/post/${post.postId}`}>
                   <IconButton className={classes.icon}>
                     <MoreHorizIcon />
                   </IconButton>
+                  </Link>
                 }
                 />
                 </div>

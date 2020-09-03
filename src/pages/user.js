@@ -34,8 +34,8 @@ const styles = {
 function User(props) {
 
     const userInfo = useSelector(state => state.user)
-    const {users, loading, authenticated, credentials: {handle}} = userInfo
-    
+    const {users, loading, authenticated, credentials: {handle, extraDetails}} = userInfo
+
     const postList = useSelector(state => state.data)
     const {posts, loading: postLoading} = postList
 
@@ -73,7 +73,7 @@ function User(props) {
             <Grid className={classes.profileColumn} item sm={4} xs={12}>
                 <Profile authenticatedUser={handle} credentials={selectedUser} authenticated={authenticated}paperPosition="relative"/> 
 
-                <ExtraDetails />
+                <ExtraDetails userExtraDetails={extraDetails} />
             </Grid>
 
             <Grid item sm={8} xs={12}>

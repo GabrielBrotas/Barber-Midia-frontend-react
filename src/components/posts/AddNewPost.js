@@ -107,7 +107,6 @@ function AddNewPost(props) {
             <div className={classes.iconWrap} onClick={() => setOpen(true)}>
                 <AddIcon className={classes.iconStyle}/>
             </div>
-        
 
             <Dialog
             open={open}

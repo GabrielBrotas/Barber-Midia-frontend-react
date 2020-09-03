@@ -81,6 +81,15 @@ export const editUserDetails = (userDetails) => (dispatch) => {
         .catch( err=> console.log(err))
 }
 
+export const addUserExtraDetails = (detail) => (dispatch) => {
+    dispatch({type: LOADING_USER})
+    axios.post('/user/extrasdetails', detail)
+        .then( (res) => {
+            dispatch(getUserData())
+        })
+        .catch( err=> console.log(err))
+}
+
 export const markNotificationsRead = (notificationIds) => (dispatch) => {
     axios.post('notifications', notificationIds)
         .then( res => {
