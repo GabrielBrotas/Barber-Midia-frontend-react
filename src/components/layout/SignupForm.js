@@ -95,8 +95,8 @@ export default function SignupForm(props) {
       type,
       category
     }
-    
-    dispatch(signupUser(userData, history, {handle, category, ...location}))
+    console.log(userData)
+    // dispatch(signupUser(userData, history, {handle, category, ...location}))
   }
 
 
