@@ -20,6 +20,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -61,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function SignupForm(props) {
-  const classes = useStyles();
+  const classes = useStyles()
   const {type, history} = props
   const UI = useSelector( state => state.UI)
 
@@ -83,7 +84,6 @@ export default function SignupForm(props) {
 
   const dispatch = useDispatch()
 
-  // logar
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -95,10 +95,14 @@ export default function SignupForm(props) {
       type,
       category
     }
-    console.log(userData)
-    // dispatch(signupUser(userData, history, {handle, category, ...location}))
+    
+    if(location.description || type === "Usuario"){
+      dispatch(signupUser(userData, history, {handle, category, ...location}))
+    } else {
+      setErrors({errors, location: "Selecione uma localização."})
+    }
+  
   }
-
 
   return (
     <div className={classes.paper}>
@@ -161,11 +165,19 @@ export default function SignupForm(props) {
         
         {type !== "Usuario" && 
         <>
-        <SelectForm onChangeSelect={setCategory} category={category}/>
+        <SelectForm errors={errors} onChangeSelect={setCategory} category={category}/>
 
         <Search setLocation={setLocation} />
           
         </>
+        }
+
+        {errors.category && 
+          <FormHelperText style={{color: "red", textAlign: "center"}}>{errors.category}</FormHelperText>
+        }
+
+        {errors.location && 
+          <FormHelperText style={{color: "red", textAlign: "center"}}>{errors.location}</FormHelperText>
         }
 
         <FormControlLabel

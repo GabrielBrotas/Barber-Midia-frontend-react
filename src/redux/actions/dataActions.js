@@ -16,6 +16,7 @@ export const getPosts = () => (dispatch) => {
 }
 
 export const saveLocation = (data) => (dispatch) => {
+
     axios.post('/savelocation', data)
     .then( () => {
         dispatch(getAllPlaces())

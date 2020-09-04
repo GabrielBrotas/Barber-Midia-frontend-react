@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SimpleSelect(props) {
   const classes = useStyles();
-
+  const {onChangeSelect, category, errors} = props
   return (
     <div>
       <CssFormControl variant="outlined" name="category"className={classes.formControl}>
@@ -57,8 +57,8 @@ function SimpleSelect(props) {
           name="category"
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
-          value={props.category}
-          onChange={(e) => props.onChangeSelect(e.target.value)}
+          value={category}
+          onChange={(e) => onChangeSelect(e.target.value)}
           label="Category"
           displayEmpty
         >
@@ -68,7 +68,9 @@ function SimpleSelect(props) {
           <MenuItem value='Cabelo Masculino'>Cabelo Masculino</MenuItem>
           <MenuItem value='Cabelo Feminino'>Cabelo Feminino</MenuItem>
           <MenuItem value='Ambos'>Ambos</MenuItem>
+
         </Select>
+
       </CssFormControl>
     </div>
   );
