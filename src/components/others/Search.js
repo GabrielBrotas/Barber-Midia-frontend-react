@@ -113,7 +113,7 @@ const Search = (props) => {
             margin="normal"
             fullWidth
             id="location"
-            label="Location *"
+            label="Localização Principal *"
             placeholder="Localização do seu estabelecimento"
             name="location"
             autoComplete="off"

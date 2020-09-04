@@ -44,6 +44,7 @@ export const signupUser = (newUserData, history, locationData) => (dispatch) => 
         history.push(`/verify/${newUserData.handle}`)
     })
     .catch( err => {
+        console.log(err)
         dispatch({
             type: SET_ERRORS,
             payload: err.response.data

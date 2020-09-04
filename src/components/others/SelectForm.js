@@ -2,7 +2,6 @@ import React from 'react';
 import theme from '../../utils/theme';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -24,12 +23,13 @@ const CssFormControl = withStyles({
       },
     },
   },
+  
 })(FormControl);
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     marginTop: '1rem',
-    marginBottom: '2rem',
+    marginBottom: '.5rem',
     minWidth: 120,
     width: '100%',
     backgroundColor: '#fff',
@@ -53,7 +53,6 @@ function SimpleSelect(props) {
   return (
     <div>
       <CssFormControl variant="outlined" name="category"className={classes.formControl}>
-        <InputLabel name="category" id="demo-simple-select-outlined-label">Perfil</InputLabel>
         <Select
           name="category"
           labelId="demo-simple-select-outlined-label"
@@ -61,12 +60,14 @@ function SimpleSelect(props) {
           value={props.category}
           onChange={(e) => props.onChangeSelect(e.target.value)}
           label="Category"
+          displayEmpty
         >
-          <MenuItem value='Usuario'>Usuario</MenuItem>
+          <MenuItem value="">
+            <em>Categoria</em>
+          </MenuItem>
           <MenuItem value='Cabelo Masculino'>Cabelo Masculino</MenuItem>
           <MenuItem value='Cabelo Feminino'>Cabelo Feminino</MenuItem>
           <MenuItem value='Ambos'>Ambos</MenuItem>
-          <MenuItem value='Tatuagem'>Tatuagem</MenuItem>
         </Select>
       </CssFormControl>
     </div>

@@ -1,14 +1,10 @@
-import React, {Fragment, useState, useEffect } from 'react'
+import React, {Fragment, useState} from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 import theme from '../../utils/theme'
 
 // components
 import MyButton from '../../utils/MyButton'
 import CssTextField from '../others/CssTextField'
-
-// redux
-import {useSelector, useDispatch} from 'react-redux'
-
 
 // Material UI Stuffs
 import Button from '@material-ui/core/Button'
