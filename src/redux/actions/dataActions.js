@@ -2,6 +2,8 @@ import axios from 'axios'
 import {GET_POSTS_SUCCESS, GET_POSTS_ERROR, LOADING_DATA, LIKE_POST, UNLIKE_POST, DELETE_POST, SET_ERRORS, PUBLISH_POST, CLEAR_ERRORS, LOADING_UI, UPLOADING_PROGRESS, GET_POST_SUCCESS, STOP_LOADING_UI, SUBMIT_COMMENT, GET_PLACES, GET_ALL_COMMENTS, DELETE_COMMENT} from '../types'
 
 
+// * post functions
+
 export const getPosts = () => (dispatch) => {
     dispatch({type: LOADING_DATA})
     // pegar todas as POSTs na api, foi definida a url da api no package.json em 'proxy'
@@ -13,49 +15,6 @@ export const getPosts = () => (dispatch) => {
         console.log(err)
         dispatch({type: GET_POSTS_ERROR})
     })
-}
-
-export const saveLocation = (data) => (dispatch) => {
-
-    axios.post('/savelocation', data)
-    .then( () => {
-        dispatch(getAllPlaces())
-    })
-    .catch( err => {
-        console.log(err)
-        dispatch({
-            type: SET_ERRORS,
-            payload: err.response.data
-        })
-    })
-}
-
-export const getAllPlaces = () => (dispatch) => {
-    
-    dispatch({type: LOADING_DATA});
-
-    axios.get('/places')
-    .then( res => {
-        dispatch({type: GET_PLACES, payload: res.data})
-    })
-}
-
-export const editPlace = (placeId, placeData) => (dispatch) => {
-
-    axios.post('/editlocation/' + placeId, placeData)
-        .then(res => {
-            dispatch(getAllPlaces())
-        })
-        .catch( err => console.log(err))
-}
-
-export const deletePlace = (placeId) => (dispatch) => {
-
-    axios.post('/deletelocation/' + placeId)
-        .then(res => {
-            dispatch(getAllPlaces())
-        })
-        .catch( err => console.log(err))
 }
 
 // like a POST
@@ -162,17 +121,74 @@ export const deletePost = (postId) => (dispatch) => {
         .catch(err=> console.log(err))
 }
 
-export const getUserData = (userHandle) => (dispatch) => {
-    dispatch({type: LOADING_DATA})
-    axios.get(`/user/${userHandle}`)
-        .then( res => {
-            // pegar as POSTs do user
-            dispatch({type: GET_POSTS_SUCCESS, payload: res.data})
+// * location functions
+
+export const saveLocation = (data) => (dispatch) => {
+
+    axios.post('/savelocation', data)
+    .then( () => {
+        dispatch(getAllPlaces())
+    })
+    .catch( err => {
+        console.log(err)
+        dispatch({
+            type: SET_ERRORS,
+            payload: err.response.data
         })
-        .catch( () => {
-            dispatch({type: GET_POSTS_SUCCESS, payload: null})
+    })
+}
+
+export const getAllPlaces = () => (dispatch) => {
+    
+    dispatch({type: LOADING_DATA});
+
+    axios.get('/places')
+    .then( res => {
+        dispatch({type: GET_PLACES, payload: res.data})
+    })
+}
+
+export const editPlace = (placeId, placeData) => (dispatch) => {
+
+    axios.post('/editlocation/' + placeId, placeData)
+        .then(res => {
+            dispatch(getAllPlaces())
+        })
+        .catch( err => console.log(err))
+}
+
+export const addPlaceDetails = (placeId, detail) => (dispatch) => {
+
+    dispatch({type: LOADING_DATA});
+
+    axios.post('/place/' + placeId, {detail})
+        .then( () => {
+            dispatch(getAllPlaces())
+            dispatch(clearErrors())
+        })
+        .catch( err => {
+            dispatch({type: SET_ERRORS})
         })
 }
+
+export const deletePlace = (placeId) => (dispatch) => {
+
+    axios.post('/deletelocation/' + placeId)
+        .then(res => {
+            dispatch(getAllPlaces())
+        })
+        .catch( err => console.log(err))
+}
+
+// export const deletePlaceDetail = (placeId, detail) => (dispatch) => {
+//     axios.delete('/place/' + placeId)
+//         .then(res => {
+//             dispatch(getAllPlaces())
+//         })
+//         .catch( err => console.log(err))
+// }
+
+
 export const clearErrors = () => (dispatch) => {
     dispatch({type: CLEAR_ERRORS});
 }

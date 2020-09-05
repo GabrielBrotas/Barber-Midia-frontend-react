@@ -1,6 +1,8 @@
-import React, {Fragment, useState} from 'react'
-import withStyles from '@material-ui/core/styles/withStyles'
+import React, {Fragment, useState, useEffect} from 'react'
 import theme from '../../utils/theme'
+
+import {useDispatch, useSelector} from 'react-redux'
+import {clearErrors, addPlaceDetails} from "../../redux/actions/dataActions"
 
 // components
 import MyButton from '../../utils/MyButton'
@@ -11,6 +13,7 @@ import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
+import withStyles from '@material-ui/core/styles/withStyles'
 
 // icons
 import AddIcon from '@material-ui/icons/Add'
@@ -57,37 +60,43 @@ const styles = {
     }
 }
 
-function EditExtraDetails(props) {
+function PlaceDetails(props) {
+    const {classes, placeId} = props
+    const dispatch = useDispatch()
+
+    const UI = useSelector( state => state.UI)
 
     const [open, setOpen] = useState(false)
     const [detail, setDetail] = useState('')
     const [errors, setErrors] = useState({})
+    const [loading, setLoading] = useState(false)
 
-    const {classes} = props
-    const loading = false
-    // useEffect( () => {
-    //     if(props.UI.errors){
-    //         setErrors(
-    //             props.UI.errors
-    //         )
-    //     }
-    //     if(!props.UI.errors && !props.UI.loading){
-    //         setBodyText('')
-    //         setOpen(false)
-    //     }
-    // }, [props])
+    useEffect( () => {
+        if(UI.errors){
+            setErrors(
+                UI.errors
+            )
+        }
+        if(UI.loading) setLoading(true)
+        if(!UI.errors && !UI.loading){
+            setDetail('')
+            setLoading(false)
+            setOpen(false)
+        }
+    }, [UI])
 
     const handleClose = () => {
         setOpen(false)
+        setLoading(false)
         setErrors({})
-        // props.clearErrors()
+        dispatch(clearErrors())
     }
     
     const handleSubmit = (event) => {
         event.preventDefault();
+        dispatch(addPlaceDetails(placeId, detail))
     }
     
-
     return (
         <Fragment>
 
@@ -126,12 +135,11 @@ function EditExtraDetails(props) {
                         onChange={(e) => setDetail(e.target.value)}
                         fullWidth
                         />
+
+                        <Button type="submit" variant="contained" color="primary" className={classes.submitButton} disabled={loading}>
+                            Submit
+                        </Button>
                     </form>
-
-                    <Button type="submit" variant="contained" color="primary" className={classes.submitButton} disabled={loading}>
-                        Submit
-                    </Button>
-
                 </DialogContent>
             </Dialog>
             
@@ -140,4 +148,4 @@ function EditExtraDetails(props) {
     
 }
 
-export default withStyles(styles)(EditExtraDetails)
+export default withStyles(styles)(PlaceDetails)

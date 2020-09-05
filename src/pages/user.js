@@ -81,7 +81,7 @@ function User(props) {
             <Grid className={classes.profileColumn} item sm={4} xs={12}>
                 <Profile authenticatedUser={handle} credentials={selectedUser} authenticated={authenticated}paperPosition="relative"/> 
 
-                <ExtraDetails placeDetails={userPlace.details} />
+                <ExtraDetails placeDetails={userPlace.details} placeId={userPlace.placeId} />
             </Grid>
 
             <Grid item sm={8} xs={12}>

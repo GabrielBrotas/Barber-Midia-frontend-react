@@ -2,7 +2,7 @@ import React from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 import theme from '../../utils/theme'
 
-import AddPlaceDetails from './AddPlaceDetails'
+import PlaceDetails from './PlaceDetails'
 
 // MUI stuffs
 import { Paper } from '@material-ui/core'
@@ -49,14 +49,14 @@ const styles = {
 }
 
 function ExtraDetails(props) {
-    const {classes, placeDetails} = props
+    const {classes, placeDetails, placeId} = props
     
     return(
         placeDetails && placeDetails.length > 0 ? (
             <Paper className={classes.paper}>
                 <div className={classes.detailsHeader}>
                     <Typography variant="h5" style={{marginRight: 'auto', marginLeft: 'auto'}}>Detalhes</Typography>
-                    <AddPlaceDetails className={classes.iconEdit} />
+                    <PlaceDetails className={classes.iconEdit} placeId={placeId} />
                 </div>
                 <hr className={classes.HorizontalRow} />
                 <div className={classes.detailsBody}>
