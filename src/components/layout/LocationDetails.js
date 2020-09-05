@@ -1,9 +1,8 @@
 import React from 'react'
 import theme from '../../utils/theme'
-import withStyles from '@material-ui/core/styles/withStyles'
 
 // MUI stuffs
-
+import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 
 // Icons

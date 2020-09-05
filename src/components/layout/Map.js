@@ -40,6 +40,9 @@ const useStyles = makeStyles({
       borderBottom: '2px solid #A77D2D'
     }
   },
+  comboboxContent: {
+    marginLeft: 'auto'
+  },
   goBack: {
     color: "#A77D2D",
     alignSelf: "center",
@@ -89,6 +92,14 @@ const useStyles = makeStyles({
       color: theme.mainColor,
       width: "100%",
       height: "100%"
+  },
+  genderFilter: {
+    display: 'flex',
+    marginLeft: 'auto'
+  },
+  filterIcon: {
+    cursor: "pointer",
+    margin: "0 1rem"
   }
 
 });
@@ -98,11 +109,6 @@ function MyComponent(props) {
 
   const {places, loading, setUserSelected, userSelected} = props
   const [selected, setSelected] = useState(null)
-  const [markers, setMarkers] = useState([])
-
-  useEffect( () => {
-    !loading &&  (setMarkers(places))
-  }, [places, selected, loading])
 
   const mapRef = useRef()
   const onMapLoad = useCallback( map => {
@@ -120,6 +126,12 @@ function MyComponent(props) {
     <div className={classes.mapActions}>
       <Search setUserSelected={setUserSelected} setSelected={setSelected} panTo={panTo} />
       <Locate panTo={panTo} />
+
+      <div className={classes.genderFilter}>
+      <FilterMan />
+      <FilterWoman />
+      </div>
+      
     </div>
     
     <GoogleMap
@@ -129,7 +141,7 @@ function MyComponent(props) {
       options={{styles: mapStyle, disableDefaultUI: true}}
       onLoad={onMapLoad}
     >
-      {markers.map( marker => (
+      {places.map( marker => (
         <Marker 
           key={marker.placeId}
           position={{ lat: marker.lat, lng: marker.lng}} 
@@ -195,6 +207,7 @@ function Search({panTo}) {
 
   return (
   <Combobox 
+  className={classes.comboboxContent}
   onSelect={ async (address) => {
     setValue(address, false)
     clearSuggestions()
@@ -242,6 +255,23 @@ function Locate({panTo}) {
   )
 }
 
+function FilterMan() {
+  const classes = useStyles();
+  return (
+    <div className={classes.filterIcon} >
+      <img src={homemIcon} alt="filter man" style={{width: 35}}/>
+    </div>
+  )
+}
+
+function FilterWoman() {
+  const classes = useStyles();
+  return (
+    <div className={classes.filterIcon}>
+      <img src={mulherIcon} alt="filter man"/>
+    </div>
+  )
+}
 
 
 

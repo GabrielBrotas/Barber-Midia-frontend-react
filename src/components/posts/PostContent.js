@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
   userHandle: {
     color: "#fff",
+    width: 'max-content'
   },
   dateTimePost: {
     width: "max-content",

@@ -40,7 +40,7 @@ export const signupUser = (newUserData, history, locationData) => (dispatch) => 
     axios.post('/signup', newUserData)
     .then( res => {
         dispatch({type: CLEAR_ERRORS})
-        if(locationData.description) dispatch(saveLocation(locationData))
+        if(newUserData.type !== "Usuario") dispatch(saveLocation(locationData))
         history.push(`/verify/${newUserData.handle}`)
     })
     .catch( err => {
