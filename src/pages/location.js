@@ -75,7 +75,7 @@ function Location(props) {
         barber && !posts.lenght > 0 &&
         setUserPosts(
             posts.filter( post => (
-                post.userHandle === barber.handle && post  
+                post.userHandle === barber.handle && post.bodyImage !== "" && post  
             )))
         
     }, [posts, barber])

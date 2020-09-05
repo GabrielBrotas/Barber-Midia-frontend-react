@@ -63,7 +63,7 @@ function User(props) {
         !postLoading > 0
         && setUserPosts(
             posts.filter( post => (
-                post.userHandle === userHandle && post  
+                post.userHandle === userHandle && post.bodyImage !== "" && post  
             )))
 
     }, [userHandle, users, posts, postLoading])
