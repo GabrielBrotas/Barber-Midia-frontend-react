@@ -8,10 +8,11 @@ import theme from '../../utils/theme'
 import MyButton from '../../utils/MyButton'
 import UploadButton from '../others/UploadButton'
 import CssTextField from '../others/CssTextField'
+import SelectForm from '../others/SelectForm'
 import {CircularProgressbar} from 'react-circular-progressbar'
 
 // redux
-import {connect} from 'react-redux'
+import {connect, useSelector} from 'react-redux'
 import {publishPost, clearErrors} from '../../redux/actions/dataActions'
 
 // Material UI Stuffs
@@ -65,8 +66,13 @@ const styles = {
 
 function AddNewPost(props) {
 
+    const dataInfo = useSelector(state => state.data)
+    const {places} = dataInfo
+
     const [open, setOpen] = useState(false)
     const [bodyText, setBodyText] = useState('')
+    const [placesIdUserOwner, setPlacesIdUserOwner] = useState([])
+    const [placeId, setPlaceId] = useState('')
     const [imageToUpload, setImageToUpload] = useState({})
     const [imageToUploadData, setImageToUploadData] = useState({})
     const [errors, setErrors] = useState({})
@@ -81,21 +87,29 @@ function AddNewPost(props) {
         }
         if(!props.UI.errors && !props.UI.loading){
             setBodyText('')
+            setPlaceId('')
             setOpen(false)
         }
     }, [props])
+
+    useEffect( () => {
+        setPlacesIdUserOwner( places.map( place => (
+            place.placeId
+        )))
+    }, [places])
 
     const handleClose = () => {
         setOpen(false)
         setErrors({})
         setImageToUploadData({})
         setImageToUpload({})
+        setPlaceId('')
         props.clearErrors()
     }
     
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.publishPost({bodyText, bodyImage: ""}, imageToUpload)
+        props.publishPost({bodyText, bodyImage: "", placeId}, imageToUpload)
         setImageToUploadData({})
         setImageToUpload({})
     }
@@ -142,7 +156,9 @@ function AddNewPost(props) {
                         onChange={(e) => setBodyText(e.target.value)}
                         fullWidth
                         />
-                        
+
+                        <SelectForm onChangeSelect={setPlaceId} value={placeId} options={placesIdUserOwner} title="Id do local..." />
+
                         <Button type="submit" variant="contained" color="primary" className={classes.submitButton} disabled={loading}>
                             Submit
                             {loading && (<CircularProgress size={30} className={classes.progressSpinner}/>)}

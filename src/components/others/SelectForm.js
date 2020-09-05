@@ -49,30 +49,30 @@ const useStyles = makeStyles((theme) => ({
 
 function SimpleSelect(props) {
   const classes = useStyles();
-  const {onChangeSelect, category, errors} = props
+  const {onChangeSelect, value, options, title} = props
   return (
-    <div>
-      <CssFormControl variant="outlined" name="category"className={classes.formControl}>
-        <Select
-          name="category"
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          value={category}
-          onChange={(e) => onChangeSelect(e.target.value)}
-          label="Category"
-          displayEmpty
-        >
-          <MenuItem value="">
-            <em>Categoria</em>
-          </MenuItem>
-          <MenuItem value='Cabelo Masculino'>Cabelo Masculino</MenuItem>
-          <MenuItem value='Cabelo Feminino'>Cabelo Feminino</MenuItem>
-          <MenuItem value='Ambos'>Ambos</MenuItem>
 
-        </Select>
+    <CssFormControl variant="outlined" name="category"className={classes.formControl}>
+      <Select
+        name="category"
+        labelId="demo-simple-select-outlined-label"
+        id="demo-simple-select-outlined"
+        value={value}
+        onChange={(e) => onChangeSelect(e.target.value)}
+        label="Category"
+        displayEmpty
+      >
+        <MenuItem value="">
+          <em>{title}</em>
+        </MenuItem>
 
-      </CssFormControl>
-    </div>
+        {options.map( (option, index) => (
+          <MenuItem key={index} value={option}>{option}</MenuItem>
+        ))}
+
+      </Select>
+    </CssFormControl>
+
   );
 }
 

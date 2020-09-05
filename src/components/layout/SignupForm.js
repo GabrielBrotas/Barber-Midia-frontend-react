@@ -76,6 +76,8 @@ export default function SignupForm(props) {
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState({})
 
+  const categories = ['Cabelo Masculino', 'Cabelo Feminino', 'Ambos']
+
   useEffect( () => {
     if(UI.errors){
         setErrors(UI.errors)
@@ -169,7 +171,7 @@ export default function SignupForm(props) {
         
         {type !== "Usuario" && 
         <>
-        <SelectForm errors={errors} onChangeSelect={setCategory} category={category}/>
+        <SelectForm errors={errors} onChangeSelect={setCategory} value={category} options={categories} title="Categoria"/>
 
         <Search setLocation={setLocation} />
           

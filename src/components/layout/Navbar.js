@@ -1,6 +1,7 @@
 import React, {useState, Fragment} from 'react';
 import PropTypes from 'prop-types'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
+import {logoutUser} from '../../redux/actions/userActions'
 import {Link} from 'react-router-dom'
 import mainStyles from '../../utils/theme'
 
@@ -75,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
 
 function PrimarySearchAppBar() {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const userInfo = useSelector(state => state.user)
   const {authenticated, loading, credentials: {category, handle}} = userInfo
 
@@ -96,6 +98,10 @@ function PrimarySearchAppBar() {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
+
+  const handleLogout = () => {
+    dispatch(logoutUser())
+  }
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -123,6 +129,10 @@ function PrimarySearchAppBar() {
           Configurações
         </MenuItem>
       </MuiLink>
+
+      <MenuItem onClick={() => handleLogout()}>
+        Logout
+      </MenuItem>
     </Menu>
   );
 

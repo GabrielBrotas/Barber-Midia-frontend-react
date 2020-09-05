@@ -3,7 +3,7 @@ import theme from '../utils/theme'
 
 import withStyles from '@material-ui/core/styles/withStyles'
 import Button from '@material-ui/core/Button'
-import SelectForm from '../components/others/SelectForm'
+import SelectFormCategory from '../components/others/SelectForm'
 import Search from '../components/others/Search'
 import Table from '../components/others/Table'
 import CssTextField from '../components/others/CssTextField'
@@ -88,7 +88,7 @@ function Account(props) {
                 <div className={classes.formControl}>
 
                     {id && 
-                    <SelectForm 
+                    <SelectFormCategory
                     onChangeSelect={setCategory} 
                     category={category}
                     backgroundColor="#fff"
