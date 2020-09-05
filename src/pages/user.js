@@ -37,7 +37,7 @@ function User(props) {
     const {users, loading, authenticated, credentials: {handle}} = userInfo
 
     const dataList = useSelector(state => state.data)
-    const {posts, loading: postLoading, places} = dataList
+    const {posts, loading: postLoading} = dataList
 
     const {classes} = props
     const userHandle = props.match.params.handle

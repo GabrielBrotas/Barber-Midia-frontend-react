@@ -1,4 +1,4 @@
-import {GET_POSTS_ERROR, LOADING_DATA, GET_POSTS_SUCCESS, LIKE_POST, UNLIKE_POST, DELETE_POST, PUBLISH_POST, GET_POST_SUCCESS, SUBMIT_COMMENT, GET_PLACES, GET_ALL_COMMENTS, DELETE_COMMENT} from '../types'
+import {GET_POSTS_ERROR, LOADING_DATA, GET_POSTS_SUCCESS, LIKE_POST, UNLIKE_POST, DELETE_POST, PUBLISH_POST, GET_POST_SUCCESS, SUBMIT_COMMENT, GET_PLACES, GET_PLACE, GET_ALL_COMMENTS, DELETE_COMMENT} from '../types'
 
 const initialState = {
     loading: false,
@@ -17,6 +17,9 @@ export default function(state = initialState, action){
 
         case GET_PLACES:
             return {...state, places: action.payload, loading: false};
+
+        case GET_PLACE:
+            return {...state, place: action.payload, loading: false};
 
         case GET_POSTS_SUCCESS:
             return {...state, posts: action.payload, loading: false};

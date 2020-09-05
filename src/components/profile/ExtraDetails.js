@@ -59,8 +59,6 @@ const styles = {
 function ExtraDetails(props) {
     const {classes, handle} = props
     const dispatch = useDispatch()
-
-    const UI = useSelector( state => state.UI)
     
     const dataList = useSelector(state => state.data)
     const {places} = dataList
