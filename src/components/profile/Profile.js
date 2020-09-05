@@ -4,7 +4,6 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import {Link} from 'react-router-dom'
 import dayjs from 'dayjs'
 import theme from '../../utils/theme'
-import PermIdentityIcon from '@material-ui/icons/PermIdentity'
 
 // components
 import MyButton from '../../utils/MyButton'
@@ -26,7 +25,8 @@ import LinkIcon from '@material-ui/icons/Link'
 import CalendarToday from '@material-ui/icons/CalendarToday'
 import EditIcon from '@material-ui/icons/Edit'
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn'
-
+import PermIdentityIcon from '@material-ui/icons/PermIdentity'
+import HowToRegIcon from '@material-ui/icons/HowToReg';
 
 const styles = {
     paper: {
@@ -35,10 +35,20 @@ const styles = {
         margin: 20,
         minWidth: 250,
     },
+    userDescription: {
+        display: 'flex',
+        marginTop: 10,
+        "& p": {
+            textAlign: 'left',
+            marginRight: 20,
+        }
+    },
     iconProfile: {
-        color: theme.secondaryColor
+        color: theme.secondaryColor,
+        margin: '0 .5rem'
     },
     profile: {
+    maxWidth: 300,
     '& .image-wrapper': {
         textAlign: 'center',
         position: 'relative',
@@ -84,7 +94,7 @@ const styles = {
     backgroundProfileImage: {
         backgroundImage: `linear-gradient(${theme.mainColor}, ${theme.backgroundColorMain})`,
         width: '100%',
-        height: '40%',
+        height: 110,
         position: 'absolute',
     }
     
@@ -95,7 +105,7 @@ function Profile(props) {
     const {classes} = props
 
     const {
-        credentials: {handle, createdAt, imageUrl, bio, instagram, location, category},
+        credentials: {handle, createdAt, imageUrl, bio, instagram, location, category, type},
         authenticated, authenticatedUser
     } = props
 
@@ -151,7 +161,7 @@ function Profile(props) {
 
             <div className="profile-details">
 
-                {category !== "Usuario" 
+                {type !== "Usuario" 
                     ?   <MuiLink component={Link} to={`/user/${handle}`} color="primary" variant="h5">
                             @{handle}
                         </MuiLink>
@@ -164,42 +174,42 @@ function Profile(props) {
                 <hr/>
 
                 { bio && 
-                    <Fragment>
+                    <div className={classes.userDescription}>
+                    <PermIdentityIcon className={classes.iconProfile} />
                     <Typography variant="body2">
-                        <PermIdentityIcon className={classes.iconProfile} /> {bio}
+                         {bio}
                     </Typography>
                     <hr/>
-                    </Fragment>
+                    </div>
                 }
 
-                { category !== "Usuario" && location && (
-                    <Fragment>
+                { type !== "Usuario" && location && (
+                    <div className={classes.userDescription}>
                         <LocationOn className={classes.iconProfile} /> <span>{location}</span>
                         <hr />
-                    </Fragment>
+                    </div>
                 )}
 
-                { category !== "Usuario" && instagram && (
-                    <Fragment>
+                { type !== "Usuario" && instagram && (
+                    <div className={classes.userDescription} style={{alignItems: 'center'}}>
                         <LinkIcon className={classes.iconProfile} />
                         <a href={instagram} target="_blank" rel="noopener noreferrer">
                             {" "}{instagram}
                         </a>
                         <hr />
-                    </Fragment>
+                    </div>
                 )}
 
-                {category !== "Usuario" && (
-                    <Fragment>
-                        <span rel="noopener noreferrer">
-                           Especializado em {category === "Ambos" ? "cabelo masculino e feminino" : category}
-                        </span>
+                {type !== "Usuario" && (
+                     <div className={classes.userDescription}>
+                        <HowToRegIcon className={classes.iconProfile}/>
+                        <Typography variant="body2">Especializado em {category === "Ambos" ? "cabelo masculino e feminino" : category}</Typography>
                         <hr />
-                    </Fragment>
+                    </div>
                 )}
 
                 {/* dia em que criou o perfil */}
-                <div style={{padding: '1.5rem 0'}}>
+                <div style={{padding: '1rem 0'}}>
                     <CalendarToday className={classes.iconProfile}/> 
                     {" "} <span> Registrado desde {dayjs(createdAt).format('MMM YYYY')}</span>
                 </div>
@@ -212,8 +222,8 @@ function Profile(props) {
                 <MyButton tip="Logout" onClick={handleLogout}>
                     <KeyboardReturn className={classes.iconProfile} />
                 </MyButton>
-
-                <EditDetails places={places} />
+                {type !== "Usuario" && <EditDetails places={places} />}
+                
             </Fragment>
             }
 

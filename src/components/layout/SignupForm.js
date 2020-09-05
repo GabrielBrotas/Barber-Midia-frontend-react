@@ -43,7 +43,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   progress: {
-    position: 'absolute'
+    position: 'absolute',
+    color: theme.mainColor
   },
   customError: {
       color: 'red',
@@ -79,6 +80,9 @@ export default function SignupForm(props) {
     if(UI.errors){
         setErrors(UI.errors)
         setLoading(false)
+    }
+    if(UI.loading) {
+      setLoading(true)
     }
   }, [UI])
 

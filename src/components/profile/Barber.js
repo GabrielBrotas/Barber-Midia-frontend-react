@@ -16,6 +16,7 @@ import CalendarToday from '@material-ui/icons/CalendarToday'
 import PersonIcon from '@material-ui/icons/Person';
 import RestoreIcon from '@material-ui/icons/Restore';
 import SearchIcon from '@material-ui/icons/Search';
+import HowToRegIcon from '@material-ui/icons/HowToReg';
 
 const styles = {
     paper: {
@@ -78,7 +79,22 @@ const styles = {
     },
     message: {
         fontStyle: "italic"
-    }   
+    },
+    userDescription: {
+        display: 'flex',
+        margin: '15px 0px',
+        "& p": {
+            textAlign: 'left',
+            marginRight: 20,
+        }
+    },
+    iconBarber: {
+        color: theme.mainColor,
+        margin: '0 .5rem'
+    },
+    barberFooter: {
+        margin: '1rem 0'
+    }
 }
 
 function Barber(props) {
@@ -99,25 +115,27 @@ function Barber(props) {
                 {/* detalhes do usuario */}
                 <div className="profile-details">
 
-                    {/* link para o perfil dele */}
                     <MuiLink style={{cursor: "pointer"}} component={Link} to={`/user/${barber.handle}`} color="primary" variant="h5">
                         @{barber.handle}
                     </MuiLink>
                     <hr/>
 
-                    {/* bio... */}
-                    {barber.bio && <Typography variant="body2">{barber.bio}</Typography>}
-                    <hr/>
+                    {barber.bio && 
+                    <div className={classes.userDescription}>
+                        <PersonIcon className={classes.iconBarber}/>
+                        <Typography variant="body2">{barber.bio}</Typography>
+                        <hr/>
+                    </div>
+                    }
+                    
 
-                    {/* localização... */}
                     {barber.location && (
                         <Fragment>
                             <LocationOn color="primary" /> <span>{barber.location}</span>
-                        <hr />
+                            <hr />
                         </Fragment>
                     )}
 
-                    {/* url do site.. */}
                     {barber.instagram && (
                         <Fragment>
                             <LinkIcon color="primary" />
@@ -128,8 +146,19 @@ function Barber(props) {
                         </Fragment>
                     )}
 
-                    {/* dia em que criou o perfil */}
-                    <CalendarToday color="primary"/> {" "} <span> Joined {dayjs(barber.createdAt).format('MMM YYYY')}</span>
+                    {barber.category && (
+                        <div className={classes.userDescription}>
+                            <HowToRegIcon className={classes.iconBarber}/>
+                            <Typography variant="body2">Especializado em {barber.category === "Ambos" ? "cabelo masculino e feminino" : barber.category}</Typography>
+                            <hr />
+                        </div>
+                    )}
+
+                    <div className={classes.barberFooter}>
+                    <CalendarToday color="primary"/> 
+                    {" "} <span> Registrado desde {dayjs(barber.createdAt).format('MMM YYYY')}</span>
+                    </div>
+                    
                     
                 </div>
 

@@ -65,7 +65,7 @@ function Home(props) {
             </Grid>
 
             {/* coluna do perfil do usuario */}
-            <Grid item sm={4} xs={12}>
+            <Grid item sm={4} xs={12} style={{ contain: 'content'}}>
                 <Profile authenticatedUser={credentials.handle} credentials={credentials} authenticated={authenticated} paperPosition="fixed"/>
             </Grid>
             
