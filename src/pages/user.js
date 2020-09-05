@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 // Redux
 import {useSelector, useDispatch} from 'react-redux'
 import {getAllUsers} from '../redux/actions/userActions'
-import {getPosts} from '../redux/actions/dataActions'
+import {getPosts, getAllPlaces} from '../redux/actions/dataActions'
 
 // MUI
 import Grid from '@material-ui/core/Grid'
@@ -34,22 +34,24 @@ const styles = {
 function User(props) {
 
     const userInfo = useSelector(state => state.user)
-    const {users, loading, authenticated, credentials: {handle, extraDetails}} = userInfo
+    const {users, loading, authenticated, credentials: {handle}} = userInfo
 
     const dataList = useSelector(state => state.data)
-    const {posts, loading: postLoading} = dataList
- 
+    const {posts, loading: postLoading, places} = dataList
+
     const {classes} = props
     const userHandle = props.match.params.handle
 
     const [selectedUser, setSelectedUser] = useState([])
     const [userPosts, setUserPosts] = useState([])
+    const [userPlace, setUserPlace] = useState({})
 
     const dispatch = useDispatch() 
 
     useEffect( () => {
         dispatch(getAllUsers())
         dispatch(getPosts())
+        dispatch(getAllPlaces())
     }, [dispatch])
 
     useEffect( () => {
@@ -66,14 +68,20 @@ function User(props) {
 
     }, [userHandle, users, posts, postLoading])
 
+    useEffect( () => {
+        selectedUser &&
+        setUserPlace(
+            ...places.filter( place => place.handle === selectedUser.handle)
+        )
+    }, [places, selectedUser])
 
-    return ( !loading && !postLoading ?
+    return ( !loading && !postLoading && userPlace ?
         (<Grid container spacing={3}>
             
             <Grid className={classes.profileColumn} item sm={4} xs={12}>
                 <Profile authenticatedUser={handle} credentials={selectedUser} authenticated={authenticated}paperPosition="relative"/> 
 
-                <ExtraDetails userExtraDetails={extraDetails} />
+                <ExtraDetails placeDetails={userPlace.details} />
             </Grid>
 
             <Grid item sm={8} xs={12}>

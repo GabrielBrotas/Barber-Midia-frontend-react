@@ -8,11 +8,10 @@ import theme from '../../utils/theme'
 import MyButton from '../../utils/MyButton'
 import UploadButton from '../others/UploadButton'
 import CssTextField from '../others/CssTextField'
-import SelectForm from '../others/SelectForm'
 import {CircularProgressbar} from 'react-circular-progressbar'
 
 // redux
-import {connect, useSelector} from 'react-redux'
+import {connect} from 'react-redux'
 import {publishPost, clearErrors} from '../../redux/actions/dataActions'
 
 // Material UI Stuffs

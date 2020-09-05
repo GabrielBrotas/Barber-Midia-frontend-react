@@ -2,7 +2,7 @@ import React from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 import theme from '../../utils/theme'
 
-import EditExtraDetails from './EditExtraDetails'
+import AddPlaceDetails from './AddPlaceDetails'
 
 // MUI stuffs
 import { Paper } from '@material-ui/core'
@@ -49,18 +49,18 @@ const styles = {
 }
 
 function ExtraDetails(props) {
-    const {classes, userExtraDetails} = props
+    const {classes, placeDetails} = props
     
     return(
-        userExtraDetails && userExtraDetails.length > 0 ? (
+        placeDetails && placeDetails.length > 0 ? (
             <Paper className={classes.paper}>
                 <div className={classes.detailsHeader}>
                     <Typography variant="h5" style={{marginRight: 'auto', marginLeft: 'auto'}}>Detalhes</Typography>
-                    <EditExtraDetails className={classes.iconEdit} />
+                    <AddPlaceDetails className={classes.iconEdit} />
                 </div>
                 <hr className={classes.HorizontalRow} />
                 <div className={classes.detailsBody}>
-                    { userExtraDetails.map( (detail, index) => (
+                    { placeDetails.map( (detail, index) => (
                         <div key={index} className={classes.detailsItem}>
                         <CheckCircleIcon className={classes.iconTrue} />
                             {detail}

@@ -1,6 +1,5 @@
 import React from 'react';
-import {useDispatch} from 'react-redux'
-import {deletePlace} from '../../redux/actions/dataActions'
+
 // MUI
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -51,7 +50,6 @@ const useStyles = makeStyles({
 
 export default function CustomizedTables(props) {
   const classes = useStyles();
-  const dispatch = useDispatch();
 
   const {places, handle, setOpenModal, setLocation, setId, setCategory} = props
 
@@ -60,14 +58,6 @@ export default function CustomizedTables(props) {
     setCategory(place.category)
     setId(place.placeId)
     setOpenModal(true)
-  }
-
-  const handleDelete = (placeId) => {
-    if (window.confirm('Tem certeza que deseja deletar esta localização')) {
-      dispatch(deletePlace(placeId))
-    } else {
-      return false
-    }
   }
 
   return (

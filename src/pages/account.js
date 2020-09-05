@@ -6,11 +6,10 @@ import Button from '@material-ui/core/Button'
 import SelectForm from '../components/others/SelectForm'
 import Search from '../components/others/Search'
 import Table from '../components/others/Table'
-import CssTextField from '../components/others/CssTextField'
 
 // redux
 import {useSelector, useDispatch} from 'react-redux'
-import {getAllPlaces, editPlace, saveLocation} from '../redux/actions/dataActions'
+import {getAllPlaces, editPlace} from '../redux/actions/dataActions'
 
 const styles = {
     formControl: {
@@ -64,7 +63,7 @@ function Account(props) {
     }, [dispatch])
 
     const handleSubmit = () => {
-        dispatch(editPlace(id, {...location, category}))
+        dispatch(editPlace(id, {...location, category, details: []}))
         dispatch(getAllPlaces())
         setOpenModal(false)
     }
