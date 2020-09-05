@@ -69,7 +69,7 @@ function User(props) {
     }, [userHandle, users, posts, postLoading])
 
     useEffect( () => {
-        places.filter( place => {
+        places.forEach( place => {
             place.handle === userHandle && setPlaceId(place.placeId)
         })
     }, [places, userHandle])

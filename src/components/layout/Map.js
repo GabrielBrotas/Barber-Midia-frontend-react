@@ -1,17 +1,22 @@
 import React, {useCallback, useState, useRef, useEffect, Fragment} from 'react'
 import {Combobox,  ComboboxPopover, ComboboxOption, ComboboxInput} from "@reach/combobox"
 import theme from '../../utils/theme'
-import homemIcon from '../../assets/images/homem.png'
-import mulherIcon from '../../assets/images/mulher.png'
 
+// redux
+import {useSelector, useDispatch} from 'react-redux'
+import {getAllPlaces} from '../../redux/actions/dataActions'
 // Map
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
 import usePlacesAutocomplete, {getGeocode, getLatLng} from 'use-places-autocomplete'
 import mapStyle from '../../utils/MapStyle'
 
 // MUI
+import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import RestoreIcon from '@material-ui/icons/Restore';
+import homemIcon from '../../assets/images/homem.png'
+import mulherIcon from '../../assets/images/mulher.png'
+import filterIcon from '../../assets/images/filtro.png'
 
 const center = {
   lat: -12.6975,
@@ -106,10 +111,14 @@ const useStyles = makeStyles({
 
 function MyComponent(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const {places, setUserSelected, userSelected} = props
+  const dataList = useSelector(state => state.data)
+  const {places} = dataList
+
+  const {setUserSelected, userSelected} = props
   const [selected, setSelected] = useState(null)
-
+  
   const mapRef = useRef()
   const onMapLoad = useCallback( map => {
     mapRef.current = map
@@ -120,8 +129,6 @@ function MyComponent(props) {
     mapRef.current.setZoom(16)
   }, [])
 
-  console.log(places)
-  
   return (
     <div className={classes.mapContent}>
 
@@ -132,6 +139,7 @@ function MyComponent(props) {
       <div className={classes.genderFilter}>
       <FilterMan />
       <FilterWoman />
+      <CleanFilter />
       </div>
       
     </div>
@@ -143,6 +151,7 @@ function MyComponent(props) {
       options={{styles: mapStyle, disableDefaultUI: true}}
       onLoad={onMapLoad}
     >
+
       {places.map( marker => (
         marker.confirmed === true &&
         <Marker 
@@ -242,37 +251,70 @@ function Search({panTo}) {
 
 function Locate({panTo}) {
   const classes = useStyles();
+
+  const restorePosition = () => {
+    navigator.geolocation.getCurrentPosition( position => {
+      panTo({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      })
+    }, () => null)
+  }
   return (
     <div className={classes.goBack}>
-      <RestoreIcon onClick={() => {
-        navigator.geolocation.getCurrentPosition( position => {
-          panTo({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          })
-        },
-        () => null
-        )}}
-    
-      />
+      <RestoreIcon onClick={restorePosition} />
     </div>
   )
 }
 
 function FilterMan() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const justShowManMarker = () => {
+    dispatch(getAllPlaces("Cabelo Masculino"))
+  }
+
   return (
-    <div className={classes.filterIcon} >
-      <img src={homemIcon} alt="filter man" style={{width: 35}}/>
+    <div className={classes.filterIcon} onClick={justShowManMarker}>
+      <Tooltip placement="top" title="Apenas Masculino">
+        <img src={homemIcon} alt="filter man" style={{width: 35}}/>
+      </Tooltip>
     </div>
   )
 }
 
 function FilterWoman() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  
+  const justShowWomanMarker = () => {
+    dispatch(getAllPlaces("Cabelo Feminino"))
+  }
+
   return (
-    <div className={classes.filterIcon}>
-      <img src={mulherIcon} alt="filter man"/>
+    <div className={classes.filterIcon} onClick={justShowWomanMarker}>
+      <Tooltip placement="top" title="Apenas Feminino">
+        <img src={mulherIcon} alt="filter woman"/>
+      </Tooltip>
+    </div>
+  )
+
+}
+
+function CleanFilter() {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  
+  const justShowWomanMarker = () => {
+    dispatch(getAllPlaces())
+  }
+
+  return (
+    <div className={classes.filterIcon} onClick={justShowWomanMarker}>
+      <Tooltip placement="top" title="Limpar Filtro">
+        <img src={filterIcon} alt="no filter" style={{width: 35}} />
+      </Tooltip>
     </div>
   )
 }

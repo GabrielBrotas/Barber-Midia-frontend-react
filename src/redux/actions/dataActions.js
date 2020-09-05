@@ -138,14 +138,22 @@ export const saveLocation = (data) => (dispatch) => {
     })
 }
 
-export const getAllPlaces = () => (dispatch) => {
+export const getAllPlaces = (filter) => (dispatch) => {
     
     dispatch({type: LOADING_DATA});
 
-    axios.get('/places')
-    .then( res => {
-        dispatch({type: GET_PLACES, payload: res.data})
-    })
+    if(filter) {
+        axios.get('/places' + filter)
+        .then( res => {
+            dispatch({type: GET_PLACES, payload: res.data})
+        })
+    } else {
+        axios.get('/places')
+        .then( res => {
+            dispatch({type: GET_PLACES, payload: res.data})
+        })
+    }
+    
 }
 
 export const getPlace = (placeId) => (dispatch) => {

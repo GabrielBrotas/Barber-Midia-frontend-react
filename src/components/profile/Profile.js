@@ -34,6 +34,7 @@ const styles = {
         color: theme.fontMainColor,
         margin: 20,
         minWidth: 250,
+        textAlign: '-webkit-center'
     },
     userDescription: {
         display: 'flex',
