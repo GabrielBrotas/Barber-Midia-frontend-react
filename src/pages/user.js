@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 // Redux
 import {useSelector, useDispatch} from 'react-redux'
 import {getAllUsers} from '../redux/actions/userActions'
-import {getPosts, getAllPlaces} from '../redux/actions/dataActions'
+import {getPosts, getAllPlaces, getPlace} from '../redux/actions/dataActions'
 
 // MUI
 import Grid from '@material-ui/core/Grid'
@@ -59,13 +59,11 @@ function User(props) {
             userHandle === user.handle
             && setSelectedUser(user)
         })
-
         !postLoading > 0
         && setUserPosts(
             posts.filter( post => (
                 post.userHandle === userHandle && post.bodyImage !== "" && post  
             )))
-
     }, [userHandle, users, posts, postLoading])
 
     useEffect( () => {
@@ -74,16 +72,21 @@ function User(props) {
         })
     }, [places, userHandle])
 
+    useEffect( () => {
+        placeId &&
+            dispatch(getPlace(placeId))
+    }, [placeId, dispatch])
+
     return ( !loading && !postLoading ?
         (<Grid container spacing={3}>
             
-            <Grid className={classes.profileColumn} item sm={4} xs={12}>
+            <Grid className={classes.profileColumn} item sm={5} xs={12}>
                 <Profile authenticatedUser={handle} credentials={selectedUser} authenticated={authenticated}paperPosition="relative"/> 
 
-                <ExtraDetails handle={selectedUser.handle} placeId={placeId} />
+                <ExtraDetails handle={handle} placeId={placeId} />
             </Grid>
 
-            <Grid item sm={8} xs={12}>
+            <Grid item sm={7} xs={12}>
             {!postLoading > 0 &&
                 <Gallery userPosts={userPosts} />   
             }    

@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import withStyles from '@material-ui/core/styles/withStyles'
 import {Link} from 'react-router-dom'
@@ -33,7 +33,7 @@ const styles = {
         backgroundColor: theme.backgroundColorMain,
         color: theme.fontMainColor,
         margin: 20,
-        minWidth: 250,
+        minWidth: 210,
         textAlign: '-webkit-center'
     },
     userDescription: {
@@ -97,6 +97,10 @@ const styles = {
         backgroundImage: `linear-gradient(${theme.mainColor}, ${theme.backgroundColorMain})`,
         width: '100%',
         height: 110,
+    },
+    userActions: {
+        display: 'flex',
+        justifyContent: 'space-between'
     }
     
 }
@@ -110,6 +114,7 @@ function Profile(props) {
         authenticated, authenticatedUser
     } = props
 
+    
     const dataInfo = useSelector(state => state.data)
     const {places} = dataInfo
 
@@ -219,13 +224,13 @@ function Profile(props) {
             </div>
 
             { authenticatedUser === handle && 
-            <Fragment>
+            <div className={classes.userActions}>
                 <MyButton tip="Logout" onClick={handleLogout}>
                     <KeyboardReturn className={classes.iconProfile} />
                 </MyButton>
                 {type !== "Usuario" && <EditDetails places={places} />}
                 
-            </Fragment>
+            </div>
             }
 
             </div>

@@ -157,12 +157,14 @@ export const getAllPlaces = (filter) => (dispatch) => {
 }
 
 export const getPlace = (placeId) => (dispatch) => {
-    axios.get('/place/' + placeId)
-    .then( res => {
-        dispatch({type: GET_PLACE, payload: res.data})
-    }).catch( err => console.log(err))
-}
+    dispatch({type: LOADING_UI})
 
+    axios.get('/place/' + placeId)
+        .then( res => {
+            dispatch({type: GET_PLACE, payload: res.data})
+            dispatch({type: CLEAR_ERRORS})
+        }).catch( err => console.log(err))
+}
 
 export const editPlace = (placeId, placeData) => (dispatch) => {
 

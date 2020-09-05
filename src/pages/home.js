@@ -62,7 +62,7 @@ function Home(props) {
                 : <div style={{height: '100%'}}>No posts yet</div>}
             </Grid>
 
-            <Grid item sm={4} xs={12} style={{ contain: 'content'}}>
+            <Grid item sm={4} style={{ contain: 'content', padding: 0}}>
                 <Profile authenticatedUser={credentials.handle} credentials={credentials} authenticated={authenticated} paperPosition="fixed"/>
             </Grid>
             
