@@ -37,7 +37,7 @@ const styles = {
     },
     userDescription: {
         display: 'flex',
-        marginTop: 10,
+        marginTop: 15,
         "& p": {
             textAlign: 'left',
             marginRight: 20,
@@ -48,8 +48,19 @@ const styles = {
         margin: '0 .5rem'
     },
     profile: {
-    maxWidth: 300,
-    '& .image-wrapper': {
+        maxWidth: 300,
+        marginTop: '-7rem',
+        '& hr': {
+            border: 'none',
+            margin: '0 0 10px 0'
+        },
+        '& svg.button': {
+            '&:hover': {
+            cursor: 'pointer'
+            }
+        }
+    },
+    imageWrapper: {
         textAlign: 'center',
         position: 'relative',
         '& button': {
@@ -58,7 +69,7 @@ const styles = {
         left: '70%'
         }
     },
-    '& .profile-image': {
+    profileImage: {
         width: 150,
         height: 150,
         margin: '1rem 0rem',
@@ -66,7 +77,7 @@ const styles = {
         maxWidth: '100%',
         borderRadius: '50%'
     },
-    '& .profile-details': {
+    profileDetails: {
         textAlign: 'center',
         '& span, svg': {
         verticalAlign: 'middle'
@@ -75,27 +86,16 @@ const styles = {
         color: theme.mainColor
         }
     },
-    '& hr': {
-        border: 'none',
-        margin: '0 0 10px 0'
-    },
-    '& svg.button': {
-        '&:hover': {
-        cursor: 'pointer'
-        }
-    }
-    },
     buttons: {
-    textAlign: 'center',
-    '& a': {
-        margin: '20px 10px'
-    }
+        textAlign: 'center',
+        '& a': {
+            margin: '20px 10px'
+        }
     },
     backgroundProfileImage: {
         backgroundImage: `linear-gradient(${theme.mainColor}, ${theme.backgroundColorMain})`,
         width: '100%',
         height: 110,
-        position: 'absolute',
     }
     
 }
@@ -142,13 +142,13 @@ function Profile(props) {
      (authenticated || handle 
         ? ( 
         <Paper className={classes.paper} style={{position: props.paperPosition}} > 
+            <div className={classes.backgroundProfileImage} />
+            
             <div className={classes.profile}>
+
+            <div className={classes.imageWrapper}>
             
-            <div className={classes.backgroundProfileImage}></div>
-            
-            <div className="image-wrapper">
-            
-                <img className="profile-image" src={imageUrl} alt="profile"></img>
+                <img className={classes.profileImage} src={imageUrl} alt="profile"></img>
 
                 <input type="file" id="imageInput" onChange={handleImageChange} hidden="hidden"/>
                 { authenticatedUser === handle && 
@@ -159,7 +159,7 @@ function Profile(props) {
             </div>
             <hr />
 
-            <div className="profile-details">
+            <div className={classes.profileDetails}>
 
                 {type !== "Usuario" 
                     ?   <MuiLink component={Link} to={`/user/${handle}`} color="primary" variant="h5">
@@ -209,9 +209,9 @@ function Profile(props) {
                 )}
 
                 {/* dia em que criou o perfil */}
-                <div style={{padding: '1rem 0'}}>
+                <div className={classes.userDescription} style={{alignItems: 'center', paddingBottom: 20}}>
                     <CalendarToday className={classes.iconProfile}/> 
-                    {" "} <span> Registrado desde {dayjs(createdAt).format('MMM YYYY')}</span>
+                    {" "} <Typography variant="body2"> Registrado desde {dayjs(createdAt).format('MMM YYYY')}</Typography>
                 </div>
                 
                 

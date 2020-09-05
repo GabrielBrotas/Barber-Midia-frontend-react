@@ -12,7 +12,8 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography';
 
 // components
-import Barber from '../components/profile/Barber'
+import LocationDetails from '../components/layout/LocationDetails'
+import Profile from '../components/profile/Profile'
 import Map from '../components/layout/Map'
 import Gallery from '../components/layout/Gallery'
 
@@ -69,7 +70,7 @@ function Location(props) {
         : setBarber(null)
         
     }, [userSelected, users])
-
+   
     useEffect( () => {
         barber && !posts.lenght > 0 &&
         setUserPosts(
@@ -78,7 +79,7 @@ function Location(props) {
             )))
         
     }, [posts, barber])
- 
+
     return (
         <Fragment>
 
@@ -87,10 +88,14 @@ function Location(props) {
                 <Map places={places} loading={loading} setUserSelected={setUserSelected} userSelected={userSelected} barber={barber} />
             </Grid>
 
-            <Grid item sm={4} xs={12}>
-                <div className={classes.BarberContent}>
-                    <Barber barber={barber} />
-                </div>
+            <Grid item sm={4} xs={12} style={{ contain: 'content'}}>
+                {barber ? 
+                    <div className={classes.BarberContent}>
+                        <Profile credentials={barber} />
+                    </div>
+                : <LocationDetails />
+                }
+                
             </Grid>      
         </Grid>
 

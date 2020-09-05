@@ -22,7 +22,7 @@ function Home(props) {
 
     const userInfo = useSelector(state => state.user)
     const {credentials, likes, authenticated} = userInfo
-
+    
     const [allPostsInDB, setAllPostsInDB] = useState([])
     
     const dispatch = useDispatch()
