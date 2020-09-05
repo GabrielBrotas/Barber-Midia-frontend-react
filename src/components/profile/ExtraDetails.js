@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import theme from '../../utils/theme'
 
 import {useSelector, useDispatch} from 'react-redux'
-import {deletePlaceDetail} from '../../redux/actions/dataActions'
+import {deletePlaceDetail, getPlace} from '../../redux/actions/dataActions'
 
 import AddPlaceDetail from './AddPlaceDetail'
 
@@ -57,38 +57,35 @@ const styles = {
 }
 
 function ExtraDetails(props) {
-    const {classes, handle} = props
+    const {classes, placeId} = props
     const dispatch = useDispatch()
     
     const dataList = useSelector(state => state.data)
-    const {places} = dataList
-
-    const [userPlace, setUserPlace] = useState(null)
+    const {place} = dataList
 
     useEffect( () => {
-        setUserPlace(
-            ...places.filter( place => place.handle === handle)
-        )
-    }, [places, handle])
-    
+        placeId &&
+            dispatch(getPlace(placeId))
+    }, [placeId, dispatch])
+
     const handleDelete = (detail) => {
         if(window.confirm("Tem certeza que deseja deletar este item?")) {
-            dispatch(deletePlaceDetail(userPlace.placeId, detail))
+            dispatch(deletePlaceDetail(place.placeId, detail))
         }
     }
   
     return(
         <Paper className={classes.paper}>
-            { userPlace ? (
-                userPlace.details.length > 0 ? (
+            { place.handle ? (
+                place.details.length > 0 ? (
                     <>
                     <div className={classes.detailsHeader}>
                         <Typography variant="h5" style={{marginRight: 'auto', marginLeft: 'auto'}}>Detalhes</Typography>
-                        <AddPlaceDetail className={classes.iconEdit} placeId={userPlace.placeId} />
+                        <AddPlaceDetail className={classes.iconEdit} placeId={place.placeId} />
                     </div>
                     <hr className={classes.HorizontalRow} />
                     <div className={classes.detailsBody}>
-                        { userPlace.details.map( (detail, index) => (
+                        { place.details.map( (detail, index) => (
                             <div key={index} className={classes.detailsItem}>
                             <CheckCircleIcon className={classes.iconTrue} />
                                 {detail}

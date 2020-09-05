@@ -37,13 +37,14 @@ function User(props) {
     const {users, loading, authenticated, credentials: {handle}} = userInfo
 
     const dataList = useSelector(state => state.data)
-    const {posts, loading: postLoading} = dataList
+    const {posts, loading: postLoading, places} = dataList
 
     const {classes} = props
     const userHandle = props.match.params.handle
 
     const [selectedUser, setSelectedUser] = useState([])
     const [userPosts, setUserPosts] = useState([])
+    const [placeId, setPlaceId] = useState(null)
 
     const dispatch = useDispatch() 
 
@@ -67,13 +68,19 @@ function User(props) {
 
     }, [userHandle, users, posts, postLoading])
 
+    useEffect( () => {
+        places.filter( place => {
+            place.handle === userHandle && setPlaceId(place.placeId)
+        })
+    }, [places, userHandle])
+
     return ( !loading && !postLoading ?
         (<Grid container spacing={3}>
             
             <Grid className={classes.profileColumn} item sm={4} xs={12}>
                 <Profile authenticatedUser={handle} credentials={selectedUser} authenticated={authenticated}paperPosition="relative"/> 
 
-                <ExtraDetails handle={selectedUser.handle}  />
+                <ExtraDetails handle={selectedUser.handle} placeId={placeId} />
             </Grid>
 
             <Grid item sm={8} xs={12}>

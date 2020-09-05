@@ -169,6 +169,7 @@ export const addPlaceDetails = (placeId, detail) => (dispatch) => {
 
     axios.post('/place/' + placeId, {detail})
         .then( () => {
+            dispatch(getPlace(placeId))
             dispatch(clearErrors())
         })
         .catch( err => {
@@ -189,7 +190,7 @@ export const deletePlaceDetail = (placeId, detail) => (dispatch) => {
     
     axios.post('/placedetail/' + placeId, {detail})
         .then( () => {
-            
+            dispatch(getPlace(placeId))
         })
         .catch( err => console.log(err))
 }

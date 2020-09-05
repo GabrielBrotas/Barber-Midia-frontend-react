@@ -127,7 +127,7 @@ function AddPlaceDetail(props) {
                         autoFocus
                         name="detail"
                         type="text"
-                        label="Umac caracteristica do seu local"
+                        label="Uma caracteristica do seu local"
                         placeholder="Digite algo. Exemplo: Wi-Fi, Ar-Condicionado, ..."
                         error={errors.body ? true : false}
                         helperText={errors.body}
