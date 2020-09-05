@@ -64,10 +64,9 @@ function Account(props) {
 
     const handleSubmit = () => {
         if(id){
-            // editar
-            dispatch(editPlace(id, {...location, title}))
+            dispatch(editPlace(id, {...location}))
         } else {
-            dispatch(saveLocation({...location, title, category, handle}))
+            dispatch(saveLocation({...location, category, handle}))
         }
         dispatch(getAllPlaces())
         setOpenModal(false)
@@ -87,20 +86,6 @@ function Account(props) {
                 </Button>
             ) : (
                 <div className={classes.formControl}>
-                    <CssTextField
-                    variant="filled"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="title"
-                    label="Nome do estabelecimento"
-                    name="title"
-                    autoComplete="title"
-                    autoFocus
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)} 
-                    //   helperText={errors.handle} error={errors.handle ? true : false}
-                    />
 
                     {!id && 
                     <SelectForm 

@@ -71,8 +71,9 @@ export default function CustomizedTables(props) {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Nome do estabelecimento</StyledTableCell>
-            <StyledTableCell align="right">Localização</StyledTableCell>
+
+            <StyledTableCell>Localização</StyledTableCell>
+            <StyledTableCell align="right">Categoria</StyledTableCell>
             <StyledTableCell align="right">Ações</StyledTableCell>
 
           </TableRow>
@@ -81,10 +82,9 @@ export default function CustomizedTables(props) {
           {places && places.map((place) => (
               place.handle === handle &&
             <StyledTableRow key={place.placeId}>
-              <StyledTableCell component="th" scope="row">
-                {place.title}
-              </StyledTableCell>
-              <StyledTableCell align="right">{place.description}</StyledTableCell>
+
+              <StyledTableCell>{place.description}</StyledTableCell>
+              <StyledTableCell align="right">{place.category}</StyledTableCell>
               <StyledTableCell align="right">
                 <div>
                       <Button 
