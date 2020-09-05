@@ -23,8 +23,8 @@ function Home(props) {
     const userInfo = useSelector(state => state.user)
     const {credentials, likes, authenticated} = userInfo
 
-    const [allPostsInDB, setAllPostsInDB] = useState(null)
-
+    const [allPostsInDB, setAllPostsInDB] = useState([])
+    
     const dispatch = useDispatch()
 
     useEffect( () => {
@@ -45,26 +45,23 @@ function Home(props) {
     return (
         loading || userInfo.loading ? <Grid container spacing={4}>
             
-        {/* coluna das screams */}
         <Grid item sm={8} xs={12}>
            <PostSkeleton />
         </Grid>
 
-        {/* coluna do perfil do usuario */}
         <Grid item sm={4} xs={12}>
             <ProfileSkeleton />
         </Grid>
         
     </Grid> :
-        // display grid que vai ser o container (pai) e dentro vai ter a quantidade de grids(colunas) que quere com a largura que cada um vai ocupar
-        <Grid container spacing={4}>
+        <Grid container spacing={4} style={{height: '100%'}}>
             
-            {/* coluna das screams */}
             <Grid item sm={8} xs={12}>
-               {allPostsInDB}
+               {allPostsInDB.length
+                ? allPostsInDB
+                : <div style={{height: '100%'}}>No posts yet</div>}
             </Grid>
 
-            {/* coluna do perfil do usuario */}
             <Grid item sm={4} xs={12} style={{ contain: 'content'}}>
                 <Profile authenticatedUser={credentials.handle} credentials={credentials} authenticated={authenticated} paperPosition="fixed"/>
             </Grid>

@@ -112,7 +112,7 @@ export default function GalleryLocation(props) {
     ) : (
       <div className={classes.divToNoPosts}>
       <Typography variant="h5" className={classes.textToNoPosts}>
-        Este usuário não tem trabalhos publicado.
+        Sem fotos para mostrar.
       </Typography>
       </div>
      
