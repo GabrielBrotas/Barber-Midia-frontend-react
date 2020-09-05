@@ -107,7 +107,7 @@ const useStyles = makeStyles({
 function MyComponent(props) {
   const classes = useStyles();
 
-  const {places, loading, setUserSelected, userSelected} = props
+  const {places, setUserSelected, userSelected} = props
   const [selected, setSelected] = useState(null)
 
   const mapRef = useRef()
@@ -120,6 +120,8 @@ function MyComponent(props) {
     mapRef.current.setZoom(16)
   }, [])
 
+  console.log(places)
+  
   return (
     <div className={classes.mapContent}>
 
@@ -142,6 +144,7 @@ function MyComponent(props) {
       onLoad={onMapLoad}
     >
       {places.map( marker => (
+        marker.confirmed === true &&
         <Marker 
           key={marker.placeId}
           position={{ lat: marker.lat, lng: marker.lng}} 
@@ -157,6 +160,7 @@ function MyComponent(props) {
             setUserSelected(marker)
           }}
         />
+      
       ))}
 
       {selected ? (
