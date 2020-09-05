@@ -5,6 +5,7 @@ const initialState = {
     posts: [],
     post: {},
     places: [],
+    place: {},
     comments: [],
     error: null
 }

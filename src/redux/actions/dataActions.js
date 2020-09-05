@@ -159,11 +159,8 @@ export const editPlace = (placeId, placeData) => (dispatch) => {
 
 export const addPlaceDetails = (placeId, detail) => (dispatch) => {
 
-    dispatch({type: LOADING_DATA});
-
     axios.post('/place/' + placeId, {detail})
         .then( () => {
-            dispatch(getAllPlaces())
             dispatch(clearErrors())
         })
         .catch( err => {
@@ -173,20 +170,21 @@ export const addPlaceDetails = (placeId, detail) => (dispatch) => {
 
 export const deletePlace = (placeId) => (dispatch) => {
 
-    axios.post('/deletelocation/' + placeId)
+    axios.delete('/deletelocation/' + placeId)
         .then(res => {
             dispatch(getAllPlaces())
         })
         .catch( err => console.log(err))
 }
 
-// export const deletePlaceDetail = (placeId, detail) => (dispatch) => {
-//     axios.delete('/place/' + placeId)
-//         .then(res => {
-//             dispatch(getAllPlaces())
-//         })
-//         .catch( err => console.log(err))
-// }
+export const deletePlaceDetail = (placeId, detail) => (dispatch) => {
+    
+    axios.post('/placedetail/' + placeId, {detail})
+        .then( () => {
+            
+        })
+        .catch( err => console.log(err))
+}
 
 
 export const clearErrors = () => (dispatch) => {

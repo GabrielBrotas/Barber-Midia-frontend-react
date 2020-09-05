@@ -60,7 +60,7 @@ const styles = {
     }
 }
 
-function PlaceDetails(props) {
+function AddPlaceDetail(props) {
     const {classes, placeId} = props
     const dispatch = useDispatch()
 
@@ -148,4 +148,4 @@ function PlaceDetails(props) {
     
 }
 
-export default withStyles(styles)(PlaceDetails)
+export default withStyles(styles)(AddPlaceDetail)
