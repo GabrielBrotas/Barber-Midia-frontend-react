@@ -53,10 +53,11 @@ export default function CustomizedTables(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const {places, handle, setOpenModal, setLocation, setId} = props
+  const {places, handle, setOpenModal, setLocation, setId, setCategory} = props
 
   const handleOpenModal = (place) => {
     setLocation(place)
+    setCategory(place.category)
     setId(place.placeId)
     setOpenModal(true)
   }
@@ -96,14 +97,6 @@ export default function CustomizedTables(props) {
                       onClick={() => handleOpenModal(place)}
                       >
                         Editar
-                      </Button>
-                      <Button 
-                      className={classes.buttonDelete}
-                      variant="contained" 
-                      color="secondary"
-                      onClick={() => handleDelete(place.placeId)}
-                      >
-                        Deletar
                       </Button>
                   </div>
               </StyledTableCell>

@@ -3,7 +3,7 @@ import theme from '../utils/theme'
 
 import withStyles from '@material-ui/core/styles/withStyles'
 import Button from '@material-ui/core/Button'
-import SelectFormCategory from '../components/others/SelectForm'
+import SelectForm from '../components/others/SelectForm'
 import Search from '../components/others/Search'
 import Table from '../components/others/Table'
 import CssTextField from '../components/others/CssTextField'
@@ -54,20 +54,17 @@ function Account(props) {
     const [openModal, setOpenModal] = useState(false)
     const [id, setId] = useState('')
     const [location, setLocation] = useState({})
-    const [category, setCategory] = useState('Cabelo Masculino')
+    const [category, setCategory] = useState('')
+    const categories = ['Cabelo Masculino', 'Cabelo Feminino', 'Ambos']
 
     const dispatch = useDispatch()
+
     useEffect( () => {
         dispatch(getAllPlaces())
-        return
     }, [dispatch])
 
     const handleSubmit = () => {
-        if(id){
-            dispatch(editPlace(id, {...location, category}))
-        } else {
-            dispatch(saveLocation({...location, category, handle}))
-        }
+        dispatch(editPlace(id, {...location, category}))
         dispatch(getAllPlaces())
         setOpenModal(false)
     }
@@ -76,23 +73,14 @@ function Account(props) {
         !loading ?(
             <Fragment>
     
-            {!openModal ? (
-                <Button 
-                className={classes.addButton}
-                variant="contained" 
-                onClick={() => setOpenModal(true)}
-                >
-                    Adicionar novo estabelecimento
-                </Button>
-            ) : (
+            {openModal &&
                 <div className={classes.formControl}>
-
-                    {id && 
-                    <SelectFormCategory
+                    <SelectForm
                     onChangeSelect={setCategory} 
-                    category={category}
-                    backgroundColor="#fff"
-                    />}
+                    value={category} 
+                    options={categories} 
+                    title="Categoria"
+                    />
 
                     <Search oldLocation={location || " "} setLocation={setLocation}/>
                     
@@ -102,7 +90,7 @@ function Account(props) {
                         variant="contained" 
                         onClick={() => handleSubmit()}
                         >
-                            { id ? "Editar" : "Adicionar"}
+                            Editar
                         </Button>
                         <Button 
                         variant="contained" 
@@ -113,9 +101,9 @@ function Account(props) {
                         </Button>
                     </div>
                 </div>
-            )}
+            }
                 
-            <Table places={places} handle={handle} setOpenModal={setOpenModal} setLocation={setLocation} setId={setId} />
+            <Table places={places} handle={handle} setOpenModal={setOpenModal} setLocation={setLocation} setId={setId} setCategory={setCategory}/>
 
             </Fragment>
 

@@ -66,17 +66,11 @@ const styles = {
 
 function AddNewPost(props) {
 
-    const dataInfo = useSelector(state => state.data)
-    const {places} = dataInfo
-
     const [open, setOpen] = useState(false)
     const [bodyText, setBodyText] = useState('')
-    const [placesIdUserOwner, setPlacesIdUserOwner] = useState([])
-    const [placeId, setPlaceId] = useState('')
     const [imageToUpload, setImageToUpload] = useState({})
     const [imageToUploadData, setImageToUploadData] = useState({})
     const [errors, setErrors] = useState({})
-
     const {classes, UI: {loading, progress}} = props
     
     useEffect( () => {
@@ -87,29 +81,22 @@ function AddNewPost(props) {
         }
         if(!props.UI.errors && !props.UI.loading){
             setBodyText('')
-            setPlaceId('')
             setOpen(false)
         }
     }, [props])
 
-    useEffect( () => {
-        setPlacesIdUserOwner( places.map( place => (
-            place.placeId
-        )))
-    }, [places])
 
     const handleClose = () => {
         setOpen(false)
         setErrors({})
         setImageToUploadData({})
         setImageToUpload({})
-        setPlaceId('')
         props.clearErrors()
     }
     
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.publishPost({bodyText, bodyImage: "", placeId}, imageToUpload)
+        props.publishPost({bodyText, bodyImage: ""}, imageToUpload)
         setImageToUploadData({})
         setImageToUpload({})
     }
@@ -156,8 +143,6 @@ function AddNewPost(props) {
                         onChange={(e) => setBodyText(e.target.value)}
                         fullWidth
                         />
-
-                        <SelectForm onChangeSelect={setPlaceId} value={placeId} options={placesIdUserOwner} title="Id do local..." />
 
                         <Button type="submit" variant="contained" color="primary" className={classes.submitButton} disabled={loading}>
                             Submit

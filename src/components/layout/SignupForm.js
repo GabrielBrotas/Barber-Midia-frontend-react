@@ -121,7 +121,7 @@ export default function SignupForm(props) {
           required
           fullWidth
           id="username"
-          label={type === "Empresa" ? "Nome da Empresa" : "Nome"}
+          label={type === "Profissional" ? "Nome Profissional" : "Nome"}
           name="username"
           autoComplete="username"
           autoFocus

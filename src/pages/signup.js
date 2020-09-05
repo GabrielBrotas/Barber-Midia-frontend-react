@@ -93,10 +93,6 @@ function SignUpSide(props) {
           <Button onClick={() => setType("Profissional")} variant="contained" className={classes.buttonType}style={{backgroundColor: theme.secondaryColor}}>
             Profissional
           </Button>
-
-          <Button onClick={() => setType("Empresa")} variant="contained" className={classes.buttonType} style={{backgroundColor: theme.mainColor}}>
-            Empresa
-          </Button>
           </div>
         ) : (
           <SignupForm type={type} setType={setType} history={props.history}/>
@@ -105,7 +101,7 @@ function SignUpSide(props) {
         {!type && 
         <div className={classes.infoContent}>
         <InfoIcon className={classes.infoIcon}/>
-        Detalhes de cada categoria
+        Para começar, escolha de qual forma gostaria de se cadastrar no nosso app
         </div>
         }
         
