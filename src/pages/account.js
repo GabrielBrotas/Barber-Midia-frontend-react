@@ -53,18 +53,18 @@ function Account(props) {
     const {classes} = props
     const [openModal, setOpenModal] = useState(false)
     const [id, setId] = useState('')
-    const [title, setTitle] = useState('')
     const [location, setLocation] = useState({})
     const [category, setCategory] = useState('Cabelo Masculino')
 
     const dispatch = useDispatch()
     useEffect( () => {
         dispatch(getAllPlaces())
+        return
     }, [dispatch])
 
     const handleSubmit = () => {
         if(id){
-            dispatch(editPlace(id, {...location}))
+            dispatch(editPlace(id, {...location, category}))
         } else {
             dispatch(saveLocation({...location, category, handle}))
         }
@@ -87,7 +87,7 @@ function Account(props) {
             ) : (
                 <div className={classes.formControl}>
 
-                    {!id && 
+                    {id && 
                     <SelectForm 
                     onChangeSelect={setCategory} 
                     category={category}
@@ -115,7 +115,7 @@ function Account(props) {
                 </div>
             )}
                 
-            <Table places={places} handle={handle} setOpenModal={setOpenModal} setLocation={setLocation} setTitle={setTitle} setId={setId} />
+            <Table places={places} handle={handle} setOpenModal={setOpenModal} setLocation={setLocation} setId={setId} />
 
             </Fragment>
 
