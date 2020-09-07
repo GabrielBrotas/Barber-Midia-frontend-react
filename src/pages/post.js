@@ -20,9 +20,9 @@ import Typography from '@material-ui/core/Typography';
 import CommentIcon from '@material-ui/icons/Comment';
 
 // component
-import LikeButton from '../components/posts/LikeButton'
-import Comment from '../components/posts/Comment'
-import CommentForm from '../components/posts/CommentForm'
+import LikeButton from '../components/Posts/LikeButton'
+import Comment from '../components/Posts/Comment'
+import CommentForm from '../components/Posts/CommentForm'
 
 const useStyles = makeStyles((theme) => ({
     imageContent: {

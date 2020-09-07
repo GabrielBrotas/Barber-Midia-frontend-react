@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types'
-import LeftSideDescription from '../components/layout/LeftSideDescription'
 import theme from '../utils/theme'
 
 // MUI
@@ -14,7 +13,8 @@ import Button from '@material-ui/core/Button';
 import InfoIcon from '@material-ui/icons/Info';
 
 // components
-import SignupForm from '../components/layout/SignupForm'
+import LeftSideDescription from '../components/Layout/LeftSideDescription'
+import SignupForm from '../components/Layout/SignupForm'
 
 
 const useStyles = makeStyles((theme) => ({

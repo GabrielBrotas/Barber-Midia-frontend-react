@@ -1,11 +1,11 @@
 import React from 'react'
 
-function BarberCard() {
+function Sidebar() {
     return (
         <div>
-            
+            Side barrr
         </div>
     )
 }
 
-export default BarberCard
+export default Sidebar

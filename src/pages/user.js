@@ -10,11 +10,11 @@ import {getPosts, getAllPlaces, getPlace} from '../redux/actions/dataActions'
 import Grid from '@material-ui/core/Grid'
 
 // components
-import Profile from '../components/profile/Profile'
-import ExtraDetails from '../components/profile/ExtraDetails'
-import Gallery from '../components/layout/Gallery'
-import ProfileSkeleton from '../components/profile/ProfileSkeleton'
-import GallerySkeleton from '../components/layout/GallerySkeleton'
+import Profile from '../components/Profile/Profile'
+import ExtraDetails from '../components/Profile/ExtraDetails'
+import Gallery from '../components/Layout/Gallery'
+import ProfileSkeleton from '../components/Profile/ProfileSkeleton'
+import GallerySkeleton from '../components/Layout/GallerySkeleton'
 
 
 const styles = {

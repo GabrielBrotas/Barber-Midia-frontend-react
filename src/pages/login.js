@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types'
-import LeftSideDescription from '../components/layout/LeftSideDescription'
+import LeftSideDescription from '../components/Layout/LeftSideDescription'
 
 // redux
 import {useSelector, useDispatch} from 'react-redux'
@@ -16,7 +16,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress'
-import CssTextField from '../components/others/CssTextField'
+import CssTextField from '../components/Others/CssTextField'
 
 // icons
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';

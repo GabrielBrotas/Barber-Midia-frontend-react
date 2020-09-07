@@ -6,8 +6,8 @@ import theme from '../../utils/theme'
 
 // components
 import MyButton from '../../utils/MyButton'
-import UploadButton from '../others/UploadButton'
-import CssTextField from '../others/CssTextField'
+import UploadButton from '../Others/UploadButton'
+import CssTextField from '../Others/CssTextField'
 import {CircularProgressbar} from 'react-circular-progressbar'
 
 // redux

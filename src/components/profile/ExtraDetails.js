@@ -1,6 +1,4 @@
-import React
-
- from 'react'
+import React from 'react'
 import theme from '../../utils/theme'
 
 import {useSelector, useDispatch} from 'react-redux'
