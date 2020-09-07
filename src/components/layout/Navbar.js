@@ -9,6 +9,7 @@ import mainStyles from '../../utils/theme'
 import Notifications from './Notifications'
 import ChatButton from './ChatButton'
 import PostScream from '../posts/AddNewPost'
+import NavbarInputList from './NavbarInputList'
 
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,12 +21,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Tooltip from '@material-ui/core/Tooltip';
 import MuiLink from '@material-ui/core/Link'
+import Button from '@material-ui/core/Button'
 
 // MUI Icons
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import Button from '@material-ui/core/Button'
 import PinDrop from '@material-ui/icons/PinDrop'
+import InputBase from '@material-ui/core/InputBase';
 
 const useStyles = makeStyles((theme) => ({
   navbar: {
@@ -33,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
   },
   leftActions: {
+    display: "flex",
     marginRight: 'auto'
   },
   logo: {
@@ -71,17 +74,45 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiIconButton-edgeEnd': {
       marginRight: 0
     }
-  }
+  },
+  search: {
+    position: 'relative',
+    marginRight: 'auto',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: 'rgba(0, 0, 0, 0.2);',
+    '&:hover': {
+      backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    },
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    paddingLeft: 15,
+    paddingRight: 15,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '30ch',
+    },
+  },
 }));
 
 function PrimarySearchAppBar() {
   const classes = useStyles();
   const dispatch = useDispatch();
+
   const userInfo = useSelector(state => state.user)
   const {authenticated, loading, credentials: {category, handle}} = userInfo
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const [inputBar, setInputBar] = useState('')
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -199,7 +230,22 @@ function PrimarySearchAppBar() {
             } 
            
           </div>
+
+          <div className={classes.search}>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+              value={inputBar}
+              onChange={(e) => setInputBar(e.target.value)}
+            />
+            <NavbarInputList inputBar={inputBar} setInputBar={setInputBar}/>
+          </div>
           <div className={classes.grow} />
+
           <div className={classes.sectionDesktop}>
           {
             !loading && !authenticated ? (

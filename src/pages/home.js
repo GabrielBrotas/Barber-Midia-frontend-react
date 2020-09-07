@@ -57,7 +57,7 @@ function Home(props) {
         <Grid container spacing={4} style={{height: '100%'}}>
             
             <Grid item sm={8} xs={12}>
-               {allPostsInDB.length
+               {allPostsInDB.length > 0
                 ? allPostsInDB
                 : <div style={{height: '100%'}}>No posts yet</div>}
             </Grid>
