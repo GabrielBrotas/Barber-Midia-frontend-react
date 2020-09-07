@@ -214,7 +214,7 @@ function Search({panTo}) {
   const {ready, value, suggestions: {status, data}, setValue, clearSuggestions} = usePlacesAutocomplete({
     requestOptions: {
       location: new window.google.maps.LatLng(lat, lng),
-      radius: 200 * 1000,
+      radius: 15 * 1000,
       types: ['address']
   }})
 
