@@ -13,10 +13,10 @@ export default function messages() {
             <Sidebar />
         </Grid>
 
-        <Grid item sm={8} xs={12}>
+        <Grid item sm={8} xs={12} style={{height: '90vh'}}>
             <Chat />
         </Grid>  
         
-    </Grid>
+    </Grid> 
     
 )}
