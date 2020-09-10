@@ -4,7 +4,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
-import MicIcon from '@material-ui/icons/Mic'
+import SendIcon from '@material-ui/icons/Send';
 
 const useStyles = makeStyles( theme => ({
     chat: {
@@ -46,7 +46,6 @@ const useStyles = makeStyles( theme => ({
         position: 'relative',
         fontSize: 16,
         padding: 10,
-        backgroundColor: "#ffffff",
         borderRadius: 10,
         width: "fit-content",
         marginBottom: 30,
@@ -79,8 +78,11 @@ function Chat() {
     const classes = useStyles();
 
     const [input, setInput] = useState('')
+
     const sendMessage = (e) => {
         e.preventDefault()
+        console.log(input)
+        setInput('')
     }
     return (
         <div className={classes.chat}>
@@ -105,7 +107,7 @@ function Chat() {
                     <input value={input} onChange={ e => setInput(e.target.value)} placeholder="Type a message" type="text"/>
                     <button type="submit" onClick={sendMessage}>Send a message</button>
                 </form>
-                <MicIcon />
+                <SendIcon />
             </div>
         </div>
     )

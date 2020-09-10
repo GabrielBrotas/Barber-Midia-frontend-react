@@ -8,6 +8,7 @@ import {getPosts, getAllPlaces, getPlace} from '../redux/actions/dataActions'
 
 // MUI
 import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
 
 // components
 import Profile from '../components/Profile/Profile'
@@ -15,6 +16,7 @@ import ExtraDetails from '../components/Profile/ExtraDetails'
 import Gallery from '../components/Layout/Gallery'
 import ProfileSkeleton from '../components/Profile/ProfileSkeleton'
 import GallerySkeleton from '../components/Layout/GallerySkeleton'
+
 
 
 const styles = {
@@ -28,10 +30,20 @@ const styles = {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
-    }
+    },
+    galleryColumn: {
+        marginTop: 20
+    },
+    buttonType: {
+      width: '100%',
+      maxWidth: 200,
+      display: 'block',
+      marginLeft: 'auto'
+    },
 }
 
 function User(props) {
+    const dispatch = useDispatch() 
 
     const userInfo = useSelector(state => state.user)
     const {users, loading, authenticated, credentials: {handle}} = userInfo
@@ -45,8 +57,6 @@ function User(props) {
     const [selectedUser, setSelectedUser] = useState([])
     const [userPosts, setUserPosts] = useState([])
     const [placeId, setPlaceId] = useState(null)
-
-    const dispatch = useDispatch() 
 
     useEffect( () => {
         dispatch(getAllUsers())
@@ -77,6 +87,11 @@ function User(props) {
             dispatch(getPlace(placeId))
     }, [placeId, dispatch])
 
+    const createChat = (e) => {
+        e.preventDefault()
+        // dispatch(createChat(selectedUser.userId))
+    }
+
     return ( !loading && !postLoading ?
         (<Grid container spacing={3}>
             
@@ -87,6 +102,12 @@ function User(props) {
             </Grid>
 
             <Grid item sm={7} xs={12}>
+                <div className={classes.galleryColumn}>
+                <Button onClick={createChat} variant="contained" className={classes.buttonType} default>
+                    Conversar
+                </Button>
+                </div>
+                
             {!postLoading > 0 &&
                 <Gallery userPosts={userPosts} />   
             }    

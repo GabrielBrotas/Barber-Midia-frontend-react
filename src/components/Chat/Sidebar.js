@@ -5,7 +5,6 @@ import SidebarChat from './SidebarChat'
 
 // MUI
 import {makeStyles} from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
@@ -28,6 +27,7 @@ const useStyles = makeStyles( theme => ({
         display: 'flex',
         alignItems: 'center',
         backgroundColor: 'white',
+        contain: 'content',
         width: '100%',
         height: 35,
         borderRadius: 20,
@@ -42,7 +42,9 @@ const useStyles = makeStyles( theme => ({
 
         "& input": {
             border: 'none',
-            marginLeft: 10
+            marginLeft: 10,
+            width: '100%',
+            height: '100%'
         }
     },
     sidebarChats: {
