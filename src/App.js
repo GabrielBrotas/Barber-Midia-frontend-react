@@ -27,7 +27,7 @@ import user from './pages/user'
 import post from './pages/post'
 import account from './pages/account'
 import verify from './pages/verify'
-import messages from './pages/messages'
+import chat from './pages/chat'
 
 // style global
 const theme = createTheme(themeFile)
@@ -65,7 +65,7 @@ function App() {
       <Switch>
         <NotAuthRoute exact path="/verify/:handleAndToken" component={verify} />
         {/* change to Auth */}
-        <Route exact path="/messages" component={messages} />
+        <Route exact path="/chat/:chatId" component={chat} />
         <AuthRoute exact path="/account" component={account} />
         <Route exact path="/location" component={location} />
         <Route exact path="/post/:postId" component={post} />

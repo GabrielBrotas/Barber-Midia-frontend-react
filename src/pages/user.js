@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react'
+import {Redirect} from 'react-router-dom'
 import withStyles from '@material-ui/core/styles/withStyles'
 
 // Redux
 import {useSelector, useDispatch} from 'react-redux'
 import {getAllUsers} from '../redux/actions/userActions'
 import {getPosts, getAllPlaces, getPlace} from '../redux/actions/dataActions'
+import {startChat} from '../redux/actions/chatActions'
 
 // MUI
 import Grid from '@material-ui/core/Grid'
@@ -16,8 +18,6 @@ import ExtraDetails from '../components/Profile/ExtraDetails'
 import Gallery from '../components/Layout/Gallery'
 import ProfileSkeleton from '../components/Profile/ProfileSkeleton'
 import GallerySkeleton from '../components/Layout/GallerySkeleton'
-
-
 
 const styles = {
     root:{
@@ -42,6 +42,13 @@ const styles = {
     },
 }
 
+function redirectToChat(chatId){
+    console.log(chatId);
+    return(
+        <Redirect to="/teste" />
+    )
+}
+
 function User(props) {
     const dispatch = useDispatch() 
 
@@ -51,7 +58,7 @@ function User(props) {
     const dataList = useSelector(state => state.data)
     const {posts, loading: postLoading, places} = dataList
 
-    const {classes} = props
+    const {classes, history} = props
     const userHandle = props.match.params.handle
 
     const [selectedUser, setSelectedUser] = useState([])
@@ -89,7 +96,7 @@ function User(props) {
 
     const createChat = (e) => {
         e.preventDefault()
-        // dispatch(createChat(selectedUser.userId))
+        dispatch(startChat(selectedUser.userId, history))
     }
 
     return ( !loading && !postLoading ?

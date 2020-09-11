@@ -31,3 +31,9 @@ export const PUBLISH_POST = 'PUBLISH_POST'
 export const SUBMIT_COMMENT = 'SUBMIT_COMMENT'
 export const GET_ALL_COMMENTS = 'GET_ALL_COMMENTS'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
+
+// chat type
+export const START_CHAT = 'START_CHAT'
+export const SEND_MESSAGE = 'SEND_MESSAGE'
+export const GET_CHAT = 'GET_CHAT'
+export const LOADING_CHAT = 'LOADING_CHAT'

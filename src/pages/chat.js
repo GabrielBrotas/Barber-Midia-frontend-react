@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import Sidebar from '../components/Chat/Sidebar'
 import Chat from '../components/Chat/Chat'
 
-export default function messages() {
+export default function chat() {
     return (
     <Grid container spacing={3}>
             
