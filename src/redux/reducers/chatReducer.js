@@ -18,7 +18,7 @@ export default function(state = initialState, action){
         case GET_CHAT: 
             return {...state, chat: action.payload, loading: false}
         case SEND_MESSAGE:
-            return {...state, chat: {chatId: action.payload.chatId,messages: [...state.chat.message, action.payload.message]}, loading: false}
+            return {...state, chat: {chatId: action.payload.chatId, messages: [...state.chat.messages, action.payload]}, loading: false}
         default:
         return state
 

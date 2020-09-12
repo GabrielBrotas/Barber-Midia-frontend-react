@@ -1,5 +1,8 @@
 import React, {useState} from 'react'
 
+import {useDispatch} from 'react-redux'
+import {sendMessage} from '../../redux/actions/chatActions'
+
 import {makeStyles} from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 
@@ -76,13 +79,14 @@ const useStyles = makeStyles( theme => ({
 
 function Chat(props) {
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     const [input, setInput] = useState('')
     const {chat} = props
-
-    const sendMessage = (e) => {
+    console.log(chat)
+    const submitHandle = (e) => {
         e.preventDefault()
-        console.log(input)
+        dispatch(sendMessage(chat.chatId, input))
         setInput('')
     }
     
@@ -97,8 +101,8 @@ function Chat(props) {
             </div>
             
             <div className={classes.chatBody}>
-                {chat.messages && chat.messages.map( message => (
-                    <p className={classes.chatMessage}>
+                {chat.messages && chat.messages.map( (message, index) => (
+                    <p key={index} className={classes.chatMessage}>
                         {message.message}
                     </p>
                 ))}
@@ -108,7 +112,7 @@ function Chat(props) {
                 <InsertEmoticonIcon />
                 <form>
                     <input value={input} onChange={ e => setInput(e.target.value)} placeholder="Type a message" type="text"/>
-                    <button type="submit" onClick={sendMessage}>Send a message</button>
+                    <button type="submit" onClick={submitHandle}>Send a message</button>
                 </form>
                 <SendIcon />
             </div>

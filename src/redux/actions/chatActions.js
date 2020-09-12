@@ -34,6 +34,12 @@ export const getChat = (chatId) => (dispatch) => {
         .catch( err => console.log(err))
 }
 
-export const sendMessage = (roomId) => (dispatch) => {
+export const sendMessage = (chatId, message) => (dispatch) => {
 
+    axios.post('/message/' + chatId, {message})
+        .then( res => {
+            console.log(res.data)
+            dispatch({type: SEND_MESSAGE, payload: res.data})
+        })
+        .catch( err => console.log(err))
 }
