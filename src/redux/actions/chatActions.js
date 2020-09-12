@@ -27,7 +27,11 @@ export const getUserChats = () => (dispatch) => {
 export const getChat = (chatId) => (dispatch) => {
 
     dispatch({type: LOADING_CHAT})
-    // axios.get('/chat/')
+    axios.get('/chat/' + chatId)
+        .then( res => {
+            dispatch({type: GET_CHAT, payload: res.data})
+        })
+        .catch( err => console.log(err))
 }
 
 export const sendMessage = (roomId) => (dispatch) => {

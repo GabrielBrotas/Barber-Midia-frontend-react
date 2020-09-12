@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import {Redirect} from 'react-router-dom'
 import withStyles from '@material-ui/core/styles/withStyles'
 
 // Redux
@@ -42,19 +41,12 @@ const styles = {
     },
 }
 
-function redirectToChat(chatId){
-    console.log(chatId);
-    return(
-        <Redirect to="/teste" />
-    )
-}
-
 function User(props) {
     const dispatch = useDispatch() 
 
     const userInfo = useSelector(state => state.user)
     const {users, loading, authenticated, credentials: {handle}} = userInfo
-
+    
     const dataList = useSelector(state => state.data)
     const {posts, loading: postLoading, places} = dataList
 
@@ -114,11 +106,14 @@ function User(props) {
             </Grid>
 
             <Grid item sm={7} xs={12}>
+                { handle !== userHandle && handle &&
                 <div className={classes.galleryColumn}>
                 <Button onClick={createChat} variant="contained" className={classes.buttonType} default>
                     Conversar
                 </Button>
                 </div>
+                }
+                
                 
             {!postLoading > 0 &&
                 <Gallery userPosts={userPosts} />   

@@ -74,16 +74,18 @@ const useStyles = makeStyles( theme => ({
     }
 }))
 
-function Chat() {
+function Chat(props) {
     const classes = useStyles();
 
     const [input, setInput] = useState('')
+    const {chat} = props
 
     const sendMessage = (e) => {
         e.preventDefault()
         console.log(input)
         setInput('')
     }
+    
     return (
         <div className={classes.chat}>
             <div className={classes.chatHeader}>
@@ -93,13 +95,14 @@ function Chat() {
                     <p>Last seen at ...</p>
                 </div>
             </div>
+            
             <div className={classes.chatBody}>
-                <p className={classes.chatMessage}>
-                    Hey guuys
-                </p>
-                <p className={classes.chatReciever}>
-                    Hey guuys
-                </p>
+                {chat.messages && chat.messages.map( message => (
+                    <p className={classes.chatMessage}>
+                        {message.message}
+                    </p>
+                ))}
+
             </div>
             <div className={classes.chatFooter}>
                 <InsertEmoticonIcon />

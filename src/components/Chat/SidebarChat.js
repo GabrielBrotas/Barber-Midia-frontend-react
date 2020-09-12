@@ -34,10 +34,10 @@ function SidebarChat(props) {
 
     const {chat} = props
     const [userReceive, setUserReceive] = useState(null)
-
+    
     useEffect( () => {
         setUserReceive( chat.userOne === handle ? chat.userTwo : chat.userOne)
-    }, [chat])
+    }, [chat, handle])
   
     return (
         !loading ? (

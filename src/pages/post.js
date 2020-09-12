@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import {Link} from 'react-router-dom'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime' 
 import theme from '../utils/theme'
@@ -45,9 +46,10 @@ const useStyles = makeStyles((theme) => ({
         padding: '15px',
         backgroundColor: theme.backgroundColorMain
     },
-    allComents: {
-
-    }
+    userHandle: {
+      color: "#000",
+      width: 'max-content'
+    },
 }))
 
 function Post(props) {
@@ -114,7 +116,7 @@ function Post(props) {
                     <Avatar alt="Remy Sharp" src={activePost.userImage} />
                 </Avatar>
                 }
-                title={<p className={classes.userHandle}>{activePost.userHandle}</p>}
+                title={<Link to={`/user/${activePost.userHandle}`}><p className={classes.userHandle}>{activePost.userHandle}</p></Link>}
                 subheader={<p className={classes.dateTimePost}>{dayjs(activePost.createdAt).fromNow()}</p>}
             />
 
