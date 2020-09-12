@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ChatButton(props) {
     const classes = useStyles();
     return (
-        <Link to="/messages">
+        <Link to="/chat">
             <IconButton
             edge="end"
             aria-label="caixa de entrada"
