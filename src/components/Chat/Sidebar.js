@@ -1,4 +1,6 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {getUserChats} from '../../redux/actions/chatActions'
 
 // component
 import SidebarChat from './SidebarChat'
@@ -58,7 +60,17 @@ const useStyles = makeStyles( theme => ({
 
 function Sidebar() {
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    const chatInfo = useSelector(state => state.chat)
+    const {chats, loading} = chatInfo
+
+    useEffect( () => {
+        dispatch(getUserChats())
+    }, [dispatch])
+
     return (
+        !loading ? (
         <div className={classes.sidebar}>
             <Typography className={classes.sidebarHeader} variant="h5">
                 Caixa de Entrada
@@ -72,12 +84,16 @@ function Sidebar() {
             </div>
 
             <div className={classes.sidebarChats}>
-                <SidebarChat />
-                <SidebarChat />
-                <SidebarChat />
-                <SidebarChat />
+                {
+                chats.map( chat => (
+                    <SidebarChat key={chat.chatId} chat={chat} />
+                ))
+                }
             </div>
         </div>
+        ) : (
+            <p>loading...</p>
+        )
     )
 }
 

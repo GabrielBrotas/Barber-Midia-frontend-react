@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useState, useEffect, Fragment} from 'react'
+import {useSelector} from 'react-redux'
 
 import {makeStyles} from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -25,17 +26,38 @@ const useStyles = makeStyles( theme => ({
     }
 }))
 
-function SidebarChat() {
+function SidebarChat(props) {
     const classes = useStyles();
 
+    const usersInfo = useSelector(state => state.user)
+    const {users, loading, credentials: {handle}} = usersInfo
+
+    const {chat} = props
+    const [userReceive, setUserReceive] = useState(null)
+
+    useEffect( () => {
+        setUserReceive( chat.userOne === handle ? chat.userTwo : chat.userOne)
+    }, [chat])
+  
     return (
+        !loading ? (
         <div className={classes.sidebarChat}>
-            <Avatar src="https://avatars.dicebear.com/api/human/dog.svg"/>
-            <div className={classes.sidebarChatInfo}>
-                <h2>Room Name</h2>
-                <p>Last Message</p>
-            </div>
+
+            {users.map( user => (
+                user.handle === userReceive && 
+                <Fragment key={user.userId}>
+                    <Avatar src={user.imageUrl}/>
+                    <div className={classes.sidebarChatInfo}>
+                    <h2>{user.handle}</h2>
+                    <p>Last Message</p>
+                </div>
+                </Fragment>
+            ))}
+  
         </div>
+        ) : (
+            <p>loading...</p>
+        )
     )
 }
 

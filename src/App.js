@@ -64,8 +64,7 @@ function App() {
       <div className="container">
       <Switch>
         <NotAuthRoute exact path="/verify/:handleAndToken" component={verify} />
-        {/* change to Auth */}
-        <Route exact path="/chat/:chatId" component={chat} />
+        <AuthRoute exact path="/chat/:chatId" component={chat} />
         <AuthRoute exact path="/account" component={account} />
         <Route exact path="/location" component={location} />
         <Route exact path="/post/:postId" component={post} />

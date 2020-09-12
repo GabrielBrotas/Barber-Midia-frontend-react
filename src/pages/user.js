@@ -96,7 +96,12 @@ function User(props) {
 
     const createChat = (e) => {
         e.preventDefault()
-        dispatch(startChat(selectedUser.userId, history))
+        if(authenticated) {
+            dispatch(startChat(selectedUser.userId, history))
+        } else {
+            history.push('/login')
+        }
+        
     }
 
     return ( !loading && !postLoading ?

@@ -1,4 +1,4 @@
-import {START_CHAT, SEND_MESSAGE, GET_CHAT, LOADING_CHAT} from '../types'
+import {START_CHAT, SEND_MESSAGE, GET_CHAT, LOADING_CHAT, GET_CHATS} from '../types'
 
 const initialState = {
     loading: false,
@@ -13,6 +13,8 @@ export default function(state = initialState, action){
             return {...state, loading: true}
         case START_CHAT:
             return {...state, chat: action.payload, loading: false}
+        case GET_CHATS:
+            return {...state, chats: action.payload, loading: false}
         case GET_CHAT: 
             return {...state, chat: action.payload, loading: false}
         case SEND_MESSAGE:
