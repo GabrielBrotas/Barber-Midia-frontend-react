@@ -14,6 +14,9 @@ export default function Chat(props) {
     const chatInfo = useSelector(state => state.chat)
     const {loading, chat} = chatInfo
 
+    const usersInfo = useSelector(state => state.user)
+    const {credentials: {userId}} = usersInfo
+
     const [chatId, setChatId] = useState(null)
 
     useEffect( () => {
@@ -38,7 +41,7 @@ export default function Chat(props) {
         </Grid>
 
         <Grid item sm={8} xs={12} style={{height: '90vh'}}>
-            {chatId && !loading && <ChatForm chat={chat} />}
+            {chatId && !loading && <ChatForm chat={chat} userId={userId} />}
         </Grid>  
         
     </Grid> 

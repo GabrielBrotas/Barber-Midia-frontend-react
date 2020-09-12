@@ -36,7 +36,7 @@ const useStyles = makeStyles( theme => ({
         overflowY: 'scroll',
         padding: 30
     },
-    chatMessage: {
+    chatMessageReceive: {
         position: 'relative',
         fontSize: 16,
         padding: 10,
@@ -45,15 +45,15 @@ const useStyles = makeStyles( theme => ({
         width: "fit-content",
         marginBottom: 30
     },
-    chatReciever: {
+    chatMessageSender: {
         position: 'relative',
         fontSize: 16,
         padding: 10,
+        backgroundColor: "#DCF8C6",
         borderRadius: 10,
         width: "fit-content",
         marginBottom: 30,
-        marginLeft: 'auto',
-        backgroundColor: "#dcf8c6"
+        marginLeft: 'auto'
     },
     chatFooter: {
         display: 'flex',
@@ -82,8 +82,8 @@ function Chat(props) {
     const dispatch = useDispatch();
 
     const [input, setInput] = useState('')
-    const {chat} = props
-    console.log(chat)
+    const {chat, userId} = props
+    
     const submitHandle = (e) => {
         e.preventDefault()
         dispatch(sendMessage(chat.chatId, input))
@@ -102,7 +102,7 @@ function Chat(props) {
             
             <div className={classes.chatBody}>
                 {chat.messages && chat.messages.map( (message, index) => (
-                    <p key={index} className={classes.chatMessage}>
+                    <p key={index} className={ message.userId === userId ? classes.chatMessageSender : classes.chatMessageReceive}>
                         {message.message}
                     </p>
                 ))}

@@ -38,7 +38,7 @@ export const sendMessage = (chatId, message) => (dispatch) => {
 
     axios.post('/message/' + chatId, {message})
         .then( res => {
-            console.log(res.data)
+            console.log(res)
             dispatch({type: SEND_MESSAGE, payload: res.data})
         })
         .catch( err => console.log(err))
