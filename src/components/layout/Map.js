@@ -111,7 +111,6 @@ const useStyles = makeStyles({
 
 function MyComponent(props) {
   const classes = useStyles();
-  const dispatch = useDispatch();
 
   const dataList = useSelector(state => state.data)
   const {places} = dataList

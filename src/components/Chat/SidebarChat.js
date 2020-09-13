@@ -26,18 +26,17 @@ const useStyles = makeStyles( theme => ({
     }
 }))
 
-function SidebarChat(props) {
+function SidebarChat({chat}) {
     const classes = useStyles();
 
     const usersInfo = useSelector(state => state.user)
     const {users, loading, credentials: {handle, userId}} = usersInfo
 
-    const {chat} = props
     const [userReceive, setUserReceive] = useState(null)
   
     useEffect( () => {
         setUserReceive( chat.userOneId === userId ? chat.userTwoId : chat.userOneId)
-    }, [chat, handle])
+    }, [chat, handle, userId])
  
     return (
         !loading ? (

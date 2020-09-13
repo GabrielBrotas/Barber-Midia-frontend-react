@@ -1,10 +1,8 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {Link} from 'react-router-dom'
-import db from '../../utils/firebase'
 
 // redux
-import {useDispatch, useSelector} from 'react-redux'
-import {getUserChats} from '../../redux/actions/chatActions'
+import {useSelector} from 'react-redux'
 
 // component
 import SidebarChat from './SidebarChat'
@@ -62,34 +60,11 @@ const useStyles = makeStyles( theme => ({
     }
 }))
 
-function Sidebar() {
+function Sidebar({chats}) {
     const classes = useStyles();
-    const dispatch = useDispatch();
 
     const usersInfo = useSelector(state => state.user)
     const {credentials: {userId}} = usersInfo
-
-    const chatInfo = useSelector(state => state.chat)
-    const {chats} = chatInfo
-
-    const [userChats, setUserChats] = useState([])
-
-    useEffect( () => {
-        dispatch(getUserChats())
-    }, [dispatch])
-
-    useEffect( () => {
-        db.collection('chats').onSnapshot( snapshot => {
-            setUserChats( snapshot.docs.map( doc => (
-                {
-                chatId: doc.id,
-                userOneId: doc.data().userOneId,
-                userTwoId: doc.data().userTwoId
-                }
-            )))
-        })
-        return 
-    }, [])
 
     return (
         chats ? (
@@ -107,12 +82,11 @@ function Sidebar() {
 
             <div className={classes.sidebarChats}>
                 {
-                userChats.map( chat => (
+                chats.map( chat => (
                     (chat.userOneId === userId || chat.userTwoId === userId) &&
                     <Link key={chat.chatId} to={`/chat/${chat.chatId}`}>
                         <SidebarChat chat={chat} />
                     </Link>
-                    
                 ))
                 }
             </div>

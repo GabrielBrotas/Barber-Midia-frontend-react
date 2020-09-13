@@ -77,24 +77,20 @@ const useStyles = makeStyles( theme => ({
     }
 }))
 
-function Chat(props) {
+function Chat({messages, userId, chatId}) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
     const [input, setInput] = useState('')
-    const {chat, userId} = props
 
     const submitHandle = (e) => {
         e.preventDefault()
         if(input){
-            dispatch(sendMessage(chat.chatId, input))
+            dispatch(sendMessage(chatId, input))
         }
-        console.log(input)
         setInput('')
     }
     
-    
-
     return (
         <div className={classes.chat}>
             <div className={classes.chatHeader}>
@@ -106,7 +102,7 @@ function Chat(props) {
             </div>
             
             <div className={classes.chatBody}>
-                {chat.messages && chat.messages.map( (message, index) => (
+                {messages.map( (message, index) => (
                     <p key={index} className={ message.userId === userId ? classes.chatMessageSender : classes.chatMessageReceive}>
                         {message.message}
                     </p>
