@@ -30,21 +30,21 @@ function SidebarChat(props) {
     const classes = useStyles();
 
     const usersInfo = useSelector(state => state.user)
-    const {users, loading, credentials: {handle}} = usersInfo
+    const {users, loading, credentials: {handle, userId}} = usersInfo
 
     const {chat} = props
     const [userReceive, setUserReceive] = useState(null)
-      
-    useEffect( () => {
-        setUserReceive( chat.userOne === handle ? chat.userTwo : chat.userOne)
-    }, [chat, handle])
   
+    useEffect( () => {
+        setUserReceive( chat.userOneId === userId ? chat.userTwoId : chat.userOneId)
+    }, [chat, handle])
+ 
     return (
         !loading ? (
         <div className={classes.sidebarChat}>
 
             {users.map( user => (
-                user.handle === userReceive && 
+                user.userId === userReceive && 
                 <Fragment key={user.userId}>
                     <Avatar src={user.imageUrl}/>
                     <div className={classes.sidebarChatInfo}>

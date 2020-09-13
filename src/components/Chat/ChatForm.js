@@ -83,13 +83,18 @@ function Chat(props) {
 
     const [input, setInput] = useState('')
     const {chat, userId} = props
-    
+
     const submitHandle = (e) => {
         e.preventDefault()
-        dispatch(sendMessage(chat.chatId, input))
+        if(input){
+            dispatch(sendMessage(chat.chatId, input))
+        }
+        console.log(input)
         setInput('')
     }
     
+    
+
     return (
         <div className={classes.chat}>
             <div className={classes.chatHeader}>
