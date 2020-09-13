@@ -1,32 +1,40 @@
-import React, {useState, useEffect, Fragment} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useSelector} from 'react-redux'
 
 import {makeStyles} from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles( theme => ({
-    sidebarChat: {
+    chat: {
         display: 'flex',
-        padding: '20px 0px',
+        padding: '20px 10px',
         cursor: 'pointer',
         borderBottom: '1px solid #f6f6f6',
-        width: '90%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
         "&:hover": {
-            background: "#ebebeb"
+            background: theme.mainColor
         }
+    },
+    activeChat: {
+        display: 'flex',
+        padding: '20px 10px',
+        cursor: 'pointer',
+        borderBottom: '1px solid #f6f6f6',
+        background: theme.mainColor
     },
     sidebarChatInfo: {
         marginLeft: 15,
+        color: theme.fontMainColor,
         "& h2": {
             fontSize: 16,
             marginBottom: 8
         }
+    },
+    chatContent: {
+        display: 'flex',
     }
 }))
 
-function SidebarChat({chat}) {
+function SidebarChat({chat, activeChat}) {
     const classes = useStyles();
 
     const usersInfo = useSelector(state => state.user)
@@ -40,17 +48,17 @@ function SidebarChat({chat}) {
  
     return (
         !loading ? (
-        <div className={classes.sidebarChat}>
+        <div className={activeChat ? classes.activeChat : classes.chat}>
 
             {users.map( user => (
                 user.userId === userReceive && 
-                <Fragment key={user.userId}>
+                <div key={user.userId} className={classes.chatContent}>
                     <Avatar src={user.imageUrl}/>
                     <div className={classes.sidebarChatInfo}>
-                    <h2>{user.handle}</h2>
-                    <p>Last Message</p>
+                        <h2>{user.handle}</h2>
+                        <p>Last Message</p>
+                    </div>
                 </div>
-                </Fragment>
             ))}
   
         </div>

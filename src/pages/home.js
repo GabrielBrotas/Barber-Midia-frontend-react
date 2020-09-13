@@ -32,19 +32,21 @@ function Home(props) {
     }, [dispatch])
     
     return (
-        loading || userInfo.loading ? <Grid container spacing={4}>
+        loading || userInfo.loading ? (
+        <Grid container spacing={4}>
             
-        <Grid item sm={8} xs={12}>
-            {[0,1,2,3,4].map( index => (
-                <PostSkeleton key={index} />
-            ))}
-        </Grid>
+            <Grid item sm={8} xs={12}>
+                {[0,1,2,3,4].map( index => (
+                    <PostSkeleton key={index} />
+                ))}
+            </Grid>
 
-        <Grid item sm={4} xs={12}>
-            <ProfileSkeleton />
-        </Grid>
+            <Grid item sm={4} xs={12}>
+                <ProfileSkeleton />
+            </Grid>
         
-    </Grid> :
+        </Grid>
+    ) : (
         <Grid container spacing={4} style={{height: '100%'}}>
             
             <Grid item sm={8} xs={12}>
@@ -57,7 +59,7 @@ function Home(props) {
                 <Profile authenticatedUser={credentials.handle} credentials={credentials} authenticated={authenticated} paperPosition="fixed"/>
             </Grid>
             
-        </Grid>
+        </Grid>)
     )
     
 }

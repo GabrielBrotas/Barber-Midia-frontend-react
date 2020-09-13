@@ -53,14 +53,13 @@ const useStyles = makeStyles( theme => ({
     },
     sidebarChats: {
         flex: 1,
-        borderRadius: 15,
         marginTop: 10,
         backgroundColor: '#5f5b4621',
         paddingBottom: 5
     }
 }))
 
-function Sidebar({chats}) {
+function Sidebar({chats, chatId}) {
     const classes = useStyles();
 
     const usersInfo = useSelector(state => state.user)
@@ -85,7 +84,7 @@ function Sidebar({chats}) {
                 chats.map( chat => (
                     (chat.userOneId === userId || chat.userTwoId === userId) &&
                     <Link key={chat.chatId} to={`/chat/${chat.chatId}`}>
-                        <SidebarChat chat={chat} />
+                        <SidebarChat chat={chat} activeChat={chat.chatId === chatId ? true : false} />
                     </Link>
                 ))
                 }

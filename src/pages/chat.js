@@ -15,10 +15,11 @@ export default function Chat(props) {
     const dispatch = useDispatch();
 
     const usersInfo = useSelector(state => state.user)
-    const {credentials: {userId}} = usersInfo
+    const {users, credentials: {userId}} = usersInfo
 
     const [chatId, setChatId] = useState(null)
     const [chats, setChats] = useState([])
+    const [userReceive, setUserReceive] = useState(null)
     const [messages, setMessages] = useState([])
 
     useEffect( () => {
@@ -63,15 +64,27 @@ export default function Chat(props) {
         return 
     }, [chatId])
 
+    useEffect( () => {
+        chats.forEach( chat => {
+            if(chat.chatId === chatId) {
+                users.forEach( user => {
+                    if(chat.userOneId === user.userId || chat.userTwoId === user.userId){
+                        user.userId !== userId && setUserReceive(user)
+                    }
+                })
+            }
+        })
+    }, [chatId, userId, users, chats])
+
     return (
     <Grid container spacing={3}>
             
         <Grid item sm={4} xs={12}>
-            <Sidebar chats={chats} />
+            <Sidebar chats={chats} chatId={chatId} />
         </Grid>
 
         <Grid item sm={8} xs={12} style={{height: '90vh'}}>
-            {chatId && <ChatForm messages={messages} userId={userId} chatId={chatId} />}
+            {chatId && <ChatForm messages={messages} userId={userId} chatId={chatId} userReceive={userReceive} />}
         </Grid>  
         
     </Grid> 

@@ -20,7 +20,8 @@ const useStyles = makeStyles( theme => ({
         display: 'flex',
         padding: 20,
         alignItems: 'center',
-        borderBottom: '1px solid lightgray'
+        borderBottom: '1px solid lightgray',
+        color: theme.fontMainColor
     },
     chatHeaderInfo: {
         flex: 1,
@@ -32,7 +33,7 @@ const useStyles = makeStyles( theme => ({
     },
     chatBody: {
         flex: 1,
-        backgroundColor: '#f332',
+        backgroundColor: "#dcdcdc0f",
         overflowY: 'scroll',
         padding: 30
     },
@@ -77,11 +78,12 @@ const useStyles = makeStyles( theme => ({
     }
 }))
 
-function Chat({messages, userId, chatId}) {
+function Chat({messages, userId, chatId, userReceive}) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
     const [input, setInput] = useState('')
+
 
     const submitHandle = (e) => {
         e.preventDefault()
@@ -90,15 +92,22 @@ function Chat({messages, userId, chatId}) {
         }
         setInput('')
     }
-    
+
     return (
         <div className={classes.chat}>
             <div className={classes.chatHeader}>
-                <Avatar src="https://avatars.dicebear.com/api/human/dog.svg"/>
-                <div className={classes.chatHeaderInfo}>
-                    <h3>Room name</h3>
-                    <p>Last seen at ...</p>
-                </div>
+                {userReceive ? (
+                    <>
+                    <Avatar src={userReceive.imageUrl} />
+                    <div className={classes.chatHeaderInfo}>
+                        <h3>{userReceive.handle}</h3>
+                        <p>Last seen at ...</p>
+                    </div>
+                    </>
+                ): (
+                    <p>loading...</p>
+                )}
+                
             </div>
             
             <div className={classes.chatBody}>
