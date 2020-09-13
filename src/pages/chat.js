@@ -21,6 +21,13 @@ export default function Chat(props) {
     const [chats, setChats] = useState([])
     const [userReceive, setUserReceive] = useState(null)
     const [messages, setMessages] = useState([])
+    const [latestMessages, setLatestMessages] = useState([])
+
+    useEffect( () => {
+        if(chatId) {
+            dispatch(getChat(chatId))
+        }
+    }, [chatId, dispatch])
 
     useEffect( () => {
         setChatId(props.match.params.chatId)
@@ -29,12 +36,6 @@ export default function Chat(props) {
             setChatId(null)
         }
     }, [props.match])
-
-    useEffect( () => {
-        if(chatId) {
-            dispatch(getChat(chatId))
-        }
-    }, [chatId, dispatch])
 
     useEffect( () => {
         db.collection('chats')
@@ -73,8 +74,18 @@ export default function Chat(props) {
                     }
                 })
             }
+
+            // db.collection('chats')
+            //     .doc(chat.chatId)
+            //     .collection('messages')
+            //     .orderBy('timestamp', 'asc')
+            //     .onSnapshot( snapshot => { 
+            //         setLatestMessages( snapshot.docs.map(doc => doc.data()))
+            //     })
         })
     }, [chatId, userId, users, chats])
+
+    console.log(latestMessages)
 
     return (
     <Grid container spacing={3}>

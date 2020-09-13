@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, Fragment} from 'react'
 
 import {useDispatch} from 'react-redux'
 import {sendMessage} from '../../redux/actions/chatActions'
@@ -28,6 +28,7 @@ const useStyles = makeStyles( theme => ({
         paddingLeft: 20,
         "& h3": {
             marginBottom: 3,
+            fontSize: 21,
             fontWeight: '500'
         }
     },
@@ -79,6 +80,21 @@ const useStyles = makeStyles( theme => ({
     },
     inputIcon: {
         margin: '0 10px'
+    },
+    timestamp: {
+        fontSize: 'x-small',
+        color: '#696969',
+        position: 'relative',
+        top: '6px',
+        left: '6px'
+    },
+    messageDay: {
+        textAlign: 'center',
+        background: '#E1F3FB',
+        width: 'fit-content',
+        padding: '2px 10px',
+        borderRadius: '6px',
+        margin: '7px auto'
     }
 }))
 
@@ -88,7 +104,6 @@ function Chat({messages, userId, chatId, userReceive}) {
 
     const [input, setInput] = useState('')
 
-
     const submitHandle = (e) => {
         e.preventDefault()
         if(input){
@@ -96,6 +111,12 @@ function Chat({messages, userId, chatId, userReceive}) {
         }
         setInput('')
     }
+
+    useEffect( () => {
+        const bodyChat = document.getElementById('chatBody')
+        bodyChat.scrollTop = bodyChat.scrollHeight
+    }, [messages])
+
 
     return (
         <div className={classes.chat}>
@@ -105,7 +126,6 @@ function Chat({messages, userId, chatId, userReceive}) {
                     <Avatar src={userReceive.imageUrl} />
                     <div className={classes.chatHeaderInfo}>
                         <h3>{userReceive.handle}</h3>
-                        <p>Last seen at ...</p>
                     </div>
                     </>
                 ): (
@@ -114,14 +134,27 @@ function Chat({messages, userId, chatId, userReceive}) {
                 
             </div>
             
-            <div className={classes.chatBody}>
+            <div id="chatBody" className={classes.chatBody}>
                 {messages.map( (message, index) => (
+                    <Fragment key={index}>
+                    {
+                    index === 0 ? (
+                        <p className={classes.messageDay}>{new Date(message.timestamp?.toDate()).toLocaleDateString()}</p>
+                    ) : (
+                    new Date(message.timestamp?.toDate()).toLocaleDateString() !== new Date(messages[index-1].timestamp?.toDate()).toLocaleDateString() && <p className={classes.messageDay}>{new Date(message.timestamp?.toDate()).toLocaleDateString()}</p>
+                    )
+                    }
+
+                    <div key={message.timestamp}>
                     <p key={index} className={ message.userId === userId ? classes.chatMessageSender : classes.chatMessageReceive}>
                         {message.message}
+                        <span className={classes.timestamp}>{new Date(message.timestamp?.toDate()).toLocaleTimeString()}</span>
                     </p>
+                    </div>
+                    </Fragment>
                 ))}
-
             </div>
+            
             <div className={classes.chatFooter}>
                 <InsertEmoticonIcon className={classes.inputIcon} />
                 <form>
