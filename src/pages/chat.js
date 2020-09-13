@@ -36,7 +36,9 @@ export default function Chat(props) {
     }, [chatId, dispatch])
 
     useEffect( () => {
-        db.collection('chats').onSnapshot( snapshot => {
+        db.collection('chats')
+            .orderBy('updatedAt', 'desc')    
+            .onSnapshot( snapshot => {
             setChats( snapshot.docs.map( doc => (
                 {
                 chatId: doc.id,
