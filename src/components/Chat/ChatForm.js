@@ -57,6 +57,7 @@ const useStyles = makeStyles( theme => ({
         marginLeft: 'auto'
     },
     chatFooter: {
+        color: theme.fontMainColor,
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -75,6 +76,9 @@ const useStyles = makeStyles( theme => ({
         "& form button": {
             display: 'none',
         }
+    },
+    inputIcon: {
+        margin: '0 10px'
     }
 }))
 
@@ -119,12 +123,12 @@ function Chat({messages, userId, chatId, userReceive}) {
 
             </div>
             <div className={classes.chatFooter}>
-                <InsertEmoticonIcon />
+                <InsertEmoticonIcon className={classes.inputIcon} />
                 <form>
                     <input value={input} onChange={ e => setInput(e.target.value)} placeholder="Type a message" type="text"/>
                     <button type="submit" onClick={submitHandle}>Send a message</button>
                 </form>
-                <SendIcon />
+                <SendIcon className={classes.inputIcon} />
             </div>
         </div>
     )

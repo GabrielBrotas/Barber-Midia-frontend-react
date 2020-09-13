@@ -16,15 +16,16 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
-export default function ChatButton(props) {
+export default function ChatButton({iconColor, closeMenu}) {
     const classes = useStyles();
+
     return (
-        <Link to="/chat">
+        <Link to="/chat" onClick={closeMenu}>
             <IconButton
             edge="end"
             aria-label="caixa de entrada"
             aria-haspopup="true"
-            style={{color: props.iconColor}}
+            style={{color: iconColor}}
             >
                 <Tooltip placement="top" title="caixa de entrada">
                     <ChatIcon />

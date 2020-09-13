@@ -16,14 +16,13 @@ import Profile from '../components/Profile/Profile'
 import PostSkeleton from '../components/Posts/PostSkeleton'
 import ProfileSkeleton from '../components/Profile/ProfileSkeleton'
 
-function Home(props) {
+function Home() {
     const dataList = useSelector(state => state.data)
     const {loading, posts} = dataList
 
     const userInfo = useSelector(state => state.user)
     const {credentials, likes, authenticated} = userInfo
 
-    
     const dispatch = useDispatch()
 
     useEffect( () => {
@@ -64,10 +63,12 @@ function Home(props) {
     
 }
 
-// verificar os campos e validar o tipo e outros dados
 Home.protoTypes = {
     getPosts: PropTypes.func.isRequired,
     posts: PropTypes.object.isRequired,
+    likes: PropTypes.array.isRequired,
+    authenticated: PropTypes.bool.isRequired,
+    credentials: PropTypes.object.isRequired,
 }
 
 export default Home

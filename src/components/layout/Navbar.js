@@ -182,7 +182,7 @@ function PrimarySearchAppBar() {
       {
         category !== "Usuario" &&
         <MenuItem>
-          <ChatButton iconColor="#000" />
+          <ChatButton iconColor="#000" closeMenu={handleMobileMenuClose} />
         </MenuItem>
       }
 
@@ -200,7 +200,6 @@ function PrimarySearchAppBar() {
           color="inherit"
         >
           <AccountCircle />
-          
         </IconButton>
         <p>Perfil</p>
       </MenuItem>

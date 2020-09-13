@@ -157,7 +157,7 @@ function MyComponent(props) {
           key={marker.placeId}
           position={{ lat: marker.lat, lng: marker.lng}} 
           icon={{
-            url: marker.category === "Cabelo Masculino" && (homemIcon) || marker.category === "Cabelo Feminino" && (mulherIcon),
+            url: marker.category === "Cabelo Masculino" ? (homemIcon) : (mulherIcon),
             scaledSize: new window.google.maps.Size(30,30),
             // onde vai ficar, nesse caso no centro do clique ou lat
             origin: new window.google.maps.Point(0,0),
