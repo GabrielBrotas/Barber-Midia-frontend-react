@@ -74,24 +74,35 @@ export default function Chat(props) {
                     }
                 })
             }
-
-            // db.collection('chats')
-            //     .doc(chat.chatId)
-            //     .collection('messages')
-            //     .orderBy('timestamp', 'asc')
-            //     .onSnapshot( snapshot => { 
-            //         setLatestMessages( snapshot.docs.map(doc => doc.data()))
-            //     })
         })
     }, [chatId, userId, users, chats])
 
-    console.log(latestMessages)
+    useEffect( () => {
+        if(chats.length > 0) {
+
+            setLatestMessages( chats.forEach( chat => {
+                db.collection('chats')
+                .doc(chat.chatId)
+                .collection('messages')
+                .orderBy('timestamp', 'asc')
+                .onSnapshot( snapshot => {
+                    snapshot.docs.map( (doc, index) => index === snapshot.docs.length - 1 && (chat.userOneId === userId || chat.userTwoId === userId) &&
+                     setLatestMessages( latestMessages.push({
+                        chatId: chat.chatId,
+                        latestMessage: doc.data().message
+                    })))
+                })
+            }))
+
+        }
+        return 
+    }, [chats, userId])
 
     return (
     <Grid container spacing={3}>
             
         <Grid item sm={4} xs={12}>
-            <Sidebar chats={chats} chatId={chatId} />
+            <Sidebar chats={chats} chatId={chatId} latestMessages={latestMessages} />
         </Grid>
 
         <Grid item sm={8} xs={12} style={{height: '90vh'}}>

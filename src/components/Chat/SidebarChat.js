@@ -34,7 +34,7 @@ const useStyles = makeStyles( theme => ({
     }
 }))
 
-function SidebarChat({chat, activeChat}) {
+function SidebarChat({chat, activeChat, latestMessages}) {
     const classes = useStyles();
 
     const usersInfo = useSelector(state => state.user)
@@ -45,7 +45,8 @@ function SidebarChat({chat, activeChat}) {
     useEffect( () => {
         setUserReceive( chat.userOneId === userId ? chat.userTwoId : chat.userOneId)
     }, [chat, handle, userId])
- 
+
+    console.log(latestMessages)
     return (
         !loading ? (
         <div className={activeChat ? classes.activeChat : classes.chat}>
@@ -56,7 +57,9 @@ function SidebarChat({chat, activeChat}) {
                     <Avatar src={user.imageUrl}/>
                     <div className={classes.sidebarChatInfo}>
                         <h2>{user.handle}</h2>
-                        <p>Last Message</p>
+                        {/* {latestMessages && latestMessages.map( message => (
+                            message.chatId === chat.chatId && <p key={message.chatId}>{message.latestMessage}</p>
+                        ))} */}
                     </div>
                 </div>
             ))}

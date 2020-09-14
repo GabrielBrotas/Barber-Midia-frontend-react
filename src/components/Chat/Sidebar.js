@@ -59,7 +59,7 @@ const useStyles = makeStyles( theme => ({
     }
 }))
 
-function Sidebar({chats, chatId}) {
+function Sidebar({chats, chatId, latestMessages}) {
     const classes = useStyles();
 
     const usersInfo = useSelector(state => state.user)
@@ -84,7 +84,7 @@ function Sidebar({chats, chatId}) {
                 chats.map( chat => (
                     (chat.userOneId === userId || chat.userTwoId === userId) &&
                     <Link key={chat.chatId} to={`/chat/${chat.chatId}`}>
-                        <SidebarChat chat={chat} activeChat={chat.chatId === chatId ? true : false} />
+                        <SidebarChat chat={chat} activeChat={chat.chatId === chatId ? true : false} latestMessages={latestMessages}/>
                     </Link>
                 ))
                 }

@@ -5,8 +5,6 @@ import {sendMessage} from '../../redux/actions/chatActions'
 
 import {makeStyles} from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-
-import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import SendIcon from '@material-ui/icons/Send';
 
 const useStyles = makeStyles( theme => ({
@@ -79,7 +77,8 @@ const useStyles = makeStyles( theme => ({
         }
     },
     inputIcon: {
-        margin: '0 10px'
+        margin: '0 10px',
+        cursor: 'pointer'
     },
     timestamp: {
         fontSize: 'x-small',
@@ -156,12 +155,11 @@ function Chat({messages, userId, chatId, userReceive}) {
             </div>
             
             <div className={classes.chatFooter}>
-                <InsertEmoticonIcon className={classes.inputIcon} />
                 <form>
                     <input value={input} onChange={ e => setInput(e.target.value)} placeholder="Type a message" type="text"/>
                     <button type="submit" onClick={submitHandle}>Send a message</button>
                 </form>
-                <SendIcon className={classes.inputIcon} />
+                <SendIcon className={classes.inputIcon} onClick={submitHandle} />
             </div>
         </div>
     )
