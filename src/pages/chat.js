@@ -8,8 +8,8 @@ import {getChat} from '../redux/actions/chatActions'
 // MUI
 import Grid from '@material-ui/core/Grid'
 
-import Sidebar from '../components/Chat/Sidebar'
-import ChatForm from '../components/Chat/ChatForm'
+import Sidebar from '../components/chat/Sidebar'
+import ChatForm from '../components/chat/ChatForm'
 
 export default function Chat(props) {
     const dispatch = useDispatch();
