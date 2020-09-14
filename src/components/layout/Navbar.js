@@ -8,7 +8,7 @@ import mainStyles from '../../utils/theme'
 // components
 import Notifications from './Notifications'
 import ChatButton from './ChatButton'
-import PostScream from '../Posts/AddNewPost'
+import PostScream from '../posts/AddNewPost'
 import NavbarInputList from './NavbarInputList'
 
 // MUI

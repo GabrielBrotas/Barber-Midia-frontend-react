@@ -13,8 +13,8 @@ import Button from '@material-ui/core/Button';
 import InfoIcon from '@material-ui/icons/Info';
 
 // components
-import LeftSideDescription from '../components/Layout/LeftSideDescription'
-import SignupForm from '../components/Layout/SignupForm'
+import LeftSideDescription from '../components/layout/LeftSideDescription'
+import SignupForm from '../components/layout/SignupForm'
 
 
 const useStyles = makeStyles((theme) => ({

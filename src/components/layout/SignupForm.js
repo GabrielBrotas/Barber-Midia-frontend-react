@@ -5,9 +5,9 @@ import {useSelector, useDispatch} from 'react-redux'
 import {signupUser} from '../../redux/actions/userActions'
 
 // components
-import SelectForm from '../Others/SelectForm'
-import Search from '../Others/Search'
-import CssTextField from '../Others/CssTextField'
+import SelectForm from '../others/SelectForm'
+import Search from '../others/Search'
+import CssTextField from '../others/CssTextField'
 
 // MUI
 import Button from '@material-ui/core/Button';

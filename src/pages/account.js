@@ -3,9 +3,9 @@ import theme from '../utils/theme'
 
 import withStyles from '@material-ui/core/styles/withStyles'
 import Button from '@material-ui/core/Button'
-import SelectForm from '../components/Others/SelectForm'
-import Search from '../components/Others/Search'
-import Table from '../components/Others/Table'
+import SelectForm from '../components/others/SelectForm'
+import Search from '../components/others/Search'
+import Table from '../components/others/Table'
 
 // redux
 import {useSelector, useDispatch} from 'react-redux'

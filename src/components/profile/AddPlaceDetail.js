@@ -6,7 +6,7 @@ import {clearErrors, addPlaceDetails} from "../../redux/actions/dataActions"
 
 // components
 import MyButton from '../../utils/MyButton'
-import CssTextField from '../Others/CssTextField'
+import CssTextField from '../others/CssTextField'
 
 // Material UI Stuffs
 import Button from '@material-ui/core/Button'

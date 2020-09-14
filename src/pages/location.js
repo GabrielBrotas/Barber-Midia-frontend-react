@@ -12,10 +12,10 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography';
 
 // components
-import LocationDetails from '../components/Layout/LocationDetails'
-import Profile from '../components/Profile/Profile'
-import Map from '../components/Layout/Map'
-import Gallery from '../components/Layout/Gallery'
+import LocationDetails from '../components/layout/LocationDetails'
+import Profile from '../components/profile/Profile'
+import Map from '../components/layout/Map'
+import Gallery from '../components/layout/Gallery'
 
 const styles = {
     GalleryContent:{

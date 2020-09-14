@@ -14,7 +14,7 @@ import {SET_AUTHENTICATED} from './redux/types'
 import {logoutUser, getUserData} from './redux/actions/userActions'
 
 // components
-import Navbar from './components/Layout/Navbar'
+import Navbar from './components/layout/Navbar'
 import AuthRoute from './utils/AuthRoute'
 import NotAuthRoute from './utils/NotAuthRoute'
 

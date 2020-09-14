@@ -11,10 +11,10 @@ import {getPosts, getAllPlaces} from '../redux/actions/dataActions'
 
 
 // * components
-import PostContent from '../components/Posts/PostContent'
-import Profile from '../components/Profile/Profile'
-import PostSkeleton from '../components/Posts/PostSkeleton'
-import ProfileSkeleton from '../components/Profile/ProfileSkeleton'
+import PostContent from '../components/posts/PostContent'
+import Profile from '../components/profile/Profile'
+import PostSkeleton from '../components/posts/PostSkeleton'
+import ProfileSkeleton from '../components/profile/ProfileSkeleton'
 
 function Home() {
     const dataList = useSelector(state => state.data)
