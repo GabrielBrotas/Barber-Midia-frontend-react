@@ -46,7 +46,6 @@ function SidebarChat({chat, activeChat, latestMessages}) {
         setUserReceive( chat.userOneId === userId ? chat.userTwoId : chat.userOneId)
     }, [chat, handle, userId])
 
-    console.log(latestMessages)
     return (
         !loading ? (
         <div className={activeChat ? classes.activeChat : classes.chat}>

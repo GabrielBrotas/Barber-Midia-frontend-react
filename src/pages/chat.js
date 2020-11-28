@@ -79,24 +79,26 @@ export default function Chat(props) {
 
     useEffect( () => {
         if(chats.length > 0) {
-
-            setLatestMessages( chats.forEach( chat => {
+            chats.forEach( chat => {
                 db.collection('chats')
-                .doc(chat.chatId)
-                .collection('messages')
-                .orderBy('timestamp', 'asc')
-                .onSnapshot( snapshot => {
-                    snapshot.docs.map( (doc, index) => index === snapshot.docs.length - 1 && (chat.userOneId === userId || chat.userTwoId === userId) &&
-                     setLatestMessages( latestMessages.push({
-                        chatId: chat.chatId,
-                        latestMessage: doc.data().message
-                    })))
+                 .doc(chat.chatId)
+                 .collection('messages')
+                 .orderBy('timestamp', 'asc')
+                 .onSnapshot( snapshot => {
+                    setLatestMessages( snapshot.docs.map( (doc, index) => (
+                        index === (snapshot.docs.length - 1) &&
+                        ({
+                            chatId: chat.chatId,
+                            latestMessage: doc.data().message
+                        })
+                    )))
                 })
-            }))
-
+            })
         }
         return 
     }, [chats, userId])
+    
+    console.log(latestMessages)
 
     return (
     <Grid container spacing={3}>
